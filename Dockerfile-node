@@ -1,0 +1,15 @@
+FROM alpine
+
+FROM golang:1.18-alpine AS build-env
+WORKDIR /go/src/github.com/rusik69/ds0
+COPY . ./
+RUN go get ./...
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 \
+    go build -o /go/bin/node cmd/node/main.go
+
+FROM alpine:latest
+WORKDIR /app
+COPY --from=build-env /go/bin/node /app/node
+
+ENTRYPOINT ["/app/node"]
+EXPOSE 6969
