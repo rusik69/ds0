@@ -11,7 +11,7 @@ import (
 
 // Init initializes the database
 func Init() error {
-	sqlStmt := fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (name TEXT PRIMARY KEY, hostname TEXT, port INTEGER)", env.NodeEnvInstance.DBTableName)
+	sqlStmt := fmt.Sprintf("CREATE TABLE IF NOT EXISTS %s (name TEXT PRIMARY KEY, host TEXT, port INTEGER)", env.NSEnvInstance.DBTableName)
 	logrus.Println(sqlStmt)
 	ctx, cancelfunc := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancelfunc()

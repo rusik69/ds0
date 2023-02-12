@@ -14,4 +14,4 @@ type NodeEnv struct {
 }
 
 // NodeEnvInstance is the singleton instance of NodeEnv.
-var NodeEnvInstance *NodeEnv
+var NSEnvInstance *NodeEnv

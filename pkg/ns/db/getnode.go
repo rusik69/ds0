@@ -14,7 +14,7 @@ func GetNode(nodeName string) (string, string, error) {
 	var hostname, port string
 	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancelfunc()
-	sqlStmt := fmt.Sprintf("SELECT hostname, port FROM %s WHERE name=$1;", env.ConfigInstance.DBTableName)
+	sqlStmt := fmt.Sprintf("SELECT host, port FROM %s WHERE name=$1;", env.ConfigInstance.DBTableName)
 	err := DB.QueryRowContext(ctx, sqlStmt, nodeName).Scan(&hostname, &port)
 	if err != nil {
 		if err != sql.ErrNoRows {

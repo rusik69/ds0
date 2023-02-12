@@ -13,16 +13,16 @@ import (
 // Connect connects to the database.
 func Connect() error {
 	var psqlInfo string
-	if env.NodeEnvInstance.DBPassword == "" {
+	if env.NSEnvInstance.DBPassword == "" {
 		psqlInfo = fmt.Sprintf("host=%s port=%s user=%s "+
 			"dbname=%s sslmode=%s connect_timeout=60",
-			env.NodeEnvInstance.DBHost, env.NodeEnvInstance.DBPort, env.NodeEnvInstance.DBUser,
-			env.NodeEnvInstance.DBName, env.NodeEnvInstance.DBSSLMode)
+			env.NSEnvInstance.DBHost, env.NSEnvInstance.DBPort, env.NSEnvInstance.DBUser,
+			env.NSEnvInstance.DBName, env.NSEnvInstance.DBSSLMode)
 	} else {
 		psqlInfo = fmt.Sprintf("host=%s port=%s user=%s "+
 			"password=%s dbname=%s sslmode=%s connect_timeout=60",
-			env.NodeEnvInstance.DBHost, env.NodeEnvInstance.DBPort, env.NodeEnvInstance.DBUser,
-			env.NodeEnvInstance.DBPassword, env.NodeEnvInstance.DBName, env.NodeEnvInstance.DBSSLMode)
+			env.NSEnvInstance.DBHost, env.NSEnvInstance.DBPort, env.NSEnvInstance.DBUser,
+			env.NSEnvInstance.DBPassword, env.NSEnvInstance.DBName, env.NSEnvInstance.DBSSLMode)
 	}
 	logrus.Println(psqlInfo)
 	success := false

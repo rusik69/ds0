@@ -44,7 +44,7 @@ func Parse() error {
 	if dbTableName == "" {
 		dbTableName = "nodes"
 	}
-	NodeEnvInstance = &NodeEnv{
+	NSEnvInstance = &NodeEnv{
 		Name:        name,
 		Port:        port,
 		DBHost:      dbHost,
