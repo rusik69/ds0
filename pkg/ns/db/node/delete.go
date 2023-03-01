@@ -1,19 +1,20 @@
-package db
+package node
 
 import (
 	"context"
 	"fmt"
 	"time"
 
-	"github.com/rusik69/urlshortener/pkg/env"
+	"github.com/rusik69/ds0/pkg/ns/db"
+	"github.com/rusik69/ds0/pkg/ns/env"
 )
 
-// DeleteNode returns the node from the database.
-func DeleteNode(nodeName string) error {
+// Delete removes the node from the database.
+func Delete(nodeName string) error {
 	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancelfunc()
-	sqlStmt := fmt.Sprintf("DELETE FROM %s WHERE name=$1;", env.ConfigInstance.DBTableName)
-	stmt, err := DB.PrepareContext(ctx, sqlStmt)
+	sqlStmt := fmt.Sprintf("DELETE FROM %s WHERE name=$1;", env.NSEnvInstance.DBNodesTableName)
+	stmt, err := db.DB.PrepareContext(ctx, sqlStmt)
 	if err != nil {
 		return err
 	}

@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rusik69/ds0/pkg/ns/db"
+	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
 )
 
 // GetNode gets a node info.
@@ -15,7 +15,7 @@ func GetNode(c *gin.Context) {
 		c.Writer.Write([]byte("Node name is required"))
 		return
 	}
-	host, port, err := db.GetNode(nodeName)
+	host, port, err := dbnode.Get(nodeName)
 	if err != nil {
 		c.Writer.WriteHeader(400)
 		c.Writer.Write([]byte(err.Error()))

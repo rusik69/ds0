@@ -40,20 +40,25 @@ func Parse() error {
 	if dbSSLMode == "" {
 		dbSSLMode = "disable"
 	}
-	dbTableName := os.Getenv("NS_DB_TABLE_NAME")
-	if dbTableName == "" {
-		dbTableName = "nodes"
+	dbNodesTableName := os.Getenv("NS_DB_NODES_TABLE_NAME")
+	if dbNodesTableName == "" {
+		dbNodesTableName = "nodes"
+	}
+	dbFilesTableName := os.Getenv("NS_DB_FILES_TABLE_NAME")
+	if dbFilesTableName == "" {
+		dbFilesTableName = "files"
 	}
 	NSEnvInstance = &NodeEnv{
-		Name:        name,
-		Port:        port,
-		DBHost:      dbHost,
-		DBPort:      dbPort,
-		DBUser:      dbUser,
-		DBPassword:  dbPassword,
-		DBName:      dbName,
-		DBSSLMode:   dbSSLMode,
-		DBTableName: dbTableName,
+		Name:             name,
+		Port:             port,
+		DBHost:           dbHost,
+		DBPort:           dbPort,
+		DBUser:           dbUser,
+		DBPassword:       dbPassword,
+		DBName:           dbName,
+		DBSSLMode:        dbSSLMode,
+		DBNodesTableName: dbNodesTableName,
+		DBFilesTableName: dbFilesTableName,
 	}
 	return nil
 }

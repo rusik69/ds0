@@ -5,7 +5,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rusik69/ds0/pkg/ns/db"
+	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
 )
 
 // AddNode adds a node.
@@ -28,7 +28,7 @@ func AddNode(c *gin.Context) {
 		c.Writer.Write([]byte(err.Error()))
 		return
 	}
-	err = db.AddNode(nodeName, nodeName, portInt)
+	err = dbnode.Add(nodeName, nodeName, portInt)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
