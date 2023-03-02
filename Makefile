@@ -17,4 +17,12 @@ build:
 	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -o bin/${BINARY_NAME_CLIENT}-darwin-arm64 cmd/${BINARY_NAME_CLIENT}/main.go
 	chmod +x bin/*
 
+docker:
+	docker build -t loqutus/ds0-$(BINARY_NAME_NS):$(IMAGE_TAG) -f Dockerfile-ns .
+	docker push loqutus/ds0-$(BINARY_NAME_NS):$(IMAGE_TAG)
+	docker build -t loqutus/ds0-$(BINARY_NAME_NODE):$(IMAGE_TAG) -f Dockerfile-node .
+	docker push loqutus/ds0-$(BINARY_NAME_NODE):$(IMAGE_TAG)
+	docker build -t loqutus/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG) -f Dockerfile-client .
+	docker push loqutus/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG)
+
 default: tidy build

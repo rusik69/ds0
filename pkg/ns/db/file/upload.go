@@ -40,5 +40,5 @@ func Upload(fileName string) (string, error) {
 			nodesList = append(nodesList, []string{name, host, port})
 		}
 	}
-	return nil
+	return "", nil
 }
