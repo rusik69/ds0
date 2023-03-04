@@ -16,49 +16,19 @@ func Parse() error {
 	if port == "" {
 		port = "6969"
 	}
-	dbHost := os.Getenv("NS_DB_HOST")
-	if dbHost == "" {
-		dbHost = "localhost"
+	etcdHost := os.Getenv("NS_ETCD_HOST")
+	if etcdHost == "" {
+		etcdHost = "localhost"
 	}
-	dbPort := os.Getenv("NS_DB_PORT")
-	if dbPort == "" {
-		dbPort = "5432"
-	}
-	dbUser := os.Getenv("NS_DB_USER")
-	if dbUser == "" {
-		dbUser = "postgres"
-	}
-	dbPassword := os.Getenv("NS_DB_PASSWORD")
-	if dbPassword == "" {
-		dbPassword = "postgres"
-	}
-	dbName := os.Getenv("NS_DB_NAME")
-	if dbName == "" {
-		dbName = "ns"
-	}
-	dbSSLMode := os.Getenv("NS_DB_SSL_MODE")
-	if dbSSLMode == "" {
-		dbSSLMode = "disable"
-	}
-	dbNodesTableName := os.Getenv("NS_DB_NODES_TABLE_NAME")
-	if dbNodesTableName == "" {
-		dbNodesTableName = "nodes"
-	}
-	dbFilesTableName := os.Getenv("NS_DB_FILES_TABLE_NAME")
-	if dbFilesTableName == "" {
-		dbFilesTableName = "files"
+	etcdPort := os.Getenv("NS_ETCD_PORT")
+	if etcdPort == "" {
+		etcdPort = "2379"
 	}
 	NSEnvInstance = &NodeEnv{
-		Name:             name,
-		Port:             port,
-		DBHost:           dbHost,
-		DBPort:           dbPort,
-		DBUser:           dbUser,
-		DBPassword:       dbPassword,
-		DBName:           dbName,
-		DBSSLMode:        dbSSLMode,
-		DBNodesTableName: dbNodesTableName,
-		DBFilesTableName: dbFilesTableName,
+		Name:   name,
+		Port:   port,
+		ETCDHost: etcdHost,
+		ETCDPort: etcdPort,
 	}
 	return nil
 }

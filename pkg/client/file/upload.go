@@ -1,23 +1,25 @@
 package file
 
 import (
+	"net/http"
 	"os"
-
-	"github.com/rusik69/ds0/pkg/client/cmdargs"
 )
 
 // Upload uploads a file to the server.
-func Upload() {
-	host := cmdargs.CmdArgsInstance.HostName
-	port := string(cmdargs.CmdArgsInstance.Port)
-	src := cmdargs.CmdArgsInstance.Arg1
-	dst := cmdargs.CmdArgsInstance.Arg2
+func Upload(src, dst, host, port string) error {
 	file, err := os.Open(src)
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
-	url := "http://" + host + ":" + port + "/upload/" + dst
-	resp, _ := http.Post(url, "application/octet-stream", file)
+	url := "http://" + host + ":" + port + "/upload?url=" + dst
+	resp, err := http.Get(url)
+	if err != nil {
+		panic(err)
+	}
 	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		panic("upload failed")
+	}
+	return nil
 }

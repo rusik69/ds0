@@ -2,7 +2,6 @@ package node
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
@@ -22,13 +21,7 @@ func AddNode(c *gin.Context) {
 		c.Writer.Write([]byte("Node port is required"))
 		return
 	}
-	portInt, err := strconv.Atoi(port)
-	if err != nil {
-		c.Writer.WriteHeader(400)
-		c.Writer.Write([]byte(err.Error()))
-		return
-	}
-	err = dbnode.Add(nodeName, nodeName, portInt)
+	err := dbnode.Add(nodeName, nodeName, port)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))

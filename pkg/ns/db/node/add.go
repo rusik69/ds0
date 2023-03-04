@@ -2,20 +2,29 @@ package node
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
+	"log"
 	"time"
 
 	"github.com/rusik69/ds0/pkg/ns/db"
-	"github.com/rusik69/ds0/pkg/ns/env"
 )
 
 // Add adds the node to the database.
-func Add(name, hostname string, port int) error {
-	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancelfunc()
-	sqlStmt := fmt.Sprintf("INSERT INTO %s(name, hostname, port) VALUES($1, $2, $3);", env.NSEnvInstance.DBNodesTableName)
-	_, err := db.DB.ExecContext(ctx, sqlStmt, name, hostname, port)
+func Add(name, hostname, port string) error {
+	info :=  db.HostInfo{
+		Host: hostname,
+		Port:     port,
+	}
+	str, err := json.Marshal(info)
 	if err != nil {
+		log.Fatal(err)
+		return err
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	_, err = db.DB.Put(ctx, name, string(str))
+	cancel()
+	if err != nil {
+		log.Fatal(err)
 		return err
 	}
 	return nil
