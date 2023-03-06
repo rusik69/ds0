@@ -3,6 +3,7 @@ package env
 import (
 	"errors"
 	"os"
+	"strconv"
 )
 
 // Parse parses the environment of a node.
@@ -24,11 +25,20 @@ func Parse() error {
 	if etcdPort == "" {
 		etcdPort = "2379"
 	}
+	replicas := os.Getenv("NS_REPLICAS")
+	if replicas == "" {
+		replicas = "3"
+	}
+	repl, err := strconv.Atoi(replicas)
+	if err != nil {
+		repl = 3
+	}
 	NSEnvInstance = &NodeEnv{
-		Name:   name,
-		Port:   port,
+		Name:     name,
+		Port:     port,
 		ETCDHost: etcdHost,
 		ETCDPort: etcdPort,
+		Replicas: repl,
 	}
 	return nil
 }

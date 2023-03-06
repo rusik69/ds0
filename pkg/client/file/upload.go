@@ -21,5 +21,6 @@ func Upload(src, dst, host, port string) error {
 	if resp.StatusCode != http.StatusOK {
 		panic("upload failed")
 	}
+	
 	return nil
 }

@@ -7,13 +7,14 @@ import (
 	"time"
 
 	"github.com/rusik69/ds0/pkg/ns/db"
+	"github.com/sirupsen/logrus"
 )
 
 // Add adds the node to the database.
 func Add(name, hostname, port string) error {
-	info :=  db.HostInfo{
+	info := db.HostInfo{
 		Host: hostname,
-		Port:     port,
+		Port: port,
 	}
 	str, err := json.Marshal(info)
 	if err != nil {
@@ -24,7 +25,7 @@ func Add(name, hostname, port string) error {
 	_, err = db.DB.Put(ctx, name, string(str))
 	cancel()
 	if err != nil {
-		log.Fatal(err)
+		logrus.Error(err)
 		return err
 	}
 	return nil
