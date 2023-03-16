@@ -12,3 +12,9 @@ type HostInfo struct {
 	Host string
 	Port string
 }
+
+// FileInfo is the file information.
+type FileInfo struct {
+	Nodes     []HostInfo
+	Committed bool
+}

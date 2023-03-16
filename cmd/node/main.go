@@ -1,4 +1,4 @@
-package node
+package main
 
 import (
 	"github.com/rusik69/ds0/pkg/node/env"

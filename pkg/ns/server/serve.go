@@ -14,5 +14,6 @@ func Serve() {
 	router.GET("/add_node", node.AddNode)
 	router.GET("/remove_node", node.RemoveNode)
 	router.GET("/upload", file.UploadHandler)
+	router.GET("/download", file.DownloadHandler)
 	router.Run(":" + string(env.NSEnvInstance.Port))
 }

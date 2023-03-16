@@ -2,31 +2,40 @@ package cmdargs
 
 import (
 	"flag"
-	"os"
+	"strconv"
 )
 
 // Parse parses the command line arguments.
 func Parse() {
-	if len(os.Args) < 3 {
-		flag.Usage()
-		os.Exit(1)
-	}
-	cmd := os.Args[1]
-	var arg1, arg2 string
-	if cmd == "upload" {
-		if len(os.Args) < 4 {
-			flag.Usage()
-			os.Exit(1)
-		}
-		arg1 = os.Args[2]
-		arg2 = os.Args[3]
-	}
 	hostName := flag.String("host", "localhost", "host name")
 	port := flag.Int("port", 6969, "port number")
+	if flag.NArg() < 2 {
+		panic("specify action: upload or download")
+	}
+	cmd := flag.Arg(1)
+	var arg1, arg2 string
+	if cmd == "upload" {
+		if flag.NArg() < 4 {
+			panic("specify source file and destination path")
+		}
+		arg1 = flag.Arg(2)
+		arg2 = flag.Arg(3)
+	} else if cmd == "download" {
+		if flag.NArg() < 4 {
+			panic("specify source path and destination file")
+
+		}
+		arg1 = flag.Arg(2)
+		arg2 = flag.Arg(3)
+	} else {
+		panic("unknown action: " + cmd)
+	}
 	flag.Parse()
+	portStr := strconv.Itoa(*port)
 	CmdArgsInstance = &CmdArgs{
+		Cmd:      cmd,
 		HostName: *hostName,
-		Port:     *port,
+		Port:     portStr,
 		Arg1:     arg1,
 		Arg2:     arg2,
 	}

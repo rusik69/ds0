@@ -2,8 +2,9 @@ package cmdargs
 
 // CmdArgs is the command line arguments.
 type CmdArgs struct {
+	Cmd      string
 	HostName string
-	Port     int
+	Port     string
 	Arg1     string
 	Arg2     string
 }
