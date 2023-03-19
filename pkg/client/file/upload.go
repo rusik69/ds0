@@ -2,6 +2,8 @@ package file
 
 import (
 	"encoding/json"
+	"errors"
+	"io"
 	"net/http"
 	"os"
 
@@ -10,34 +12,49 @@ import (
 
 // Upload uploads a file to the server.
 func Upload(src, dst, host, port string) error {
-	url := "http://" + host + ":" + port + "/upload?url=" + dst
+	url := "http://" + host + ":" + port + "/file/upload?file=" + dst
 	resp, err := http.Get(url)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		panic("upload failed")
+		bodyStr, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+		return errors.New("upload failed: " + string(bodyStr))
 	}
 	var nodes []db.HostInfo
 	if err := json.NewDecoder(resp.Body).Decode(&nodes); err != nil {
-		panic(err)
+		return err
+	}
+	if len(nodes) == 0 {
+		return errors.New("no nodes available")
 	}
 	file, err := os.Open(src)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer file.Close()
 	for _, node := range nodes {
-		url := "http://" + node.Host + ":" + node.Port + "/upload?url=" + dst
+		url := "http://" + node.Host + ":" + node.Port + "/" + dst
 		resp, err := http.Post(url, "application/octet-stream", file)
 		if err != nil {
-			panic(err)
+			return err
 		}
 		defer resp.Body.Close()
 		if resp.StatusCode != http.StatusOK {
-			panic("upload failed")
+			return errors.New("upload failed")
 		}
+	}
+	url = "http://" + host + ":" + port + "/file/commit?file=" + dst
+	resp, err = http.Get(url)
+	if err != nil {
+		return err
+	}
+	if resp.StatusCode != http.StatusOK {
+		return errors.New("commit failed")
 	}
 	return nil
 }

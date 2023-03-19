@@ -3,15 +3,15 @@ package file
 import (
 	"context"
 	"encoding/json"
-	"errors"
+	"os"
 	"time"
 
 	"github.com/rusik69/ds0/pkg/ns/db"
 	"github.com/sirupsen/logrus"
 )
 
-// GetFile returns the node that stores the file.
-func GetFile(fileName string) (db.FileInfo, error) {
+// Get returns the node that stores the file.
+func Get(fileName string) (db.FileInfo, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	resp, err := db.DB.Get(ctx, "/files/"+fileName)
 	cancel()
@@ -20,7 +20,7 @@ func GetFile(fileName string) (db.FileInfo, error) {
 		return db.FileInfo{}, err
 	}
 	if len(resp.Kvs) == 0 {
-		return db.FileInfo{}, errors.New("file not found")
+		return db.FileInfo{}, os.ErrNotExist
 	}
 	var nodes []db.HostInfo
 	for _, ev := range resp.Kvs {

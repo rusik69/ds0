@@ -10,10 +10,11 @@ import (
 // Serve serves the ns.
 func Serve() {
 	router := gin.Default()
-	router.GET("/get_node", node.GetNode)
-	router.GET("/add_node", node.AddNode)
-	router.GET("/remove_node", node.RemoveNode)
-	router.GET("/upload", file.UploadHandler)
-	router.GET("/download", file.DownloadHandler)
+	router.GET("/node/get", node.GetNodeHandler)
+	router.GET("/node/add", node.AddNodeHandler)
+	router.GET("/node/remove", node.RemoveNodeHandler)
+	router.GET("/file/upload", file.UploadHandler)
+	router.GET("/file/commit", file.CommitHandler)
+	router.GET("/file/download", file.DownloadHandler)
 	router.Run(":" + string(env.NSEnvInstance.Port))
 }

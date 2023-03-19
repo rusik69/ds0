@@ -3,6 +3,7 @@ package file
 import (
 	"errors"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/ns/db/file"
@@ -21,12 +22,9 @@ func UploadHandler(c *gin.Context) {
 		logrus.Error(errors.New("file name is required"))
 		return
 	}
-	commit := c.Query("commit")
-	if commit == "" {
-		dbfile.Commit(fileName)
-	}
-	nodes, err := dbfile.GetFile(fileName)
-	if err == errors.New("node not found") {
+	logrus.Println("UploadHandler: " + fileName)
+	nodes, err := dbfile.Get(fileName)
+	if err == os.ErrNotExist {
 		nodes, err := dbnode.List()
 		if err != nil {
 			c.Writer.WriteHeader(500)

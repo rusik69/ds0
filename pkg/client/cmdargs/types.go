@@ -7,6 +7,7 @@ type CmdArgs struct {
 	Port     string
 	Arg1     string
 	Arg2     string
+	Arg3     string
 }
 
 // CmdArgsInstance is the singleton instance of CmdArgs.

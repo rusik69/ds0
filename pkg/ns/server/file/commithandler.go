@@ -9,8 +9,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// DownloadHandler is the download handler.
-func DownloadHandler(c *gin.Context) {
+// CommitHandler is the handler for commit.
+func CommitHandler(c *gin.Context) {
 	fileName := c.Query("file")
 	if fileName == "" {
 		c.Writer.WriteHeader(400)
@@ -18,13 +18,13 @@ func DownloadHandler(c *gin.Context) {
 		logrus.Error(errors.New("file name is required"))
 		return
 	}
-	logrus.Println("DownloadHandler: " + fileName)
-	nodes, err := dbfile.Get(fileName)
+	logrus.Println("CommitHandler: " + fileName)
+	err := dbfile.Commit(fileName)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
 		logrus.Error(err)
 		return
 	}
-	c.JSON(http.StatusOK, nodes)
+	c.Writer.WriteHeader(http.StatusOK)
 }

@@ -2,6 +2,7 @@ package file
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -10,23 +11,23 @@ import (
 )
 
 // Download downloads a file.
-func Download(src, dst, host, port string) {
-	url := "http://" + host + ":" + port + "/download?url=" + src
+func Download(src, dst, host, port string) error {
+	url := "http://" + host + ":" + port + "/file/download?file=" + src
 	resp, err := http.Get(url)
 	if err != nil {
-		panic(err)
+		return err
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		panic("download failed")
+		return errors.New("download failed")
 	}
 	var nodes []db.HostInfo
 	if err := json.NewDecoder(resp.Body).Decode(&nodes); err != nil {
-		panic(err)
+		return err
 	}
 	success := false
 	for _, node := range nodes {
-		url := "http://" + node.Host + ":" + node.Port + "/download?url=" + src
+		url := "http://" + node.Host + ":" + node.Port + "/file/download?url=" + src
 		resp, err := http.Get(url)
 		if err != nil {
 			fmt.Printf("download from %s has failed\n", node.Host)
@@ -39,15 +40,16 @@ func Download(src, dst, host, port string) {
 		}
 		file, err := CreateFile(src, dst)
 		if err != nil {
-			panic(err)
+			return err
 		}
 		defer file.Close()
 		if _, err := io.Copy(file, resp.Body); err != nil {
-			panic(err)
+			return err
 		}
 		success = true
 	}
 	if !success {
-		panic("download failed")
+		return errors.New("download failed")
 	}
+	return nil
 }
