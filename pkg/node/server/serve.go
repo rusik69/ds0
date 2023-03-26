@@ -10,5 +10,8 @@ func Serve() {
 	r := gin.Default()
 	r.POST("/", uploadHandler)
 	r.GET("/", downloadHandler)
+	r.GET("/ping", func(c *gin.Context) {
+		c.String(200, "pong")
+	})
 	r.Run(":" + string(env.NodeEnvInstance.Port))
 }

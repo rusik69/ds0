@@ -16,5 +16,8 @@ func Serve() {
 	router.GET("/file/upload", file.UploadHandler)
 	router.GET("/file/commit", file.CommitHandler)
 	router.GET("/file/download", file.DownloadHandler)
+	router.GET("/ping", func(c *gin.Context) {
+		c.String(200, "pong")
+	})
 	router.Run(":" + string(env.NSEnvInstance.Port))
 }

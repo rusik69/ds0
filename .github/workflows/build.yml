@@ -2,7 +2,7 @@ on: [push, pull_request]
 name: test
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
@@ -13,4 +13,6 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: build and push
       run: make docker
+    - name: helm install
+      run: helm install ds0 ./deployment/ds0
     timeout-minutes: 5

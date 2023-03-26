@@ -1,6 +1,6 @@
 FROM alpine
 
-FROM golang:1.18-alpine AS build-env
+FROM golang:1.20-alpine AS build-env
 WORKDIR /go/src/github.com/rusik69/ds0
 COPY . ./
 RUN go get ./...
