@@ -10,7 +10,7 @@ spec:
     name: {{ include "ds0.fullname" . }}-node
   clusterIP: None
   selector:
-    {{- include "ds0.labels" . | nindent 4 }}
+    app: {{ include "ds0.name" . }}-node
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -26,37 +26,31 @@ spec:
   replicas: {{ .Values.replicaCountNode }}
   selector:
     matchLabels:
-      {{- include "ds0.selectorLabels" . | nindent 8 }}-node
+      app: {{ include "ds0.name" . }}-node
   serviceName: {{ include "ds0.fullname" . }}-node-headless
   template:
     metadata:
       labels:
-        {{- include "ds0.labels" . | nindent 8 }}-node
+        app: {{ include "ds0.name" . }}-node
     spec:
       containers:
         - name: {{ .Chart.Name }}-node
           image: "{{ .Values.image.repositoryNode }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: {{ .Values.containerPort }}
-              protocol: TCP
-          readinessProbe:
-            httpGet:
-              path: /ping
-              port: {{ .Values.containerProbePort }}
-            initialDelaySeconds: 5
-            periodSeconds: 1
+          - name: http
+            containerPort: {{ .Values.containerPort }}
+            protocol: TCP
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
           - name: {{ include "ds0.fullname" . }}
             mountPath: {{ .Values.volumeMountPath }}
           env:
-             - name: NODE_NAME
-                valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
+          - name: NODE_NAME
+            valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
 
   volumeClaimTemplates:
   - metadata:

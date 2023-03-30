@@ -41,7 +41,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 6969
-
+containerProbePort: 6969
 storageSize: 1Gi
 volumeMountPath: /mnt/data
 
