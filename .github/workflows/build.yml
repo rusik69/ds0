@@ -13,6 +13,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: build and push
       run: make docker
+    - name: helm uninstall
+      run: helm uninstall ds0 -n ds0-test || true
     - name: helm install
-      run: helm install ds0 ./deployment/ds0
+      run: helm install ds0 ./deployment/ds0 -n ds0-test
     timeout-minutes: 5
