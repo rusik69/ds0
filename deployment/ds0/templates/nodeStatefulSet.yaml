@@ -49,8 +49,8 @@ spec:
           env:
           - name: NODE_NAME
             valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
+              fieldRef:
+                fieldPath: metadata.name
 
   volumeClaimTemplates:
   - metadata:
