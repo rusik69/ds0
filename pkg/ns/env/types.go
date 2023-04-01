@@ -1,7 +1,7 @@
 package env
 
-// NodeEnv is the environment of a node.
-type NodeEnv struct {
+// NSEnv is the environment of a node.
+type NSEnv struct {
 	Name     string
 	ETCDHost string
 	ETCDPort string
@@ -10,4 +10,4 @@ type NodeEnv struct {
 }
 
 // NodeEnvInstance is the singleton instance of NodeEnv.
-var NSEnvInstance *NodeEnv
+var NSEnvInstance *NSEnv

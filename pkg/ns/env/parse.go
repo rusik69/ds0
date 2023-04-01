@@ -33,7 +33,7 @@ func Parse() error {
 	if err != nil {
 		repl = 3
 	}
-	NSEnvInstance = &NodeEnv{
+	NSEnvInstance = &NSEnv{
 		Name:     name,
 		Port:     port,
 		ETCDHost: etcdHost,
