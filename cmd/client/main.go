@@ -8,23 +8,23 @@ import (
 
 func main() {
 	cmdargs.Parse()
-	if cmdargs.CmdArgsInstance.Cmd == "upload" {
-		err := file.Upload(cmdargs.CmdArgsInstance.Arg1, cmdargs.CmdArgsInstance.Arg2, cmdargs.CmdArgsInstance.HostName, cmdargs.CmdArgsInstance.Port)
+	if cmdargs.Instance.Cmd == "upload" {
+		err := file.Upload(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2, cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
-	} else if cmdargs.CmdArgsInstance.Cmd == "download" {
-		err := file.Download(cmdargs.CmdArgsInstance.Arg1, cmdargs.CmdArgsInstance.Arg2, cmdargs.CmdArgsInstance.HostName, cmdargs.CmdArgsInstance.Port)
+	} else if cmdargs.Instance.Cmd == "download" {
+		err := file.Download(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2, cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
-	} else if cmdargs.CmdArgsInstance.Cmd == "addnode" {
-		err := node.Add(cmdargs.CmdArgsInstance.Arg1, cmdargs.CmdArgsInstance.Arg2, cmdargs.CmdArgsInstance.Arg3, cmdargs.CmdArgsInstance.HostName, cmdargs.CmdArgsInstance.Port)
+	} else if cmdargs.Instance.Cmd == "addnode" {
+		err := node.Add(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2, cmdargs.Instance.Arg3, cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
-	} else if cmdargs.CmdArgsInstance.Cmd == "removenode" {
-		err := node.Remove(cmdargs.CmdArgsInstance.Arg1, cmdargs.CmdArgsInstance.HostName, cmdargs.CmdArgsInstance.Port)
+	} else if cmdargs.Instance.Cmd == "removenode" {
+		err := node.Remove(cmdargs.Instance.Arg1, cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}

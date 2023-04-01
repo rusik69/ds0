@@ -25,4 +25,13 @@ docker:
 	docker build -t loqutus/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG) -f Dockerfile-client .
 	docker push loqutus/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG)
 
+helminstalltest:
+	helm install ds0 ./deployment/ds0 -n ds0-test
+
+helmuninstalltest:
+	helm uninstall ds0 -n ds0-test || true
+
+test:
+	go test -v ./...
+
 default: tidy build

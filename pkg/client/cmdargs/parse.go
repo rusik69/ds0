@@ -45,7 +45,7 @@ func Parse() {
 	}
 	flag.Parse()
 	portStr := strconv.Itoa(*port)
-	CmdArgsInstance = &CmdArgs{
+	Instance = &CmdArgs{
 		Cmd:      cmd,
 		HostName: *hostName,
 		Port:     portStr,

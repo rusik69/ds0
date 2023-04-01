@@ -3,6 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCountNS: 1
+replicaCountNode: 1
 
 image:
   repositoryNS: loqutus/ds0-ns
