@@ -5,6 +5,8 @@ type NSEnv struct {
 	Name     string
 	ETCDHost string
 	ETCDPort string
+	ETCDUser string
+	ETCDPass string
 	Port     string
 	Replicas int
 	Nodes    map[string]NodeInfo
