@@ -29,6 +29,8 @@ spec:
                 fieldPath: metadata.name
           - name: NS_NODES
             value: {{ .Values.nsNodes }}
+          - name: NS_ETCD_HOST
+            value: {{ .Values.nsETCDHost }}
 ---
 apiVersion: v1
 kind: Service
