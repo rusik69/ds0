@@ -16,6 +16,13 @@ image:
 nsNodes: "node0:ds0-node-0:6969,node1:ds0-node-1:6969"
 nsETCDHost: "ds0-etcd"
 
+etcd:
+  auth:
+    rbac:
+      enabled: false
+    client:
+      secureTransport: false
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
