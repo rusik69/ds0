@@ -26,6 +26,7 @@ docker:
 	docker push loqutus/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG)
 
 helminstalltest:
+	helm dependency build ./deployment/ds0	
 	helm install ds0 ./deployment/ds0 -n ds0-test --set image.tag=$(IMAGE_TAG)
 
 helmuninstalltest:
