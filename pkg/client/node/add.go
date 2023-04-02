@@ -15,7 +15,7 @@ func Add(nodeName, nodeHostname, nodePort, host, port string) error {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return errors.New("add failed")
+		return errors.New("node add failed")
 	}
 	return nil
 }

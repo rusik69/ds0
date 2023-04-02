@@ -10,6 +10,12 @@ import (
 
 // AddNodeHandler adds a node.
 func AddNodeHandler(c *gin.Context) {
+	name := c.Query("name")
+	if name == "" {
+		c.Writer.WriteHeader(400)
+		c.Writer.Write([]byte("Node name is required"))
+		return
+	}
 	hostName := c.Query("hostname")
 	if hostName == "" {
 		c.Writer.WriteHeader(400)
@@ -23,7 +29,7 @@ func AddNodeHandler(c *gin.Context) {
 		return
 	}
 	logrus.Println("AddNode: " + hostName + ":" + port)
-	err := dbnode.Add(hostName, hostName, port)
+	err := dbnode.Add(name, hostName, port)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))

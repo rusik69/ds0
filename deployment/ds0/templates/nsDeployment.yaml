@@ -27,6 +27,8 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.name
+          - name: NS_NODES
+            value: {{ .Values.nsNodes }}
 ---
 apiVersion: v1
 kind: Service

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 	"strconv"
+	"strings"
 )
 
 // Parse parses the environment of a node.
@@ -29,6 +30,19 @@ func Parse() error {
 	if replicas == "" {
 		replicas = "3"
 	}
+	nodes := os.Getenv("NS_NODES")
+	nodesMap := map[string]NodeInfo{}
+	// name:hostname:port
+	if nodes != "" {
+		nodeList := strings.Split(nodes, ",")
+		for _, node := range nodeList {
+			nodeInfo := strings.Split(node, ":")
+			if len(nodeInfo) != 3 {
+				return errors.New("NS_NODES is not set correctly")
+			}
+			nodesMap[nodeInfo[0]] = NodeInfo{HostName: nodeInfo[1], Port: nodeInfo[2]}
+		}
+	}
 	repl, err := strconv.Atoi(replicas)
 	if err != nil {
 		repl = 3
@@ -39,6 +53,7 @@ func Parse() error {
 		ETCDHost: etcdHost,
 		ETCDPort: etcdPort,
 		Replicas: repl,
+		Nodes:    nodesMap,
 	}
 	return nil
 }
