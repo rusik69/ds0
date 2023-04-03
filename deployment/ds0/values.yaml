@@ -14,14 +14,15 @@ image:
   tag: latest
 
 nsNodes: "node0:ds0-node-0:6969,node1:ds0-node-1:6969"
-nsETCDHost: "ds0-etcd"
+nsETCD:
+  Host: "ds0-etcd"
+  User: root
+  Pass: password
 
 etcd:
   auth:
     rbac:
-      enabled: false
-    client:
-      secureTransport: false
+      rootPassword: password
 
 imagePullSecrets: []
 nameOverride: ""
