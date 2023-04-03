@@ -30,7 +30,7 @@ helminstalltest:
 	helm install ds0 ./deployment/ds0 -n ds0-test --set image.tag=$(IMAGE_TAG)
 
 helmuninstalltest:
-	kubectl delete ns ds0-test
+	kubectl delete ns ds0-test || true
 	kubectl create ns ds0-test
 
 test:
