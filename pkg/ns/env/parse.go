@@ -28,7 +28,7 @@ func Parse() error {
 	}
 	nsEtcdUser := os.Getenv("NS_ETCD_USER")
 	if nsEtcdUser == "" {
-		nsEtcdUser = "root"
+		nsEtcdUser = ""
 	}
 	nsEtcdPass := os.Getenv("NS_ETCD_PASS")
 	if nsEtcdPass == "" {
