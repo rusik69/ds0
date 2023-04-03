@@ -15,20 +15,13 @@ image:
 
 nsNodes: "node0:ds0-node-0:6969,node1:ds0-node-1:6969"
 nsETCDHost: "ds0-etcd"
-nsETCDUser: "root"
-nsETCDPass: "password"
 
 etcd:
   auth:
     rbac:
-      enabled: true
+      enabled: false
     client:
-      secureTransport: true
-      existingSecret:
-        name: "etcd-auth-secret"
-        userKey: "root"
-        passKey: "password"
-
+      secureTransport: false
 
 imagePullSecrets: []
 nameOverride: ""
