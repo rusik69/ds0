@@ -26,13 +26,13 @@ func Parse() error {
 	if etcdPort == "" {
 		etcdPort = "2379"
 	}
-	nsEtcdUser := os.Getenv("NS_ETCD_USER")
-	if nsEtcdUser == "" {
-		nsEtcdUser = ""
+	etcdUser := os.Getenv("NS_ETCD_USER")
+	if etcdUser == "" {
+		etcdUser = ""
 	}
-	nsEtcdPass := os.Getenv("NS_ETCD_PASS")
-	if nsEtcdPass == "" {
-		nsEtcdPass = ""
+	etcdPass := os.Getenv("NS_ETCD_PASS")
+	if etcdPass == "" {
+		etcdPass = ""
 	}
 	replicas := os.Getenv("NS_REPLICAS")
 	if replicas == "" {
@@ -60,8 +60,8 @@ func Parse() error {
 		Port:     port,
 		ETCDHost: etcdHost,
 		ETCDPort: etcdPort,
-		ETCDUser: nsEtcdUser,
-		ETCDPass: nsEtcdPass,
+		ETCDUser: etcdUser,
+		ETCDPass: etcdPass,
 		Replicas: repl,
 		Nodes:    nodesMap,
 	}
