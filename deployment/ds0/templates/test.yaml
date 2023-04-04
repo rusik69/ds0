@@ -1,0 +1,12 @@
+# go-tests-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "ds0.fullname" . }}-test
+spec:
+  template:
+    spec:
+      containers:
+      - name: test
+        image: "{{ .Values.image.repositoryTest }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+      restartPolicy: Never

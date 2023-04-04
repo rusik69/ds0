@@ -1,0 +1,6 @@
+FROM golang:latest
+WORKDIR /go/src/github.com/rusik69/kv2
+COPY . ./
+RUN make tidy
+RUN make build
+ENTRYPOINT ["/usr/bin/make", "test"]
