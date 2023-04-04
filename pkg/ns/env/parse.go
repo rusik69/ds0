@@ -40,6 +40,7 @@ func Parse() error {
 	if replicas == "" {
 		replicas = "3"
 	}
+
 	nodes := os.Getenv("NS_NODES")
 	nodesMap := map[string]NodeInfo{}
 	// name:hostname:port
@@ -57,6 +58,7 @@ func Parse() error {
 	if err != nil {
 		repl = 3
 	}
+
 	NSEnvInstance = &NSEnv{
 		Name:     name,
 		Port:     port,
@@ -67,6 +69,15 @@ func Parse() error {
 		Replicas: repl,
 		Nodes:    nodesMap,
 	}
-	logrus.Println("parsed node environment:", NSEnvInstance)
+
+	logrus.Println("node name: ", name)
+	logrus.Println("node port: ", port)
+	logrus.Println("etcd host: ", etcdHost)
+	logrus.Println("etcd port: ", etcdPort)
+	logrus.Println("etcd user: ", etcdUser)
+	logrus.Println("etcd pass: ", etcdPass)
+	logrus.Println("replicas: ", repl)
+	logrus.Println("nodes: ", nodesMap)
+
 	return nil
 }
