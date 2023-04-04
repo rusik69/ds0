@@ -5,6 +5,8 @@ import (
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/sirupsen/logrus"
 )
 
 // Parse parses the environment of a node.
@@ -65,5 +67,6 @@ func Parse() error {
 		Replicas: repl,
 		Nodes:    nodesMap,
 	}
+	logrus.Println("parsed node environment:", NSEnvInstance)
 	return nil
 }
