@@ -1,9 +1,11 @@
 SHELL := /bin/bash
 .DEFAULT_GOAL := default
 .PHONY: all
+
 BINARY_NAME_NODE=node
 BINARY_NAME_NS=ns
 BINARY_NAME_CLIENT=client
+
 IMAGE_TAG=$(shell git describe --tags --always)
 GIT_COMMIT=$(shell git rev-parse --short HEAD)
 ORG_PREFIX := loqutus
@@ -24,6 +26,8 @@ docker:
 	docker push loqutus/ds0-$(BINARY_NAME_NODE):$(IMAGE_TAG)
 	docker build -t loqutus/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG) -f Dockerfile-client .
 	docker push loqutus/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG)
+	docker build -t loqutus/ds0-test:$(IMAGE_TAG) -f Dockerfile-test .
+	docker push loqutus/ds0-test:$(IMAGE_TAG)
 
 helminstalltest:
 	helm dependency build ./deployment/ds0	

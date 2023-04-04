@@ -9,6 +9,7 @@ image:
   repositoryNS: loqutus/ds0-ns
   repositoryNode: loqutus/ds0-node
   repositoryClient: loqutus/ds0-client
+  repositoryTest: loqutus/ds0-test
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
