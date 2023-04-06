@@ -10,7 +10,7 @@ import (
 	"github.com/rusik69/ds0/pkg/client/file"
 )
 
-var testFileName string
+var TestFileName string
 
 // prepareFile prepares the test file.
 func prepareFile() (string, error) {
@@ -40,10 +40,11 @@ func prepareFile() (string, error) {
 // TestMain prepares the test data.
 func TestMain(m *testing.M) {
 	// Prepare the test file
-	fileName, err := prepareFile()
+	testFileName, err := prepareFile()
 	if err != nil {
 		log.Fatal(err)
 	}
+	TestFileName = testFileName
 	code := m.Run()
 	os.Exit(code)
 }
@@ -51,13 +52,13 @@ func TestMain(m *testing.M) {
 // TestClient tests the client.
 func TestClient(t *testing.T) {
 	t.Run("upload", func(t *testing.T) {
-		err := file.Upload(testFileName, "/"+testFileName, "ds0-ns", "6969")
+		err := file.Upload(TestFileName, "/"+TestFileName, "ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
 		}
 	})
 	t.Run("download", func(t *testing.T) {
-		err := file.Download("/"+testFileName, testFileName, "ds0-ns", "6969")
+		err := file.Download("/"+TestFileName, TestFileName, "ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
 		}
