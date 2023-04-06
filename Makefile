@@ -30,7 +30,7 @@ docker:
 	docker push loqutus/ds0-test:$(IMAGE_TAG)
 
 helminstalltest:
-	helm dependency build ./deployment/ds0	
+	helm dependency build ./deployment/ds0
 	helm install ds0 ./deployment/ds0 -n ds0-test --set image.tag=$(IMAGE_TAG)
 
 helmuninstalltest:
