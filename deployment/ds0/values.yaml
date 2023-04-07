@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCountNS: 1
-replicaCountNode: 2
+replicaCountNode: 3
 
 image:
   repositoryNS: loqutus/ds0-ns
@@ -14,7 +14,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
 
-nsNodes: "node0:ds0-node-0:6969,node1:ds0-node-1:6969"
+nsNodes: "node0:ds0-node-0:6969,node1:ds0-node-1:6969,node2:ds0-node-2:6969"
 nsETCD:
   Host: "ds0-etcd"
   User: root

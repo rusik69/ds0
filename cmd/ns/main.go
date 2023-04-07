@@ -14,7 +14,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	logrus.Println("parsed node environment: %+v", env.NSEnvInstance)
 	err = db.Connect()
 	if err != nil {
 		panic(err)
