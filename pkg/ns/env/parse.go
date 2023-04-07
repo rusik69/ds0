@@ -36,6 +36,22 @@ func Parse() error {
 	if etcdPass == "" {
 		etcdPass = ""
 	}
+	etcdHostNodes := os.Getenv("NS_ETCD_HOST_NODES")
+	if etcdHost == "" {
+		etcdHostNodes = "localhost"
+	}
+	etcdPortNodes := os.Getenv("NS_ETCD_PORT_NODES")
+	if etcdPortNodes == "" {
+		etcdPortNodes = "2379"
+	}
+	etcdUserNodes := os.Getenv("NS_ETCD_USER_NODES")
+	if etcdUserNodes == "" {
+		etcdUserNodes = ""
+	}
+	etcdPassNodes := os.Getenv("NS_ETCD_PASS_NODES")
+	if etcdPassNodes == "" {
+		etcdPassNodes = ""
+	}
 	replicas := os.Getenv("NS_REPLICAS")
 	if replicas == "" {
 		replicas = "3"
@@ -60,14 +76,18 @@ func Parse() error {
 	}
 
 	NSEnvInstance = &NSEnv{
-		Name:     name,
-		Port:     port,
-		ETCDHost: etcdHost,
-		ETCDPort: etcdPort,
-		ETCDUser: etcdUser,
-		ETCDPass: etcdPass,
-		Replicas: repl,
-		Nodes:    nodesMap,
+		Name:          name,
+		Port:          port,
+		ETCDHost:      etcdHost,
+		ETCDPort:      etcdPort,
+		ETCDUser:      etcdUser,
+		ETCDPass:      etcdPass,
+		ETCDHostNodes: etcdHostNodes,
+		ETCDPortNodes: etcdPortNodes,
+		ETCDUserNodes: etcdUserNodes,
+		ETCDPassNodes: etcdPassNodes,
+		Replicas:      repl,
+		Nodes:         nodesMap,
 	}
 
 	logrus.Println("node name: ", name)

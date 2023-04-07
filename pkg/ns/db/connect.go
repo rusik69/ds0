@@ -10,26 +10,25 @@ import (
 )
 
 // Connect connects to the database.
-func Connect() error {
+func Connect(host, port, user, pass string) (*clientv3.Client, error) {
 	var conf clientv3.Config
 	if env.NSEnvInstance.ETCDUser != "" {
 		conf = clientv3.Config{
-			Endpoints:   []string{"http://" + env.NSEnvInstance.ETCDHost + ":" + env.NSEnvInstance.ETCDPort},
+			Endpoints:   []string{"http://" + host + ":" + port},
 			DialTimeout: 10 * time.Second,
-			Username:    env.NSEnvInstance.ETCDUser,
-			Password:    env.NSEnvInstance.ETCDPass,
+			Username:    user,
+			Password:    pass,
 		}
 	} else {
 		conf = clientv3.Config{
-			Endpoints:   []string{"http://" + env.NSEnvInstance.ETCDHost + ":" + env.NSEnvInstance.ETCDPort},
+			Endpoints:   []string{"http://" + host + ":" + port},
 			DialTimeout: 10 * time.Second,
 		}
 	}
 	cli, err := clientv3.New(conf)
 	if err != nil {
 		logrus.Println("Error:", err)
-		return err
+		return nil, err
 	}
-	DB = cli
-	return nil
+	return cli, nil
 }

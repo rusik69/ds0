@@ -9,6 +9,7 @@ import (
 
 // Delete removes the node from the database.
 func Delete(nodeName string) error {
+	
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	_, err := db.DB.Delete(ctx, nodeName)
 	cancel()

@@ -19,8 +19,17 @@ nsETCD:
   Host: "ds0-etcd"
   User: root
   Pass: password
+nsETCDNodes:
+  Host: "ds0-etcd-nodes"
+  User: root
+  Pass: password
 
 etcd:
+  auth:
+    rbac:
+      rootPassword: password
+
+etcd-nodes:
   auth:
     rbac:
       rootPassword: password

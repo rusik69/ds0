@@ -35,6 +35,12 @@ spec:
             value: {{ .Values.nsETCD.User }}
           - name: NS_ETCD_PASS
             value: {{ .Values.nsETCD.Pass }}
+          - name: NS_ETCD_HOST_NODES
+            value: {{ .Values.nsETCDNodes.Host }}
+          - name: NS_ETCD_USER_NODES
+            value: {{ .Values.nsETCDNodes.User }}
+          - name: NS_ETCD_PASSNodes
+            value: {{ .Values.nsETCDNodes.Pass }}
 ---
 apiVersion: v1
 kind: Service

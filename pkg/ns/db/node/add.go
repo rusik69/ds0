@@ -12,6 +12,7 @@ import (
 
 // Add adds the node to the database.
 func Add(name, hostname, port string) error {
+	logrus.Println("Add node: " + hostname + ":" + port)
 	info := db.HostInfo{
 		Host: hostname,
 		Port: port,

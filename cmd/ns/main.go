@@ -14,7 +14,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	err = db.Connect()
+	db.DB, err = db.Connect(env.NSEnvInstance.ETCDHost, env.NSEnvInstance.ETCDPort, env.NSEnvInstance.ETCDUser, env.NSEnvInstance.ETCDPass)
 	if err != nil {
 		panic(err)
 	}
