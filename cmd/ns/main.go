@@ -19,6 +19,11 @@ func main() {
 		panic(err)
 	}
 	defer db.DB.Close()
+	db.DBNodes, err = db.Connect(env.NSEnvInstance.ETCDHost, env.NSEnvInstance.ETCDPort, env.NSEnvInstance.ETCDUser, env.NSEnvInstance.ETCDPass)
+	if err != nil {
+		panic(err)
+	}
+	defer db.DBNodes.Close()
 	for name, hostInfo := range env.NSEnvInstance.Nodes {
 		err = node.Add(name, hostInfo.HostName, hostInfo.Port)
 		if err != nil {

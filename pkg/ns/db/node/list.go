@@ -13,7 +13,7 @@ import (
 func List() ([]db.HostInfo, error) {
 	var nodes []db.HostInfo
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	resp, err := db.DB.Get(ctx, "/nodes/", clientv3.WithPrefix())
+	resp, err := db.DBNodes.Get(ctx, "/nodes/", clientv3.WithPrefix())
 	cancel()
 	if err != nil {
 		return nodes, err
