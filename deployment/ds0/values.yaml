@@ -24,7 +24,7 @@ nsETCDNodes:
   User: root
   Pass: password
 
-etcd:
+etcd-files:
   auth:
     rbac:
       rootPassword: password
