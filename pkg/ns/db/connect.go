@@ -12,7 +12,7 @@ import (
 // Connect connects to the database.
 func Connect(host, port, user, pass string) (*clientv3.Client, error) {
 	var conf clientv3.Config
-	if env.NSEnvInstance.ETCDUser != "" {
+	if env.NSEnvInstance.ETCDUserFiles != "" {
 		conf = clientv3.Config{
 			Endpoints:   []string{"http://" + host + ":" + port},
 			DialTimeout: 10 * time.Second,

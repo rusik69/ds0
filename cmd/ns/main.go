@@ -14,12 +14,20 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	db.DB, err = db.Connect(env.NSEnvInstance.ETCDHost, env.NSEnvInstance.ETCDPort, env.NSEnvInstance.ETCDUser, env.NSEnvInstance.ETCDPass)
+	db.DBFiles, err = db.Connect(
+		env.NSEnvInstance.ETCDHostFiles,
+		env.NSEnvInstance.ETCDPortFiles,
+		env.NSEnvInstance.ETCDUserFiles,
+		env.NSEnvInstance.ETCDPassFiles)
 	if err != nil {
 		panic(err)
 	}
-	defer db.DB.Close()
-	db.DBNodes, err = db.Connect(env.NSEnvInstance.ETCDHost, env.NSEnvInstance.ETCDPort, env.NSEnvInstance.ETCDUser, env.NSEnvInstance.ETCDPass)
+	defer db.DBFiles.Close()
+	db.DBNodes, err = db.Connect(
+		env.NSEnvInstance.ETCDHostNodes,
+		env.NSEnvInstance.ETCDPortNodes,
+		env.NSEnvInstance.ETCDUserNodes,
+		env.NSEnvInstance.ETCDPassNodes)
 	if err != nil {
 		panic(err)
 	}
