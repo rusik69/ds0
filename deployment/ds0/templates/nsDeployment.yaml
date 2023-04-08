@@ -29,12 +29,12 @@ spec:
                 fieldPath: metadata.name
           - name: NS_NODES
             value: {{ .Values.nsNodes }}
-          - name: NS_ETCD_HOST
-            value: {{ .Values.nsETCD.Host }}
-          - name: NS_ETCD_USER
-            value: {{ .Values.nsETCD.User }}
-          - name: NS_ETCD_PASS
-            value: {{ .Values.nsETCD.Pass }}
+          - name: NS_ETCD_HOST_FILES
+            value: {{ .Values.nsETCDFiles.Host }}
+          - name: NS_ETCD_USER_FILES
+            value: {{ .Values.nsETCDFiles.User }}
+          - name: NS_ETCD_PASS_FILES
+            value: {{ .Values.nsETCDFiles.Pass }}
           - name: NS_ETCD_HOST_NODES
             value: {{ .Values.nsETCDNodes.Host }}
           - name: NS_ETCD_USER_NODES
