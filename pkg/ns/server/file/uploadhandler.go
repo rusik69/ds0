@@ -36,6 +36,7 @@ func UploadHandler(c *gin.Context) {
 			c.Writer.WriteHeader(500)
 			c.Writer.Write([]byte("no nodes available"))
 			logrus.Error(errors.New("no nodes available"))
+			logrus.Println(env.NSEnvInstance.Nodes)
 			return
 		} else if len(nodes) < env.NSEnvInstance.Replicas {
 			c.Writer.WriteHeader(500)
