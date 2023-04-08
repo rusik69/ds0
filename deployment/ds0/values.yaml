@@ -16,7 +16,7 @@ image:
 
 nsNodes: "node0:ds0-node-0:6969,node1:ds0-node-1:6969,node2:ds0-node-2:6969"
 nsETCD:
-  Host: "ds0-etcd"
+  Host: "ds0-etcd-files"
   User: root
   Pass: password
 nsETCDNodes:
