@@ -39,7 +39,7 @@ spec:
             value: {{ .Values.nsETCDNodes.Host }}
           - name: NS_ETCD_USER_NODES
             value: {{ .Values.nsETCDNodes.User }}
-          - name: NS_ETCD_PASSNodes
+          - name: NS_ETCD_PASS_NODES
             value: {{ .Values.nsETCDNodes.Pass }}
 ---
 apiVersion: v1
