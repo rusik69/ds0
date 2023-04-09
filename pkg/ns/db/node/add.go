@@ -17,13 +17,13 @@ func Add(name, hostname, port string) error {
 		Host: hostname,
 		Port: port,
 	}
-	str, err := json.Marshal(info)
+	bytes, err := json.Marshal(info)
 	if err != nil {
 		log.Fatal(err)
 		return err
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	_, err = db.DBNodes.Put(ctx, name, string(str))
+	_, err = db.DBNodes.Put(ctx, "/nodes/"+name, string(bytes))
 	cancel()
 	if err != nil {
 		logrus.Error(err)
