@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/rusik69/ds0/pkg/client/file"
@@ -51,14 +52,16 @@ func TestMain(m *testing.M) {
 
 // TestClient tests the client.
 func TestClient(t *testing.T) {
+	fileNameSplit := strings.Split(TestFileName, "/")
+	fileName := fileNameSplit[len(fileNameSplit)-1]
 	t.Run("upload", func(t *testing.T) {
-		err := file.Upload(TestFileName, "/"+TestFileName, "ds0-ns", "6969")
+		err := file.Upload(TestFileName, "/"+fileName, "ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
 		}
 	})
 	t.Run("download", func(t *testing.T) {
-		err := file.Download("/"+TestFileName, TestFileName, "ds0-ns", "6969")
+		err := file.Download("/"+fileName, TestFileName, "ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
 		}
