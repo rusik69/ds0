@@ -15,8 +15,8 @@ jobs:
       run: make docker
     - name: helm uninstall test
       run: make helmuninstalltest
-    - name: testwait
-      run: make testwait
     - name: helm install test
       run: make helminstalltest
+    - name: testwait
+      run: make testwait
     timeout-minutes: 5
