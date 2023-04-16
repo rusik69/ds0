@@ -32,7 +32,7 @@ docker:
 
 helminstalltest:
 	helm dependency build ./deployment/ds0
-	helm install ds0 ./deployment/ds0 -n ds0-test --set image.tag=$(IMAGE_TAG)
+	helm install ds0 ./deployment/ds0 -n ds0-test --set image.tag=$(IMAGE_TAG) --wait
 
 testwait:
 	kubectl wait --for=condition=complete --timeout=600s job/ds0-test -n ds0-test && kubectl logs -l job-name=ds0-test -n ds0-test
