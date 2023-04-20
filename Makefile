@@ -32,10 +32,10 @@ docker:
 
 helminstalltest:
 	helm dependency build ./deployment/ds0
-	helm install ds0 ./deployment/ds0 -n ds0-test --set image.tag=$(IMAGE_TAG) --wait
+	helm install ds0 ./deployment/ds0 -n ds0-test --set image.tag=$(IMAGE_TAG)
 
 testwait:
-	kubectl wait --for=condition=complete --timeout=600s job/ds0-test -n ds0-test && kubectl logs -l job-name=ds0-test -n ds0-test
+	kubectl wait --for=condition=complete --timeout=60s job/ds0-test -n ds0-test || kubectl logs -l job-name=ds0-test -n ds0-test; exit 1
 
 helmuninstalltest:
 	kubectl delete ns ds0-test || true
