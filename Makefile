@@ -35,7 +35,7 @@ helminstalltest:
 	helm install ds0 ./deployment/ds0 -n ds0-test --set image.tag=$(IMAGE_TAG)
 
 testwait:
-	kubectl wait --for=condition=complete --timeout=60s job/ds0-test -n ds0-test || kubectl logs -l job-name=ds0-test -n ds0-test; exit 1
+	kubectl wait --for=condition=complete --timeout=60s job/ds0-test -n ds0-test && kubectl logs --since=1h -l job-name=ds0-test -n ds0-test
 
 helmuninstalltest:
 	kubectl delete ns ds0-test || true
