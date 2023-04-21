@@ -4,9 +4,11 @@ import (
 	"crypto/rand"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/rusik69/ds0/pkg/client/file"
 )
@@ -38,6 +40,17 @@ func prepareFile() (string, error) {
 	return tempFile.Name(), nil
 }
 
+// waitForServer waits for the server to start.
+func waitForServer() {
+	for {
+		_, err := http.Get("http://ds0-ns:6969/ping")
+		if err == nil {
+			break
+		}
+		time.Sleep(1 * time.Second)
+	}
+}
+
 // TestMain prepares the test data.
 func TestMain(m *testing.M) {
 	// Prepare the test file
@@ -46,6 +59,7 @@ func TestMain(m *testing.M) {
 		log.Fatal(err)
 	}
 	TestFileName = testFileName
+	waitForServer()
 	code := m.Run()
 	os.Exit(code)
 }
