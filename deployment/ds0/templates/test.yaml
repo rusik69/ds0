@@ -4,6 +4,7 @@ kind: Job
 metadata:
   name: {{ include "ds0.fullname" . }}-test
 spec:
+  backoffLimit: 0
   template:
     spec:
       containers:
