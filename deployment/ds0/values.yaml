@@ -14,7 +14,7 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
 
-nsNodes: "node0:ds0-node-0.headless:6969,node1:ds0-node-1.headless:6969,node2:ds0-node-2.headless:6969"
+nsNodes: "node0:ds0-node-0.ds0-headless:6969,node1:ds0-node-1.ds0-headless:6969,node2:ds0-node-2.ds0-headless:6969"
 nsETCDFiles:
   Host: "ds0-etcd-files"
   User: root
