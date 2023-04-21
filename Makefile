@@ -20,7 +20,7 @@ build:
 	chmod +x bin/*
 
 docker:
-	docker system prune -a
+	yes | docker system prune -a
 	docker build -t loqutus/ds0-$(BINARY_NAME_NS):$(IMAGE_TAG) -f Dockerfile-ns .
 	docker push loqutus/ds0-$(BINARY_NAME_NS):$(IMAGE_TAG)
 	docker build -t loqutus/ds0-$(BINARY_NAME_NODE):$(IMAGE_TAG) -f Dockerfile-node .
