@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "ds0.fullname" . }}-node-headless
+  name: {{ include "ds0.fullname" . }}-headless
   labels:
     app: {{ include "ds0.name" . }}-node
 spec:
