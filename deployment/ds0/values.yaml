@@ -60,6 +60,10 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+service:
+  type: ClusterIP
+  port: 6969
+
 containerProbePort: 6969
 containerPort: 6969
 storageSize: 1Gi
