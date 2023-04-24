@@ -41,6 +41,8 @@ spec:
             value: {{ .Values.nsETCDNodes.User }}
           - name: NS_ETCD_PASS_NODES
             value: {{ .Values.nsETCDNodes.Pass }}
+          - name: NS_NODES_STATEFUL_SET_NAME
+            value: {{ .Values.nodesStatefulSetName }}
 ---
 apiVersion: v1
 kind: Service

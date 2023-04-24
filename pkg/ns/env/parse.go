@@ -70,24 +70,31 @@ func Parse() error {
 			nodesMap[nodeInfo[0]] = NodeInfo{HostName: nodeInfo[1], Port: nodeInfo[2]}
 		}
 	}
+	nodesstatefulSetName := os.Getenv("NS_NODES_STATEFUL_SET_NAME")
 	repl, err := strconv.Atoi(replicas)
 	if err != nil {
 		repl = 3
 	}
+	nodesStatefulSetPort := os.Getenv("NS_STATEFUL_SET_PORT")
+	if nodesStatefulSetPort == "" {
+		nodesStatefulSetPort = "6969"
+	}
 
 	NSEnvInstance = &NSEnv{
-		Name:          name,
-		Port:          port,
-		ETCDHostFiles: etcdHost,
-		ETCDPortFiles: etcdPort,
-		ETCDUserFiles: etcdUser,
-		ETCDPassFiles: etcdPass,
-		ETCDHostNodes: etcdHostNodes,
-		ETCDPortNodes: etcdPortNodes,
-		ETCDUserNodes: etcdUserNodes,
-		ETCDPassNodes: etcdPassNodes,
-		Replicas:      repl,
-		Nodes:         nodesMap,
+		Name:                 name,
+		Port:                 port,
+		ETCDHostFiles:        etcdHost,
+		ETCDPortFiles:        etcdPort,
+		ETCDUserFiles:        etcdUser,
+		ETCDPassFiles:        etcdPass,
+		ETCDHostNodes:        etcdHostNodes,
+		ETCDPortNodes:        etcdPortNodes,
+		ETCDUserNodes:        etcdUserNodes,
+		ETCDPassNodes:        etcdPassNodes,
+		Replicas:             repl,
+		Nodes:                nodesMap,
+		NodesStatefulSetName: nodesstatefulSetName,
+		NodesStatefulSetPort: nodesStatefulSetPort,
 	}
 
 	logrus.Println("node name: ", name)
@@ -98,6 +105,7 @@ func Parse() error {
 	logrus.Println("etcd pass: ", etcdPass)
 	logrus.Println("replicas: ", repl)
 	logrus.Println("nodes: ", nodesMap)
+	logrus.Println("stateful set name: ", nodesstatefulSetName)
 
 	return nil
 }

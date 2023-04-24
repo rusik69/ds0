@@ -1,6 +1,8 @@
 package main
 
 import (
+	"net"
+
 	"github.com/rusik69/ds0/pkg/ns/db"
 	"github.com/rusik69/ds0/pkg/ns/db/node"
 	"github.com/rusik69/ds0/pkg/ns/env"
@@ -36,6 +38,21 @@ func main() {
 		err = node.Add(name, hostInfo.HostName, hostInfo.Port)
 		if err != nil {
 			panic(err)
+		}
+	}
+	if env.NSEnvInstance.NodesStatefulSetName != "" {
+		ips, err := net.LookupIP(env.NSEnvInstance.NodesStatefulSetName)
+		if err != nil {
+			panic(err)
+		}
+		if len(ips) == 0 {
+			panic("No IP found in stateful set")
+		}
+		for _, ip := range ips {
+			err = node.Add(ip.String(), ip.String(), env.NSEnvInstance.NodesStatefulSetPort)
+			if err != nil {
+				panic(err)
+			}
 		}
 	}
 	server.Serve()
