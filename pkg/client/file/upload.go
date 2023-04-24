@@ -45,7 +45,11 @@ func Upload(src, dst, host, port string) error {
 		}
 		defer resp.Body.Close()
 		if resp.StatusCode != http.StatusOK {
-			return errors.New("upload failed")
+			bodyStr, err := io.ReadAll(resp.Body)
+			if err != nil {
+				return err
+			}
+			return errors.New("upload failed: " + http.StatusText(resp.StatusCode) + " " + string(bodyStr))
 		}
 	}
 	url = "http://" + host + ":" + port + "/file/commit?file=" + dst
