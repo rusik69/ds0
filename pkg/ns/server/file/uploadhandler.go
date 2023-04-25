@@ -23,28 +23,28 @@ func UploadHandler(c *gin.Context) {
 		return
 	}
 	logrus.Println("UploadHandler: " + fileName)
-	nodes, err := dbfile.Get(fileName)
+	fileInfo, err := dbfile.Get(fileName)
 	if err == os.ErrNotExist {
-		nodes, err := dbnode.List()
+		newNodes, err := dbnode.List()
 		if err != nil {
 			c.Writer.WriteHeader(500)
 			c.Writer.Write([]byte(err.Error()))
 			logrus.Error(err)
 			return
 		}
-		if len(nodes) == 0 {
+		if len(newNodes) == 0 {
 			c.Writer.WriteHeader(500)
 			c.Writer.Write([]byte("no nodes available"))
 			logrus.Error(errors.New("no nodes available"))
-			logrus.Println(env.NSEnvInstance.Nodes)
+			logrus.Error(env.NSEnvInstance.Nodes)
 			return
-		} else if len(nodes) < env.NSEnvInstance.Replicas {
+		} else if len(newNodes) < env.NSEnvInstance.Replicas {
 			c.Writer.WriteHeader(500)
 			c.Writer.Write([]byte("not enough nodes available"))
 			logrus.Error(errors.New("not enough nodes available"))
 			return
 		}
-		nodes = file.ChooseNodes(nodes)
+		nodes := file.ChooseNodes(newNodes)
 		c.JSON(http.StatusOK, nodes)
 	} else if err != nil {
 		c.Writer.WriteHeader(500)
@@ -52,5 +52,5 @@ func UploadHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
-	c.JSON(http.StatusOK, nodes)
+	c.JSON(http.StatusOK, fileInfo.Nodes)
 }
