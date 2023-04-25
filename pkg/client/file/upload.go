@@ -49,7 +49,7 @@ func Upload(src, dst, host, port string) error {
 			if err != nil {
 				return err
 			}
-			return errors.New("upload failed: " + http.StatusText(resp.StatusCode) + " " + string(bodyStr))
+			return errors.New("upload failed: " + url + " " + http.StatusText(resp.StatusCode) + " " + string(bodyStr))
 		}
 	}
 	url = "http://" + host + ":" + port + "/file/commit?file=" + dst
