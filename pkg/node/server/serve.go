@@ -8,8 +8,8 @@ import (
 // Serve serves the node.
 func Serve() {
 	r := gin.Default()
-	r.POST("/", uploadHandler)
-	r.GET("/", downloadHandler)
+	r.POST("/*", uploadHandler)
+	r.GET("/*", downloadHandler)
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
