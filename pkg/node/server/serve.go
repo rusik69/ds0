@@ -9,7 +9,7 @@ import (
 func Serve() {
 	r := gin.Default()
 	r.POST("/file/upload", uploadHandler)
-	r.GET("/file/download*", downloadHandler)
+	r.GET("/file/download", downloadHandler)
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
