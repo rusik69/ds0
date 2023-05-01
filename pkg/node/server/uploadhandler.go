@@ -23,7 +23,8 @@ func uploadHandler(c *gin.Context) {
 	}
 	file, _, err := c.Request.FormFile("file")
 	if err != nil {
-		c.String(http.StatusBadRequest, "Bad request")
+		c.String(http.StatusBadRequest, "bad request")
+		logrus.Error(err)
 		return
 	}
 	fileName = filepath.Join(env.NodeEnvInstance.Dir, fileName)

@@ -27,7 +27,7 @@ func Download(src, dst, host, port string) error {
 	}
 	success := false
 	for _, node := range nodes {
-		url := "http://" + node.Host + ":" + node.Port + "/file/download?url=" + src
+		url := "http://" + node.Host + ":" + node.Port + "/file/download?file=" + src
 		resp, err := http.Get(url)
 		if err != nil {
 			fmt.Printf("download from %s has failed\n", node.Host)
