@@ -1,6 +1,7 @@
 package server
 
 import (
+	"errors"
 	"io"
 	"net/http"
 	"os"
@@ -8,13 +9,16 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/node/env"
+	"github.com/sirupsen/logrus"
 )
 
 // uploadHandler handles file upload.
 func uploadHandler(c *gin.Context) {
-	fileName := c.Request.URL.Path
+	fileName := c.Query("file")
 	if fileName == "" {
-		c.String(http.StatusBadRequest, "no filename provided")
+		c.Writer.WriteHeader(400)
+		c.Writer.Write([]byte("file name is required"))
+		logrus.Error(errors.New("file name is required"))
 		return
 	}
 	file, _, err := c.Request.FormFile("file")
