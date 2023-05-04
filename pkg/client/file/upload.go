@@ -39,7 +39,7 @@ func Upload(src, dst, host, port string) error {
 	defer file.Close()
 	for _, node := range nodes {
 		url := "http://" + node.Host + ":" + node.Port + "/file/upload?file=" + dst
-		resp, err := http.Post(url, "multipart/form-data", file)
+		resp, err := http.Post(url, "application/octet-stream", file)
 		if err != nil {
 			return err
 		}

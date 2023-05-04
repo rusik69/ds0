@@ -21,12 +21,7 @@ func uploadHandler(c *gin.Context) {
 		logrus.Error(errors.New("file name is required"))
 		return
 	}
-	file, _, err := c.Request.FormFile("file")
-	if err != nil {
-		c.String(http.StatusBadRequest, "bad request")
-		logrus.Error(err)
-		return
-	}
+	file := c.Request.Body
 	fileName = filepath.Join(env.NodeEnvInstance.Dir, fileName)
 	out, err := os.Create(fileName)
 	if err != nil {
