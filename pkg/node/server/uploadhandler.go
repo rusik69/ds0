@@ -23,6 +23,7 @@ func uploadHandler(c *gin.Context) {
 	}
 	logrus.Info("uploadHandler: ", fileName)
 	file := c.Request.Body
+	defer file.Close()
 	fileName = filepath.Join(env.NodeEnvInstance.Dir, fileName)
 	out, err := os.Create(fileName)
 	if err != nil {

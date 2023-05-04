@@ -32,18 +32,19 @@ func Upload(src, dst, host, port string) error {
 	if len(nodes) == 0 {
 		return errors.New("no nodes available")
 	}
-	file, err := os.Open(src)
-	if err != nil {
-		return err
-	}
-	defer file.Close()
 	for _, node := range nodes {
+		file, err := os.Open(src)
+		if err != nil {
+			return err
+		}
+		defer file.Close()
 		url := "http://" + node.Host + ":" + node.Port + "/file/upload?file=" + dst
 		resp, err := http.Post(url, "application/octet-stream", file)
 		if err != nil {
 			return err
 		}
-		defer resp.Body.Close()
+		resp.Body.Close()
+		file.Close()
 		if resp.StatusCode != http.StatusOK {
 			bodyStr, err := io.ReadAll(resp.Body)
 			if err != nil {
@@ -51,7 +52,7 @@ func Upload(src, dst, host, port string) error {
 			}
 			return errors.New("upload failed: " + url + " " + http.StatusText(resp.StatusCode) + " " + string(bodyStr))
 		}
-		
+
 	}
 	url = "http://" + host + ":" + port + "/file/commit?file=" + dst
 	resp, err = http.Get(url)

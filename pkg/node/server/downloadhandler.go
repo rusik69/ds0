@@ -24,15 +24,16 @@ func downloadHandler(c *gin.Context) {
 	fileName = filepath.Join(env.NodeEnvInstance.Dir, fileName)
 	file, err := os.Open(fileName)
 	if err != nil {
-		c.String(http.StatusNotFound, "file not found")
-		logrus.Error(errors.New("file not found"))
+		c.String(http.StatusNotFound, err.Error())
+		logrus.Error(err.Error())
 		return
 	}
 	defer file.Close()
 	c.Writer.WriteHeader(http.StatusOK)
 	_, err = io.Copy(c.Writer, file)
 	if err != nil {
-		c.String(http.StatusInternalServerError, "Server error")
+		c.String(http.StatusInternalServerError, err.Error())
+		logrus.Error(err.Error())
 		return
 	}
 }
