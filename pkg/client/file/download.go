@@ -21,12 +21,12 @@ func Download(src, dst, host, port string) error {
 	if resp.StatusCode != http.StatusOK {
 		return errors.New("download failed")
 	}
-	var nodes []db.HostInfo
-	if err := json.NewDecoder(resp.Body).Decode(&nodes); err != nil {
+	var fileInfo db.FileInfo
+	if err := json.NewDecoder(resp.Body).Decode(&fileInfo); err != nil {
 		return err
 	}
 	success := false
-	for _, node := range nodes {
+	for _, node := range fileInfo.Nodes {
 		url := "http://" + node.Host + ":" + node.Port + "/file/download?file=" + src
 		resp, err := http.Get(url)
 		if err != nil {
