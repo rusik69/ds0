@@ -30,7 +30,7 @@ func Download(src, dst, host, port string) error {
 		url := "http://" + node.Host + ":" + node.Port + "/file/download?file=" + src
 		resp, err := http.Get(url)
 		if err != nil {
-			fmt.Printf("download failed: " + url + " " + http.StatusText(resp.StatusCode))
+			fmt.Printf("download failed: " + url)
 			continue
 		}
 		defer resp.Body.Close()
