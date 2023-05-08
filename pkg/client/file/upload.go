@@ -25,14 +25,14 @@ func Upload(src, dst, host, port string) error {
 		}
 		return errors.New("upload failed: " + string(bodyStr))
 	}
-	var nodes []db.HostInfo
-	if err := json.NewDecoder(resp.Body).Decode(&nodes); err != nil {
+	var fileInfo db.FileInfo
+	if err := json.NewDecoder(resp.Body).Decode(&fileInfo); err != nil {
 		return err
 	}
-	if len(nodes) == 0 {
+	if len(fileInfo.Nodes) == 0 {
 		return errors.New("no nodes available")
 	}
-	for _, node := range nodes {
+	for _, node := range fileInfo.Nodes {
 		file, err := os.Open(src)
 		if err != nil {
 			return err
