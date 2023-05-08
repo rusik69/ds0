@@ -12,6 +12,7 @@ import (
 
 // Get returns the node that stores the file.
 func Get(fileName string) (db.FileInfo, error) {
+	logrus.Println("Get file: " + fileName)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	resp, err := db.DBFiles.Get(ctx, "/files/"+fileName)
 	cancel()

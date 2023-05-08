@@ -12,6 +12,7 @@ import (
 
 // Get returns the node from the database.
 func Get(nodeName string) (string, string, error) {
+	logrus.Println("Get node: " + nodeName)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	resp, err := db.DBNodes.Get(ctx, "/nodes/"+nodeName)
 	cancel()

@@ -11,6 +11,7 @@ import (
 
 // SetFile sets file state in the dabase.
 func Set(fileName string, fileInfo db.FileInfo) error {
+	logrus.Println("Set file: " + fileName)
 	fileInfoBytes, err := json.Marshal(fileInfo)
 	if err != nil {
 		logrus.Error(err)
