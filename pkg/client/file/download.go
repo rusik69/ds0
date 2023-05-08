@@ -19,7 +19,7 @@ func Download(src, dst, host, port string) error {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return errors.New("download failed")
+		return errors.New("download failed: " + url + " " + http.StatusText(resp.StatusCode))
 	}
 	var fileInfo db.FileInfo
 	if err := json.NewDecoder(resp.Body).Decode(&fileInfo); err != nil {
@@ -30,12 +30,12 @@ func Download(src, dst, host, port string) error {
 		url := "http://" + node.Host + ":" + node.Port + "/file/download?file=" + src
 		resp, err := http.Get(url)
 		if err != nil {
-			fmt.Printf("download from %s has failed\n", node.Host)
+			fmt.Printf("download failed: " + url + " " + http.StatusText(resp.StatusCode))
 			continue
 		}
 		defer resp.Body.Close()
 		if resp.StatusCode != http.StatusOK {
-			fmt.Printf("download from %s has failed\n", node.Host)
+			fmt.Printf("download failed: " + url + " " + http.StatusText(resp.StatusCode))
 			continue
 		}
 		file, err := CreateFile(src, dst)
