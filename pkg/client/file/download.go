@@ -47,6 +47,7 @@ func Download(src, dst, host, port string) error {
 			return err
 		}
 		success = true
+		break
 	}
 	if !success {
 		return errors.New("download failed")
