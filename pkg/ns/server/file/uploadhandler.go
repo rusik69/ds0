@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/rusik69/ds0/pkg/ns/db"
 	"github.com/rusik69/ds0/pkg/ns/db/file"
 	dbfile "github.com/rusik69/ds0/pkg/ns/db/file"
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
@@ -45,6 +46,13 @@ func UploadHandler(c *gin.Context) {
 			return
 		}
 		nodes := file.ChooseNodes(newNodes)
+		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes})
+		if err != nil {
+			c.Writer.WriteHeader(500)
+			c.Writer.Write([]byte(err.Error()))
+			logrus.Error(err)
+			return
+		}
 		c.JSON(http.StatusOK, nodes)
 	} else if err != nil {
 		c.Writer.WriteHeader(500)
