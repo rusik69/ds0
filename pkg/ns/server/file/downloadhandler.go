@@ -1,6 +1,7 @@
 package file
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
 
@@ -26,5 +27,13 @@ func DownloadHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
-	c.JSON(http.StatusOK, nodes)
+	s, err := json.Marshal(nodes)
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	c.Writer.WriteHeader(http.StatusOK)
+	c.Writer.Write(s)
 }
