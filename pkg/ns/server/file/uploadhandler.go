@@ -72,7 +72,7 @@ func UploadHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
-	body, err := json.Marshal(nodes)
+	body, err := json.Marshal(fileInfo.Nodes)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
