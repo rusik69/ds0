@@ -1,6 +1,7 @@
 package file
 
 import (
+	"encoding/json"
 	"errors"
 	"net/http"
 	"os"
@@ -55,7 +56,15 @@ func UploadHandler(c *gin.Context) {
 			return
 		}
 		logrus.Println(nodes)
-		c.JSON(http.StatusOK, nodes)
+		body, err := json.Marshal(nodes)
+		if err != nil {
+			c.Writer.WriteHeader(500)
+			c.Writer.Write([]byte(err.Error()))
+			logrus.Error(err)
+			return
+		}
+		c.Writer.WriteHeader(http.StatusOK)
+		c.Writer.Write(body)
 		return
 	} else if err != nil {
 		c.Writer.WriteHeader(500)
@@ -63,5 +72,13 @@ func UploadHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
-	c.JSON(http.StatusOK, fileInfo.Nodes)
+	body, err := json.Marshal(nodes)
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	c.Writer.WriteHeader(http.StatusOK)
+	c.Writer.Write(body)
 }
