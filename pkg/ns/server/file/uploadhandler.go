@@ -54,7 +54,9 @@ func UploadHandler(c *gin.Context) {
 			logrus.Error(err)
 			return
 		}
+		logrus.Println(nodes)
 		c.JSON(http.StatusOK, nodes)
+		return
 	} else if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
