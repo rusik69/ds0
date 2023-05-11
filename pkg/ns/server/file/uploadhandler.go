@@ -46,6 +46,7 @@ func UploadHandler(c *gin.Context) {
 			return
 		}
 		nodes := file.ChooseNodes(newNodes)
+		logrus.Println(nodes)
 		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes})
 		if err != nil {
 			c.Writer.WriteHeader(500)
