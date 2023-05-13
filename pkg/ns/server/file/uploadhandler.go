@@ -63,7 +63,7 @@ func UploadHandler(c *gin.Context) {
 			logrus.Error(err)
 			return
 		}
-		logrus.Println(body)
+		logrus.Println(string(body))
 		c.Writer.WriteHeader(http.StatusOK)
 		c.Writer.Write(body)
 		return
