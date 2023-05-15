@@ -3,7 +3,6 @@ package file
 import (
 	"encoding/json"
 	"errors"
-	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
