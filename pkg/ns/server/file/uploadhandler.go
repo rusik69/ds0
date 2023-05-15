@@ -64,7 +64,6 @@ func UploadHandler(c *gin.Context) {
 			return
 		}
 		logrus.Println(string(body))
-		c.Writer.WriteHeader(http.StatusOK)
 		c.Writer.Write(body)
 		return
 	} else if err != nil {
@@ -80,6 +79,5 @@ func UploadHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
-	c.Writer.WriteHeader(http.StatusOK)
 	c.Writer.Write(body)
 }
