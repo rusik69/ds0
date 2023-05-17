@@ -29,6 +29,7 @@ func Get(fileName string) (db.FileInfo, error) {
 		json.Unmarshal(ev.Value, &s)
 		nodes = append(nodes, s)
 	}
+	logrus.Println(nodes)
 	fileInfo := db.FileInfo{
 		Nodes:     nodes,
 		Committed: false,
