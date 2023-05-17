@@ -8,7 +8,7 @@ import (
 // CreateFile creates a file.
 func CreateFile(src, dst string) (*os.File, error) {
 	fullPath := ""
-	if dst[len(dst)] == '/' {
+	if dst[len(dst)-1] == '/' {
 		fullPath = dst + strings.Split(src, "/")[len(strings.Split(src, "/"))-1]
 	} else {
 		fullPath = dst
