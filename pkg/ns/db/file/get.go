@@ -23,16 +23,8 @@ func Get(fileName string) (db.FileInfo, error) {
 	if len(resp.Kvs) == 0 {
 		return db.FileInfo{}, os.ErrNotExist
 	}
-	var nodes []db.HostInfo
-	for _, ev := range resp.Kvs {
-		var s db.HostInfo
-		json.Unmarshal(ev.Value, &s)
-		nodes = append(nodes, s)
-	}
-	logrus.Println(nodes)
-	fileInfo := db.FileInfo{
-		Nodes:     nodes,
-		Committed: false,
-	}
+	var fileInfo db.FileInfo
+	json.Unmarshal(resp.Kvs[0].Value, &fileInfo)
+	logrus.Println("Get file: " + string(resp.Kvs[0].Value))
 	return fileInfo, nil
 }
