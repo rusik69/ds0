@@ -7,11 +7,10 @@ import (
 	"github.com/rusik69/ds0/pkg/ns/db/node"
 	"github.com/rusik69/ds0/pkg/ns/env"
 	"github.com/rusik69/ds0/pkg/ns/server"
-	"github.com/sirupsen/logrus"
 )
 
 func main() {
-	logrus.SetReportCaller(true)
+	//logrus.SetReportCaller(true)
 	err := env.Parse()
 	if err != nil {
 		panic(err)
