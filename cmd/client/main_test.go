@@ -80,4 +80,10 @@ func TestClient(t *testing.T) {
 			t.Error(err)
 		}
 	})
+	t.Run("delete", func(t *testing.T) {
+		err := file.Delete("/"+fileName, "ds0-ns", "6969")
+		if err != nil {
+			t.Error(err)
+		}
+	}
 }

@@ -20,7 +20,6 @@ func CreateFile(src, dst string) (*os.File, error) {
 		if err == os.ErrNotExist {
 			file, err := os.Create(fullPath)
 			if err != nil {
-				fmt.Println("Create file error: " + err.Error())
 				return nil, err
 			}
 			return file, nil

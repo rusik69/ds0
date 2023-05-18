@@ -22,7 +22,7 @@ func Set(fileName string, fileInfo db.FileInfo) error {
 	defer cancel()
 	_, err = db.DBFiles.Put(ctx, "/files/"+fileName, string(fileInfoBytes))
 	if err != nil {
-		logrus.Fatal(err)
+		logrus.Error(err)
 		return err
 	}
 	return nil

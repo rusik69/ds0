@@ -26,7 +26,6 @@ func Download(src, dst, host, port string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("bodyBytes: " + string(bodyBytes))
 	var fileInfo db.FileInfo
 	if err := json.Unmarshal(bodyBytes, &fileInfo); err != nil {
 		return err
@@ -37,22 +36,18 @@ func Download(src, dst, host, port string) error {
 		fmt.Println(url)
 		resp, err := http.Get(url)
 		if err != nil {
-			fmt.Printf("download failed: " + url)
 			continue
 		}
 		defer resp.Body.Close()
 		if resp.StatusCode != http.StatusOK {
-			fmt.Printf("download failed: " + url + " " + http.StatusText(resp.StatusCode))
 			continue
 		}
 		file, err := CreateFile(src, dst)
 		if err != nil {
-			fmt.Println("CreateFile failed: " + err.Error())
 			return err
 		}
 		defer file.Close()
 		if _, err := io.Copy(file, resp.Body); err != nil {
-			fmt.Println("io.Copy failed: " + err.Error())
 			return err
 		}
 		success = true
