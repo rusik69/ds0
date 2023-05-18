@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/rusik69/ds0/pkg/client/cmdargs"
 	"github.com/rusik69/ds0/pkg/client/file"
 	"github.com/rusik69/ds0/pkg/client/node"
@@ -8,25 +10,36 @@ import (
 
 func main() {
 	cmdargs.Parse()
-	if cmdargs.Instance.Cmd == "upload" {
+	switch cmdargs.Instance.Cmd {
+	case "upload":
 		err := file.Upload(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2, cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
-	} else if cmdargs.Instance.Cmd == "download" {
+	case "download":
 		err := file.Download(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2, cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
-	} else if cmdargs.Instance.Cmd == "addnode" {
+	case "addnode":
 		err := node.Add(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2, cmdargs.Instance.Arg3, cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
-	} else if cmdargs.Instance.Cmd == "removenode" {
+	case "removenode":
 		err := node.Remove(cmdargs.Instance.Arg1, cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
+	case "listnodes":
+		nodes, err := node.List(cmdargs.Instance.HostName, cmdargs.Instance.Port)
+		if err != nil {
+			panic(err)
+		}
+		for _, node := range nodes {
+			fmt.Println(node.Host + " " + node.Port)
+		}
+	default:
+		panic("unknown action: " + cmdargs.Instance.Cmd)
 	}
 }

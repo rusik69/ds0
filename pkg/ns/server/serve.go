@@ -14,6 +14,7 @@ func Serve() {
 	router.GET("/node/get", node.GetNodeHandler)
 	router.GET("/node/add", node.AddNodeHandler)
 	router.GET("/node/remove", node.RemoveNodeHandler)
+	router.GET("/node/list", node.ListNodesHandler)
 	router.GET("/file/upload", file.UploadHandler)
 	router.GET("/file/commit", file.CommitHandler)
 	router.GET("/file/download", file.DownloadHandler)

@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/rusik69/ds0/pkg/client/file"
+	"github.com/rusik69/ds0/pkg/client/node"
 )
 
 var TestFileName string
@@ -84,6 +85,15 @@ func TestClient(t *testing.T) {
 		err := file.Delete("/"+fileName, "ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
+		}
+	})
+	t.Run("listnodes", func(t *testing.T) {
+		nodes, err := node.List("ds0-ns", "6969")
+		if err != nil {
+			t.Error(err)
+		}
+		if len(nodes) != 3 {
+			t.Error("expected 3 nodes")
 		}
 	})
 }
