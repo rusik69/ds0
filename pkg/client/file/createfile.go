@@ -1,7 +1,6 @@
 package file
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -14,7 +13,6 @@ func CreateFile(src, dst string) (*os.File, error) {
 	} else {
 		fullPath = dst
 	}
-	fmt.Println("Create file: " + fullPath)
 	_, err := os.Stat(fullPath)
 	if err != nil {
 		if err == os.ErrNotExist {
