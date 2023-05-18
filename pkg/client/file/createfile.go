@@ -26,7 +26,7 @@ func CreateFile(src, dst string) (*os.File, error) {
 			return file, nil
 		}
 	} else {
-		return os.Open(fullPath)
+		return os.OpenFile(fullPath, os.O_WRONLY, os.ModeAppend)
 	}
 	return nil, nil
 }
