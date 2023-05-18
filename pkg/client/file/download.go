@@ -47,10 +47,12 @@ func Download(src, dst, host, port string) error {
 		}
 		file, err := CreateFile(src, dst)
 		if err != nil {
+			fmt.Println("CreateFile failed: " + err.Error())
 			return err
 		}
 		defer file.Close()
 		if _, err := io.Copy(file, resp.Body); err != nil {
+			fmt.Println("io.Copy failed: " + err.Error())
 			return err
 		}
 		success = true
