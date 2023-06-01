@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/ns/env"
+	"github.com/rusik69/ds0/pkg/ns/server/cluster"
 	"github.com/rusik69/ds0/pkg/ns/server/file"
 	"github.com/rusik69/ds0/pkg/ns/server/node"
 	"github.com/sirupsen/logrus"
@@ -15,6 +16,7 @@ func Serve() {
 	router.GET("/node/add", node.AddNodeHandler)
 	router.GET("/node/remove", node.RemoveNodeHandler)
 	router.GET("/node/list", node.ListNodesHandler)
+	router.GET("/cluster/stats", cluster.StatsHandler)
 	router.GET("/file/upload", file.UploadHandler)
 	router.GET("/file/commit", file.CommitHandler)
 	router.GET("/file/download", file.DownloadHandler)

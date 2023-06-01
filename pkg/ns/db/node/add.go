@@ -7,13 +7,14 @@ import (
 	"time"
 
 	"github.com/rusik69/ds0/pkg/ns/db"
+	"github.com/rusik69/ds0/pkg/ns/env"
 	"github.com/sirupsen/logrus"
 )
 
 // Add adds the node to the database.
 func Add(name, hostname, port string) error {
 	logrus.Println("Add node: " + hostname + ":" + port)
-	info := db.HostInfo{
+	info := env.NodeInfo{
 		Host: hostname,
 		Port: port,
 	}

@@ -14,5 +14,6 @@ func Serve() {
 	r.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
+	r.GET("/stats", statsHandler)
 	r.Run(":" + string(env.NodeEnvInstance.Port))
 }

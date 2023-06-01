@@ -15,32 +15,35 @@ func Parse() {
 	}
 	cmd := os.Args[1]
 	var arg1, arg2, arg3 string
-	if cmd == "upload" {
+	switch cmd {
+	case "upload":
 		if len(os.Args) < 4 {
 			panic("specify source file and destination path")
 		}
 		arg1 = os.Args[2]
 		arg2 = os.Args[3]
-	} else if cmd == "download" {
+	case "download":
 		if len(os.Args) < 4 {
 			panic("specify source path and destination file")
 
 		}
 		arg1 = os.Args[2]
 		arg2 = os.Args[3]
-	} else if cmd == "addnode" {
+	case "addnode":
 		if len(os.Args) < 5 {
 			panic("specify node name, hostname and port")
 		}
 		arg1 = os.Args[2]
 		arg2 = os.Args[3]
 		arg3 = os.Args[4]
-	} else if cmd == "removenode" {
+	case "removenode":
 		if len(os.Args) < 4 {
-			panic("specify node name")
+			panic("specify node name and port")
 		}
 		arg1 = os.Args[2]
-	} else {
+	case "listnodes":
+
+	default:
 		panic("unknown action: " + cmd)
 	}
 	flag.Parse()

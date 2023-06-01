@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/rusik69/ds0/pkg/ns/db"
+	"github.com/rusik69/ds0/pkg/ns/env"
 )
 
 // Upload uploads a file to the server.
@@ -25,7 +25,7 @@ func Upload(src, dst, host, port string) error {
 		}
 		return errors.New("upload failed: " + string(bodyStr))
 	}
-	var nodes []db.HostInfo
+	var nodes []env.NodeInfo
 	if err := json.NewDecoder(resp.Body).Decode(&nodes); err != nil {
 		return err
 	}

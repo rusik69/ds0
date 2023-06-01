@@ -7,11 +7,11 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/rusik69/ds0/pkg/ns/db"
+	"github.com/rusik69/ds0/pkg/ns/env"
 )
 
 // List returns the list of nodes in the database.
-func List(host, port string) ([]db.HostInfo, error) {
+func List(host, port string) ([]env.NodeInfo, error) {
 	url := fmt.Sprintf("http://%s:%s/node/list", host, port)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -25,7 +25,7 @@ func List(host, port string) ([]db.HostInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	var nodes []db.HostInfo
+	var nodes []env.NodeInfo
 	if err := json.Unmarshal(bodyBytes, &nodes); err != nil {
 		return nil, err
 	}

@@ -67,7 +67,7 @@ func Parse() error {
 			if len(nodeInfo) != 3 {
 				return errors.New("NS_NODES is not set correctly")
 			}
-			nodesMap[nodeInfo[0]] = NodeInfo{HostName: nodeInfo[1], Port: nodeInfo[2]}
+			nodesMap[nodeInfo[0]] = NodeInfo{Host: nodeInfo[1], Port: nodeInfo[2]}
 		}
 	}
 	nodesstatefulSetName := os.Getenv("NS_NODES_STATEFUL_SET_NAME")

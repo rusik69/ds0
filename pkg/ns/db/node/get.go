@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/rusik69/ds0/pkg/ns/db"
+	"github.com/rusik69/ds0/pkg/ns/env"
 	"github.com/sirupsen/logrus"
 )
 
@@ -22,7 +23,7 @@ func Get(nodeName string) (string, string, error) {
 	if len(resp.Kvs) == 0 {
 		return "", "", errors.New("node not found")
 	}
-	var s db.HostInfo
+	var s env.NodeInfo
 	json.Unmarshal(resp.Kvs[0].Value, &s)
 	return s.Host, s.Port, nil
 }

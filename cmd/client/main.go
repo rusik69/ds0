@@ -37,8 +37,16 @@ func main() {
 			panic(err)
 		}
 		for _, node := range nodes {
-			fmt.Println(node.Host + " " + node.Port)
+			fmt.Println(node.Host + ":" + node.Port)
 		}
+	case "nodestats":
+		node, err := node.Stats(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Total space: ", node.TotalSpace)
+		fmt.Println("Free space: ", node.FreeSpace)
+		fmt.Println("Used space: ", node.UsedSpace)
 	default:
 		panic("unknown action: " + cmdargs.Instance.Cmd)
 	}

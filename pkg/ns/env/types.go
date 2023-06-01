@@ -21,8 +21,11 @@ type NSEnv struct {
 // NodeEnvInstance is the singleton instance of NodeEnv.
 var NSEnvInstance *NSEnv
 
-// NodeInfo is the information of a node.
+// NodeInfo is the host information.
 type NodeInfo struct {
-	HostName string
-	Port     string
+	Host       string
+	Port       string
+	TotalSpace uint64
+	FreeSpace  uint64
+	UsedSpace  uint64
 }
