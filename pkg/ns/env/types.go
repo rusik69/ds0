@@ -23,9 +23,6 @@ var NSEnvInstance *NSEnv
 
 // NodeInfo is the host information.
 type NodeInfo struct {
-	Host       string
-	Port       string
-	TotalSpace uint64
-	FreeSpace  uint64
-	UsedSpace  uint64
+	Host string
+	Port string
 }
