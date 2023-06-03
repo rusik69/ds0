@@ -19,4 +19,4 @@ jobs:
       run: make helminstalltest
     - name: testwait
       run: make testwait
-    timeout-minutes: 10
+    timeout-minutes: 20
