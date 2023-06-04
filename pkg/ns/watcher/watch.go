@@ -1,6 +1,7 @@
 package watcher
 
 import (
+	"fmt"
 	"time"
 
 	nodeclient "github.com/rusik69/ds0/pkg/client/node"
@@ -26,9 +27,9 @@ func Watch() {
 				continue
 			}
 			logrus.Println("Node: " + node.Host + ":" + node.Port)
-			logrus.Println("Total space: " + string(nodeStats.TotalSpace))
-			logrus.Println("Free space: " + string(nodeStats.FreeSpace))
-			logrus.Println("Used space: " + string(nodeStats.UsedSpace))
+			logrus.Println("Total space: " + fmt.Sprintf("%d", nodeStats.TotalSpace))
+			logrus.Println("Free space: " + fmt.Sprintf("%d", nodeStats.FreeSpace))
+			logrus.Println("Used space: " + fmt.Sprintf("%d", nodeStats.UsedSpace))
 		}
 	}
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/rusik69/ds0/pkg/ns/server/cluster"
 	"github.com/rusik69/ds0/pkg/ns/server/file"
 	"github.com/rusik69/ds0/pkg/ns/server/node"
+	"github.com/rusik69/ds0/pkg/ns/server/web"
 	"github.com/sirupsen/logrus"
 )
 
@@ -24,6 +25,7 @@ func Serve() {
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
+	router.GET("/", web.RootHandler)
 	logrus.Println("NS is listening on port " + string(env.NSEnvInstance.Port))
 	router.Run(":" + string(env.NSEnvInstance.Port))
 }
