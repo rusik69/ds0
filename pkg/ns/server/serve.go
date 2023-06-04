@@ -6,7 +6,7 @@ import (
 	"github.com/rusik69/ds0/pkg/ns/server/cluster"
 	"github.com/rusik69/ds0/pkg/ns/server/file"
 	"github.com/rusik69/ds0/pkg/ns/server/node"
-	"github.com/rusik69/ds0/pkg/ns/server/web"
+	"github.com/rusik69/ds0/pkg/ns/web"
 	"github.com/sirupsen/logrus"
 )
 
