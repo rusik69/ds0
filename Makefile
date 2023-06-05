@@ -21,7 +21,7 @@ build:
 
 docker:
 	#docker system prune -a -f
-	#docker buildx create --name multiarch --use || true
+	docker buildx create --name multiarch --use || true
 	docker buildx build --platform linux/amd64,linux/arm64 -t $(ORG_PREFIX)/ds0-$(BINARY_NAME_NS):$(IMAGE_TAG) -f Dockerfile-ns --push .
 	docker buildx build --platform linux/amd64,linux/arm64 -t $(ORG_PREFIX)/ds0-$(BINARY_NAME_NODE):$(IMAGE_TAG) -f Dockerfile-node --push .
 	docker buildx build --platform linux/amd64,linux/arm64 -t $(ORG_PREFIX)/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG) -f Dockerfile-client --push .
