@@ -29,8 +29,8 @@ spec:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.name
-          - name: NS_NODES
-            value: {{ .Values.nsNodes }}
+          - name: NS_NODES_STATEFUL_SET_NAME
+            value: {{ .Values.nodesStatefulSetName }}
           - name: NS_ETCD_HOST
             value: {{ .Values.nsETCD.Host }}
           - name: NS_ETCD_USER

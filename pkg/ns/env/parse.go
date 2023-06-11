@@ -77,8 +77,8 @@ func Parse() error {
 		NodesStatefulSetPort: nodesStatefulSetPort,
 	}
 
-	logrus.Println("node name: ", name)
-	logrus.Println("node port: ", port)
+	logrus.Println("ns name: ", name)
+	logrus.Println("ns port: ", port)
 	logrus.Println("etcd host: ", etcdHost)
 	logrus.Println("etcd port: ", etcdPort)
 	logrus.Println("etcd user: ", etcdUser)
