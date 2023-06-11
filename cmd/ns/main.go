@@ -8,6 +8,7 @@ import (
 	"github.com/rusik69/ds0/pkg/ns/env"
 	"github.com/rusik69/ds0/pkg/ns/server"
 	"github.com/rusik69/ds0/pkg/ns/watcher"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {
@@ -25,6 +26,7 @@ func main() {
 		panic(err)
 	}
 	defer db.DBFiles.Close()
+	logrus.Println("Connected to ETCD files: " + env.NSEnvInstance.ETCDHostFiles + ":" + env.NSEnvInstance.ETCDPortFiles)
 	db.DBNodes, err = db.Connect(
 		env.NSEnvInstance.ETCDHostNodes,
 		env.NSEnvInstance.ETCDPortNodes,
@@ -34,6 +36,7 @@ func main() {
 		panic(err)
 	}
 	defer db.DBNodes.Close()
+	logrus.Println("Connected to ETCD nodes: " + env.NSEnvInstance.ETCDHostNodes + ":" + env.NSEnvInstance.ETCDPortNodes)
 	for name, hostInfo := range env.NSEnvInstance.Nodes {
 		err = node.Add(name, hostInfo.Host, hostInfo.Port)
 		if err != nil {
