@@ -12,7 +12,7 @@ import (
 func Delete(nodeName string) error {
 	logrus.Println("Delete node: " + nodeName)
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	_, err := db.DBNodes.Delete(ctx, nodeName)
+	_, err := db.DB.Delete(ctx, nodeName)
 	cancel()
 	if err != nil {
 		return err

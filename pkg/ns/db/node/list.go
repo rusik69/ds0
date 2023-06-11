@@ -16,7 +16,7 @@ func List() ([]env.NodeInfo, error) {
 	logrus.Println("List nodes")
 	var nodes []env.NodeInfo
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	resp, err := db.DBNodes.Get(ctx, "/nodes/", clientv3.WithPrefix())
+	resp, err := db.DB.Get(ctx, "/nodes/", clientv3.WithPrefix())
 	cancel()
 	if err != nil {
 		return nodes, err

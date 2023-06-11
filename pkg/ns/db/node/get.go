@@ -15,7 +15,7 @@ import (
 func Get(nodeName string) (string, string, error) {
 	logrus.Println("Get node: " + nodeName)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	resp, err := db.DBNodes.Get(ctx, "/nodes/"+nodeName)
+	resp, err := db.DB.Get(ctx, "/nodes/"+nodeName)
 	cancel()
 	if err != nil {
 		logrus.Error(err)

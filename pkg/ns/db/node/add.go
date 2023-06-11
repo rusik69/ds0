@@ -24,7 +24,7 @@ func Add(name, hostname, port string) error {
 		return err
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	_, err = db.DBNodes.Put(ctx, "/nodes/"+name, string(bytes))
+	_, err = db.DB.Put(ctx, "/nodes/"+name, string(bytes))
 	cancel()
 	if err != nil {
 		logrus.Error(err)
