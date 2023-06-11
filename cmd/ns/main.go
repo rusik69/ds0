@@ -17,32 +17,16 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	db.DBFiles, err = db.Connect(
-		env.NSEnvInstance.ETCDHostFiles,
-		env.NSEnvInstance.ETCDPortFiles,
-		env.NSEnvInstance.ETCDUserFiles,
-		env.NSEnvInstance.ETCDPassFiles)
+	db.DB, err = db.Connect(
+		env.NSEnvInstance.ETCDHost,
+		env.NSEnvInstance.ETCDPort,
+		env.NSEnvInstance.ETCDUser,
+		env.NSEnvInstance.ETCDPass)
 	if err != nil {
 		panic(err)
 	}
-	defer db.DBFiles.Close()
-	logrus.Println("Connected to ETCD files: " + env.NSEnvInstance.ETCDHostFiles + ":" + env.NSEnvInstance.ETCDPortFiles)
-	db.DBNodes, err = db.Connect(
-		env.NSEnvInstance.ETCDHostNodes,
-		env.NSEnvInstance.ETCDPortNodes,
-		env.NSEnvInstance.ETCDUserNodes,
-		env.NSEnvInstance.ETCDPassNodes)
-	if err != nil {
-		panic(err)
-	}
-	defer db.DBNodes.Close()
-	logrus.Println("Connected to ETCD nodes: " + env.NSEnvInstance.ETCDHostNodes + ":" + env.NSEnvInstance.ETCDPortNodes)
-	for name, hostInfo := range env.NSEnvInstance.Nodes {
-		err = node.Add(name, hostInfo.Host, hostInfo.Port)
-		if err != nil {
-			panic(err)
-		}
-	}
+	defer db.DB.Close()
+	logrus.Println("Connected to ETCD: " + env.NSEnvInstance.ETCDHost + ":" + env.NSEnvInstance.ETCDPort)
 	if env.NSEnvInstance.NodesStatefulSetName != "" {
 		ips, err := net.LookupIP(env.NSEnvInstance.NodesStatefulSetName)
 		if err != nil {

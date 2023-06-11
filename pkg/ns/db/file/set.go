@@ -20,7 +20,7 @@ func Set(fileName string, fileInfo db.FileInfo) error {
 	logrus.Println("Set file: " + string(fileInfoBytes))
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	_, err = db.DBFiles.Put(ctx, "/files/"+fileName, string(fileInfoBytes))
+	_, err = db.DB.Put(ctx, "/files/"+fileName, string(fileInfoBytes))
 	if err != nil {
 		logrus.Error(err)
 		return err

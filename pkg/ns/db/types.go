@@ -5,8 +5,8 @@ import (
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
-// DBFiles is the database connection.
-var DBFiles, DBNodes *clientv3.Client
+// DB is the database connection.
+var DB *clientv3.Client
 
 // FileInfo is the file information.
 type FileInfo struct {

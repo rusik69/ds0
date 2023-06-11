@@ -14,7 +14,7 @@ import (
 func Get(fileName string) (db.FileInfo, error) {
 	logrus.Println("Get file: " + fileName)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	resp, err := db.DBFiles.Get(ctx, "/files/"+fileName)
+	resp, err := db.DB.Get(ctx, "/files/"+fileName)
 	cancel()
 	if err != nil {
 		logrus.Error(err)

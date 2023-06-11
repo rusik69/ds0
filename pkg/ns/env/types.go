@@ -3,10 +3,10 @@ package env
 // NSEnv is the environment of a node.
 type NSEnv struct {
 	Name                 string
-	ETCDHostFiles        string
-	ETCDPortFiles        string
-	ETCDUserFiles        string
-	ETCDPassFiles        string
+	ETCDHost             string
+	ETCDPort             string
+	ETCDUser             string
+	ETCDPass             string
 	ETCDHostNodes        string
 	ETCDPortNodes        string
 	ETCDUserNodes        string

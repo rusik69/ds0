@@ -12,7 +12,7 @@ import (
 func Delete(fileName string) error {
 	logrus.Println("Delete file: " + fileName)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	_, err := db.DBFiles.Delete(ctx, "/files/"+fileName)
+	_, err := db.DB.Delete(ctx, "/files/"+fileName)
 	cancel()
 	if err != nil {
 		logrus.Error(err)
