@@ -27,9 +27,5 @@ dependencies:
   - name: etcd
     version: "8.8.1"
     repository: "https://charts.bitnami.com/bitnami"
-    alias: etcd-files
-  - name: etcd
-    version: "8.8.1"
-    repository: "https://charts.bitnami.com/bitnami"
-    alias: etcd-nodes
+    alias: etcd
 

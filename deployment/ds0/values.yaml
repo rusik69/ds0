@@ -15,21 +15,12 @@ image:
   tag: latest
 
 nodesStatefulSetName: "ds0-node-headless"
-nsETCDFiles:
-  Host: "ds0-etcd-files"
-  User: root
-  Pass: password
-nsETCDNodes:
-  Host: "ds0-etcd-nodes"
+nsETCD:
+  Host: "ds0-etcd"
   User: root
   Pass: password
 
-etcd-files:
-  auth:
-    rbac:
-      rootPassword: password
-
-etcd-nodes:
+etcd:
   auth:
     rbac:
       rootPassword: password
