@@ -27,5 +27,3 @@ dependencies:
   - name: etcd
     version: "8.8.1"
     repository: "https://charts.bitnami.com/bitnami"
-    alias: etcd
-

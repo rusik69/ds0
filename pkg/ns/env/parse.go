@@ -20,19 +20,19 @@ func Parse() error {
 	if port == "" {
 		port = "6969"
 	}
-	etcdHost := os.Getenv("NS_ETCD_HOST_FILES")
+	etcdHost := os.Getenv("NS_ETCD_HOST")
 	if etcdHost == "" {
 		etcdHost = "localhost"
 	}
-	etcdPort := os.Getenv("NS_ETCD_PORT_FILES")
+	etcdPort := os.Getenv("NS_ETCD_PORT")
 	if etcdPort == "" {
 		etcdPort = "2379"
 	}
-	etcdUser := os.Getenv("NS_ETCD_USER_FILES")
+	etcdUser := os.Getenv("NS_ETCD_USER")
 	if etcdUser == "" {
 		etcdUser = ""
 	}
-	etcdPass := os.Getenv("NS_ETCD_PASS_FILES")
+	etcdPass := os.Getenv("NS_ETCD_PASS")
 	if etcdPass == "" {
 		etcdPass = ""
 	}
