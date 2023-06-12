@@ -12,4 +12,5 @@ var DB *clientv3.Client
 type FileInfo struct {
 	Nodes     []env.NodeInfo
 	Committed bool
+	TimeAdded uint64
 }

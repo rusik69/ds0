@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/ns/db"
@@ -46,7 +47,8 @@ func UploadHandler(c *gin.Context) {
 			return
 		}
 		nodes := file.ChooseNodes(newNodes)
-		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes})
+		timestamp := uint64(time.Now().Unix())
+		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp})
 		if err != nil {
 			c.Writer.WriteHeader(500)
 			c.Writer.Write([]byte(err.Error()))
