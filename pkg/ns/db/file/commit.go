@@ -14,5 +14,6 @@ func Commit(fileName string) error {
 	if err != nil {
 		return err
 	}
-	return nil
+	err = DeleteUncommitted(fileName)
+	return err
 }
