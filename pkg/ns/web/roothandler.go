@@ -22,5 +22,5 @@ func RootHandler(c *gin.Context) {
 		"Tittle": "DS0",
 		"Nodes":  nodes,
 	}
-	c.HTML(http.StatusOK, "html/index.html", data)
+	c.HTML(http.StatusOK, "pkg/ns/web/html/index.html", data)
 }
