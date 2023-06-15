@@ -5,7 +5,7 @@ import "github.com/sirupsen/logrus"
 // Commit commits the file to the database.
 func Commit(fileName string) error {
 	logrus.Println("Commit file: " + fileName)
-	fileInfo, err := Get(fileName)
+	fileInfo, err := GetUncommitted(fileName)
 	if err != nil {
 		return err
 	}
