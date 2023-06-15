@@ -22,5 +22,20 @@ func RootHandler(c *gin.Context) {
 		"Tittle": "DS0",
 		"Nodes":  nodes,
 	}
-	c.HTML(http.StatusOK, "pkg/ns/web/html/index.html", data)
+	tmpl, err := tepmlate.ParseFiles("pkg/ns/web/html/index.html")
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	err = tmpl.Execute(c.Writer, data)
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	c.Writer.WriteHeader(http.StatusOK)
+	return
 }
