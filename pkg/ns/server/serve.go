@@ -13,7 +13,7 @@ import (
 // Serve serves the ns.
 func Serve() {
 	router := gin.Default()
-	router.LoadHTMLGlob("pkg/ns/web/html/*.html")
+	router.LoadHTMLGlob("/app/html/*.html")
 	router.GET("/node/get", node.GetNodeHandler)
 	router.GET("/node/add", node.AddNodeHandler)
 	router.GET("/node/remove", node.RemoveNodeHandler)

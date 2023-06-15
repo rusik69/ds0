@@ -8,6 +8,7 @@ RUN CGO_ENABLED=0 \
 FROM alpine:latest
 WORKDIR /app
 COPY --from=build-env /go/bin/ns /app/ns
+COPY --from=build-env /go/src/github.com/rusik69/ds0/pkg/ns/web/html /app/html
 
 ENTRYPOINT ["/app/ns"]
 EXPOSE 6969
