@@ -23,7 +23,7 @@ func RootHandler(c *gin.Context) {
 		"Tittle": "DS0",
 		"Nodes":  nodes,
 	}
-	tmpl, err := template.ParseFiles("index.html")
+	tmpl, err := template.ParseFiles("/app/html/index.html")
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
