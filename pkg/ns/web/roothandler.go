@@ -2,6 +2,7 @@ package web
 
 import (
 	"net/http"
+	"text/template"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/ns/db/node"
@@ -22,7 +23,7 @@ func RootHandler(c *gin.Context) {
 		"Tittle": "DS0",
 		"Nodes":  nodes,
 	}
-	tmpl, err := tepmlate.ParseFiles("pkg/ns/web/html/index.html")
+	tmpl, err := template.ParseFiles("pkg/ns/web/html/index.html")
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
