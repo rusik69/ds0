@@ -3,6 +3,7 @@ module github.com/rusik69/ds0
 go 1.18
 
 require (
+	github.com/dustin/go-humanize v1.0.0
 	github.com/gin-gonic/gin v1.8.1
 	github.com/sirupsen/logrus v1.9.0
 	go.etcd.io/etcd/client/v3 v3.5.7

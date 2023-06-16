@@ -1,7 +1,5 @@
 package env
 
-import "github.com/rusik69/ds0/pkg/node/server"
-
 // NSEnv is the environment of a node.
 type NSEnv struct {
 	Name                 string
@@ -23,9 +21,15 @@ type NSEnv struct {
 // NodeEnvInstance is the singleton instance of NodeEnv.
 var NSEnvInstance *NSEnv
 
+type NodeStatsHumanized struct {
+	TotalSpace string
+	FreeSpace  string
+	UsedSpace  string
+}
+
 // NodeInfo is the host information.
 type NodeInfo struct {
 	Host  string
 	Port  string
-	Stats server.NodeStats
+	Stats NodeStatsHumanized
 }

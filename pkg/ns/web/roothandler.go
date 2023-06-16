@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"text/template"
 
+	humanize "github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
 	clientnode "github.com/rusik69/ds0/pkg/client/node"
 	"github.com/rusik69/ds0/pkg/ns/db/node"
@@ -27,9 +28,9 @@ func RootHandler(c *gin.Context) {
 			logrus.Error(err)
 			continue
 		}
-		nodes[i].Stats.TotalSpace = stats.TotalSpace
-		nodes[i].Stats.FreeSpace = stats.FreeSpace
-		nodes[i].Stats.UsedSpace = stats.UsedSpace
+		nodes[i].Stats.TotalSpace = humanize.Bytes(stats.TotalSpace)
+		nodes[i].Stats.FreeSpace = humanize.Bytes(stats.FreeSpace)
+		nodes[i].Stats.UsedSpace = humanize.Bytes(stats.UsedSpace)
 		totalSpace += stats.TotalSpace
 		totalFreeSpace += stats.FreeSpace
 		totalUsedSpace += stats.UsedSpace
@@ -37,9 +38,9 @@ func RootHandler(c *gin.Context) {
 	data := gin.H{
 		"Title":          "DS0",
 		"Nodes":          nodes,
-		"TotalSpace":     totalSpace,
-		"TotalFreeSpace": totalFreeSpace,
-		"TotalUsedSpace": totalUsedSpace,
+		"TotalSpace":     humanize.Bytes(totalSpace),
+		"TotalFreeSpace": humanize.Bytes(totalFreeSpace),
+		"TotalUsedSpace": humanize.Bytes(totalUsedSpace),
 	}
 	tmpl, err := template.ParseFiles("/app/html/index.html")
 	if err != nil {
