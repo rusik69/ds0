@@ -21,15 +21,15 @@ func RootHandler(c *gin.Context) {
 		return
 	}
 	var totalSpace, totalFreeSpace, totalUsedSpace uint64
-	for _, node := range nodes {
-		stats, err := clientnode.Stats(node.Host, node.Port)
+	for i := 0; i < len(nodes); i++ {
+		stats, err := clientnode.Stats(nodes[i].Host, nodes[i].Port)
 		if err != nil {
 			logrus.Error(err)
 			continue
 		}
-		node.Stats.TotalSpace = stats.TotalSpace
-		node.Stats.FreeSpace = stats.FreeSpace
-		node.Stats.UsedSpace = stats.UsedSpace
+		nodes[i].Stats.TotalSpace = stats.TotalSpace
+		nodes[i].Stats.FreeSpace = stats.FreeSpace
+		nodes[i].Stats.UsedSpace = stats.UsedSpace
 		totalSpace += stats.TotalSpace
 		totalFreeSpace += stats.FreeSpace
 		totalUsedSpace += stats.UsedSpace
