@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>{{.Title}}</title>
-    </head>
-    <body>
-        <h1>{{.Title}}</h1>
-        <ul>
-            {{range .Nodes}}
-                <li>{{.Host}}:{{.Port}}</li>
-            {{end}}
-        </ul>
-    </body>
+<head>
+    <title>{{ .Title }}</title>
+</head>
+<body>
+    <h1>Node Stats</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Host</th>
+                <th>Port</th>
+                <th>Total Space</th>
+                <th>Free Space</th>
+                <th>Used Space</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range .Nodes }}
+            <tr>
+                <td>{{ .Host }}</td>
+                <td>{{ .Port }}</td>
+                <td>{{ .Stats.TotalSpace }}</td>
+                <td>{{ .Stats.FreeSpace }}</td>
+                <td>{{ .Stats.UsedSpace }}</td>
+            </tr>
+            {{ end }}
+            <tr>
+                <td><strong>Total</strong></td>
+                <td></td>
+                <td>{{ .TotalSpace }}</td>
+                <td>{{ .TotalFreeSpace }}</td>
+                <td>{{ .TotalUsedSpace }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
 </html>
