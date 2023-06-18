@@ -26,5 +26,30 @@ func CommitHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
+	file, err := dbfile.GetUncommitted(fileName)
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	filesInfo, err := dbfile.GetFilesInfo()
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	filesInfo.UncommittedSize -= file.Size
+	filesInfo.UncommittedFiles--
+	filesInfo.TotalSize += file.Size
+	filesInfo.TotalFiles++
+	err = dbfile.SetFilesInfo(filesInfo)
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
 	c.Writer.WriteHeader(http.StatusOK)
 }

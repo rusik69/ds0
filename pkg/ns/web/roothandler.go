@@ -7,6 +7,7 @@ import (
 	humanize "github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
 	clientnode "github.com/rusik69/ds0/pkg/client/node"
+	dbfile "github.com/rusik69/ds0/pkg/ns/db/file"
 	"github.com/rusik69/ds0/pkg/ns/db/node"
 	"github.com/sirupsen/logrus"
 )
@@ -35,12 +36,23 @@ func RootHandler(c *gin.Context) {
 		totalFreeSpace += stats.FreeSpace
 		totalUsedSpace += stats.UsedSpace
 	}
+	filesInfo, err := dbfile.GetFilesInfo()
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
 	data := gin.H{
-		"Title":          "DS0",
-		"Nodes":          nodes,
-		"TotalSpace":     humanize.Bytes(totalSpace),
-		"TotalFreeSpace": humanize.Bytes(totalFreeSpace),
-		"TotalUsedSpace": humanize.Bytes(totalUsedSpace),
+		"Title":            "DS0",
+		"Nodes":            nodes,
+		"TotalSpace":       humanize.Bytes(totalSpace),
+		"TotalFreeSpace":   humanize.Bytes(totalFreeSpace),
+		"TotalUsedSpace":   humanize.Bytes(totalUsedSpace),
+		"TotalFiles":       filesInfo.TotalFiles,
+		"TotalSize":        humanize.Bytes(filesInfo.TotalSize),
+		"UncommittedFiles": filesInfo.UncommittedFiles,
+		"UncommittedSize":  humanize.Bytes(filesInfo.UncommittedSize),
 	}
 	tmpl, err := template.ParseFiles("/app/html/index.html")
 	if err != nil {

@@ -6,13 +6,25 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/rusik69/ds0/pkg/ns/env"
 )
 
 // Upload uploads a file to the server.
 func Upload(src, dst, host, port string) error {
-	url := "http://" + host + ":" + port + "/file/upload?file=" + dst
+	// get file size first
+	file, err := os.Open(src)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	info, err := file.Stat()
+	if err != nil {
+		return err
+	}
+	fileSize := info.Size()
+	url := "http://" + host + ":" + port + "/file/upload?file=" + dst + "&size=" + strconv.FormatInt(fileSize, 10)
 	resp, err := http.Get(url)
 	if err != nil {
 		return err

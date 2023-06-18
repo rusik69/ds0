@@ -64,6 +64,27 @@
                 <td>{{ .TotalFreeSpace }}</td>
                 <td>{{ .TotalUsedSpace }}</td>
             </tr>
+            <tr>
+                <td><strong>Files</strong></td>
+                <td></td>
+                <td>{{ .TotalFiles }}</td>
+                <td>{{ .TotalSize }}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong>Uncommitted Files</strong></td>
+                <td></td>
+                <td>{{ .UncommittedFiles }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><strong>Uncommitted Size</strong></td>
+                <td></td>
+                <td>{{ .TotalUncommittedSize }}</td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>
     </table>
 </body>

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -24,7 +25,21 @@ func UploadHandler(c *gin.Context) {
 		logrus.Error(errors.New("file name is required"))
 		return
 	}
-	logrus.Println("UploadHandler: " + fileName)
+	fileSize := c.Query("size")
+	if fileSize == "" {
+		c.Writer.WriteHeader(400)
+		c.Writer.Write([]byte("file size is required"))
+		logrus.Error(errors.New("file size is required"))
+		return
+	}
+	size, error := strconv.ParseUint(fileSize, 10, 64)
+	if error != nil {
+		c.Writer.WriteHeader(400)
+		c.Writer.Write([]byte("file size is invalid"))
+		logrus.Error(errors.New("file size is invalid"))
+		return
+	}
+	logrus.Println("UploadHandler: " + fileName + " size: " + fileSize)
 	fileInfo, err := dbfile.Get(fileName)
 	if err == os.ErrNotExist {
 		newNodes, err := dbnode.List()
@@ -48,7 +63,7 @@ func UploadHandler(c *gin.Context) {
 		}
 		nodes := file.ChooseNodes(newNodes)
 		timestamp := uint64(time.Now().Unix())
-		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp})
+		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp, Size: size})
 		if err != nil {
 			c.Writer.WriteHeader(500)
 			c.Writer.Write([]byte(err.Error()))
@@ -71,6 +86,22 @@ func UploadHandler(c *gin.Context) {
 		return
 	}
 	body, err := json.Marshal(fileInfo.Nodes)
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	filesInfo, err := file.GetFilesInfo()
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	filesInfo.UncommittedSize += fileInfo.Size
+	filesInfo.UncommittedFiles++
+	err = file.SetFilesInfo(filesInfo)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))

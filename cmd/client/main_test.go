@@ -96,4 +96,13 @@ func TestClient(t *testing.T) {
 			t.Error("expected 3 nodes")
 		}
 	})
+	t.Run("webroot", func(t *testing.T) {
+		data, err := http.Get("http://ds0-ns:6969/")
+		if err != nil {
+			t.Error(err)
+		}
+		if data.StatusCode != 200 {
+			t.Error("expected 200")
+		}
+	})
 }

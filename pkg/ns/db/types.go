@@ -13,4 +13,13 @@ type FileInfo struct {
 	Nodes     []env.NodeInfo
 	Committed bool
 	TimeAdded uint64
+	Size      uint64
+}
+
+// FilesInfo is the files information.
+type FilesInfo struct {
+	TotalFiles       uint64
+	TotalSize        uint64
+	UncommittedFiles uint64
+	UncommittedSize  uint64
 }
