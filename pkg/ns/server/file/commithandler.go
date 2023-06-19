@@ -19,13 +19,6 @@ func CommitHandler(c *gin.Context) {
 		return
 	}
 	logrus.Println("CommitHandler: " + fileName)
-	err := dbfile.Commit(fileName)
-	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
-		return
-	}
 	file, err := dbfile.GetUncommitted(fileName)
 	if err != nil {
 		c.Writer.WriteHeader(500)
@@ -45,6 +38,13 @@ func CommitHandler(c *gin.Context) {
 	filesInfo.TotalSize += file.Size
 	filesInfo.TotalFiles++
 	err = dbfile.SetFilesInfo(filesInfo)
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	err = dbfile.Commit(fileName)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
