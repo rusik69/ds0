@@ -46,4 +46,12 @@ func DeleteHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
+	err = decrementStats(fileInfo.Size)
+	if err != nil {
+		c.Writer.WriteHeader(500)
+		c.Writer.Write([]byte(err.Error()))
+		logrus.Error(err)
+		return
+	}
+	c.Writer.WriteHeader(http.StatusOK)
 }

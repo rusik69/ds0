@@ -92,16 +92,7 @@ func UploadHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
-	filesInfo, err := file.GetFilesInfo()
-	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
-		return
-	}
-	filesInfo.UncommittedSize += fileInfo.Size
-	filesInfo.UncommittedFiles++
-	err = file.SetFilesInfo(filesInfo)
+	err = incrementStats(fileInfo.Size)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
