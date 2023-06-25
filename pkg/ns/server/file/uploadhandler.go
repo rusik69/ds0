@@ -9,7 +9,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/ns/db"
-	"github.com/rusik69/ds0/pkg/ns/db/file"
 	dbfile "github.com/rusik69/ds0/pkg/ns/db/file"
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
 	"github.com/rusik69/ds0/pkg/ns/env"
@@ -61,7 +60,7 @@ func UploadHandler(c *gin.Context) {
 			logrus.Error(errors.New("not enough nodes available"))
 			return
 		}
-		nodes := file.ChooseNodes(newNodes)
+		nodes := dbfile.ChooseNodes(newNodes)
 		timestamp := uint64(time.Now().Unix())
 		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp, Size: size})
 		if err != nil {
