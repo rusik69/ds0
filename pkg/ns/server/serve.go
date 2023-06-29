@@ -26,6 +26,7 @@ func Serve() {
 	router.GET("/ping", func(c *gin.Context) {
 		c.String(200, "pong")
 	})
+	router.Static("/static", "/app/html/static")
 	router.GET("/", web.RootHandler)
 	logrus.Println("NS is listening on port " + string(env.NSEnvInstance.Port))
 	router.Run(":" + string(env.NSEnvInstance.Port))
