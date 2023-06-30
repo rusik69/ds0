@@ -43,6 +43,13 @@ func RootHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
+	logrus.Println("Total space: " + humanize.Bytes(totalSpace))
+	logrus.Println("Total free space: " + humanize.Bytes(totalFreeSpace))
+	logrus.Println("Total used space: " + humanize.Bytes(totalUsedSpace))
+	logrus.Println("Total files: " + humanize.Comma(int64(filesInfo.TotalFiles)))
+	logrus.Println("Total size: " + humanize.Bytes(filesInfo.TotalSize))
+	logrus.Println("Uncommitted files: " + humanize.Comma(int64(filesInfo.UncommittedFiles)))
+	logrus.Println("Uncommitted size: " + humanize.Bytes(filesInfo.UncommittedSize))
 	data := gin.H{
 		"Title":            "DS0",
 		"Nodes":            nodes,
