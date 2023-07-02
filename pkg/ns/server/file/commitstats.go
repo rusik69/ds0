@@ -12,9 +12,9 @@ func commitStats(fileSize uint64) error {
 	if err != nil {
 		return err
 	}
-	filesInfo.UncommittedSize -= file.Size
+	filesInfo.UncommittedSize -= fileSize
 	filesInfo.UncommittedFiles--
-	filesInfo.TotalSize += file.Size
+	filesInfo.TotalSize += fileSize
 	filesInfo.TotalFiles++
 	err = dbfile.SetFilesInfo(filesInfo)
 	if err != nil {
