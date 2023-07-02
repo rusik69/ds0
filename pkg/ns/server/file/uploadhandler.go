@@ -2,10 +2,11 @@ package file
 
 import (
 	"encoding/json"
-	"errors"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/rusik69/ds0/pkg/ns/server/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/ns/db"
@@ -19,23 +20,17 @@ import (
 func UploadHandler(c *gin.Context) {
 	fileName := c.Query("file")
 	if fileName == "" {
-		c.Writer.WriteHeader(400)
-		c.Writer.Write([]byte("file name is required"))
-		logrus.Error(errors.New("file name is required"))
+		utils.Error("file name is required", 400, c)
 		return
 	}
 	fileSize := c.Query("size")
 	if fileSize == "" {
-		c.Writer.WriteHeader(400)
-		c.Writer.Write([]byte("file size is required"))
-		logrus.Error(errors.New("file size is required"))
+		utils.Error("file size is required", 400, c)
 		return
 	}
 	size, error := strconv.ParseUint(fileSize, 10, 64)
 	if error != nil {
-		c.Writer.WriteHeader(400)
-		c.Writer.Write([]byte("file size is invalid"))
-		logrus.Error(errors.New("file size is invalid"))
+		utils.Error("file size is invalid", 400, c)
 		return
 	}
 	logrus.Println("UploadHandler: " + fileName + " size: " + fileSize)
@@ -43,59 +38,43 @@ func UploadHandler(c *gin.Context) {
 	if err == os.ErrNotExist {
 		newNodes, err := dbnode.List()
 		if err != nil {
-			c.Writer.WriteHeader(500)
-			c.Writer.Write([]byte(err.Error()))
-			logrus.Error(err)
+			utils.Error(err.Error(), 500, c)
 			return
 		}
 		if len(newNodes) == 0 {
-			c.Writer.WriteHeader(500)
-			c.Writer.Write([]byte("no nodes available"))
-			logrus.Error(errors.New("no nodes available"))
+			utils.Error("no nodes available", 500, c)
 			logrus.Error(env.NSEnvInstance.Nodes)
 			return
 		} else if len(newNodes) < env.NSEnvInstance.Replicas {
-			c.Writer.WriteHeader(500)
-			c.Writer.Write([]byte("not enough nodes available"))
-			logrus.Error(errors.New("not enough nodes available"))
+			utils.Error("not enough nodes available", 500, c)
 			return
 		}
 		nodes := dbfile.ChooseNodes(newNodes)
 		timestamp := uint64(time.Now().Unix())
 		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp, Size: size})
 		if err != nil {
-			c.Writer.WriteHeader(500)
-			c.Writer.Write([]byte(err.Error()))
-			logrus.Error(err)
+			utils.Error(err.Error(), 500, c)
 			return
 		}
 		body, err := json.Marshal(nodes)
 		if err != nil {
-			c.Writer.WriteHeader(500)
-			c.Writer.Write([]byte(err.Error()))
-			logrus.Error(err)
+			utils.Error(err.Error(), 500, c)
 			return
 		}
 		c.Writer.Write(body)
 		return
 	} else if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
+		utils.Error(err.Error(), 500, c)
 		return
 	}
 	body, err := json.Marshal(fileInfo.Nodes)
 	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
+		utils.Error(err.Error(), 500, c)
 		return
 	}
 	err = incrementStats(fileInfo.Size)
 	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
+		utils.Error(err.Error(), 500, c)
 		return
 	}
 	c.Writer.Write(body)
