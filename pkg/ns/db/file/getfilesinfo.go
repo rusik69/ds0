@@ -3,6 +3,7 @@ package file
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/rusik69/ds0/pkg/ns/db"
@@ -21,7 +22,6 @@ func GetFilesInfo() (db.FilesInfo, error) {
 	}
 	if len(resp.Kvs) == 0 {
 		// create empty stats
-		logrus.Println("Create empty stats")
 		filesInfoBytes, _ := json.Marshal(db.FilesInfo{})
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
@@ -40,6 +40,7 @@ func GetFilesInfo() (db.FilesInfo, error) {
 			logrus.Error(err)
 			return db.FilesInfo{}, err
 		}
+		fmt.Println("resp.Kvs[0].Value: ", string(resp.Kvs[0].Value))
 		var filesInfo db.FilesInfo
 		json.Unmarshal(resp.Kvs[0].Value, &filesInfo)
 		logrus.Println("Stats: ", filesInfo.UncommittedSize, filesInfo.UncommittedFiles)
