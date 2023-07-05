@@ -12,8 +12,10 @@ func decrementStats(fileSize uint64) error {
 	if err != nil {
 		return err
 	}
+	logrus.Println("stats before decrement: ", filesInfo.UncommittedSize, filesInfo.UncommittedFiles)
 	filesInfo.UncommittedSize -= fileSize
 	filesInfo.UncommittedFiles--
+	logrus.Println("stats after decrement: ", filesInfo.UncommittedSize, filesInfo.UncommittedFiles)
 	err = dbfile.SetFilesInfo(filesInfo)
 	return err
 }
