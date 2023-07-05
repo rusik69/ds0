@@ -30,6 +30,7 @@ func GetFilesInfo() (db.FilesInfo, error) {
 			logrus.Error(err)
 			return db.FilesInfo{}, err
 		}
+		logrus.Println("Empty stats created")
 		return db.FilesInfo{}, nil
 	} else {
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
@@ -41,6 +42,7 @@ func GetFilesInfo() (db.FilesInfo, error) {
 		}
 		var filesInfo db.FilesInfo
 		json.Unmarshal(resp.Kvs[0].Value, &filesInfo)
+		logrus.Println("Stats: ", filesInfo.UncommittedSize, filesInfo.UncommittedFiles)
 		return filesInfo, nil
 	}
 }
