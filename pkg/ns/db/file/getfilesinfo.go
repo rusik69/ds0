@@ -21,7 +21,12 @@ func GetFilesInfo() (db.FilesInfo, error) {
 	}
 	if len(resp.Kvs) == 0 {
 		// create empty stats
-		filesInfoBytes, _ := json.Marshal(db.FilesInfo{})
+		filesInfoBytes, err := json.Marshal(db.FilesInfo{})
+		if err != nil {
+			logrus.Error(err)
+			return db.FilesInfo{}, err
+		}
+		logrus.Println("filesInfoBytes: ", string(filesInfoBytes))
 		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 		defer cancel()
 		_, err = db.DB.Put(ctx, "/stats", string(filesInfoBytes))
