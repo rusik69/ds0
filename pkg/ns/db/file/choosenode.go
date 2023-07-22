@@ -10,7 +10,7 @@ import (
 
 // ChooseNodes chooses nodes to upload a file.
 func ChooseNodes(nodes []env.NodeInfo) []env.NodeInfo {
-	logrus.Println("ChooseNodes")
+	logrus.Println("Choose Nodes")
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(nodes), func(i, j int) {
 		nodes[i], nodes[j] = nodes[j], nodes[i]
