@@ -44,6 +44,7 @@ func Upload(src, dst, host, port string) error {
 	if len(nodes) == 0 {
 		return errors.New("no nodes available")
 	}
+	// upload file to nodes
 	for _, node := range nodes {
 		file, err := os.Open(src)
 		if err != nil {
@@ -66,6 +67,7 @@ func Upload(src, dst, host, port string) error {
 		}
 
 	}
+	// commit file
 	url = "http://" + host + ":" + port + "/file/commit?file=" + dst
 	resp, err = http.Get(url)
 	if err != nil {

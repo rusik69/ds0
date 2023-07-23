@@ -8,6 +8,7 @@ import (
 // commitStats commits the stats.
 func commitStats(fileSize uint64) error {
 	logrus.Println("Commit stats")
+	logrus.Println("fileSize: ", fileSize)
 	filesInfo, err := dbfile.GetFilesInfo()
 	if err != nil {
 		return err
