@@ -12,6 +12,7 @@ func incrementStats(fileSize uint64) error {
 	if err != nil {
 		return err
 	}
+	logrus.Println("fileSize: ", fileSize)
 	logrus.Println("stats before increment: ", filesInfo.UncommittedSize, filesInfo.UncommittedFiles)
 	filesInfo.UncommittedSize += fileSize
 	filesInfo.UncommittedFiles++
