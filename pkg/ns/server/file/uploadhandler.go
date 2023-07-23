@@ -61,6 +61,11 @@ func UploadHandler(c *gin.Context) {
 			utils.Error(err.Error(), 500, c)
 			return
 		}
+		err = incrementStats(fileInfo.Size)
+		if err != nil {
+			utils.Error(err.Error(), 500, c)
+			return
+		}
 		c.Writer.Write(body)
 		return
 	} else if err != nil {
