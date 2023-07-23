@@ -28,11 +28,12 @@ func UploadHandler(c *gin.Context) {
 		utils.Error("file size is required", 400, c)
 		return
 	}
-	size, error := strconv.ParseUint(fileSize, 10, 64)
-	if error != nil {
-		utils.Error("file size is invalid", 400, c)
+	fSizeInt, err := strconv.Atoi(fileSize)
+	if err != nil {
+		utils.Error(err.Error(), 500, c)
 		return
 	}
+	fSize := uint64(fSizeInt)
 	logrus.Println("UploadHandler: " + fileName + " size: " + fileSize)
 	fileInfo, err := dbfile.Get(fileName)
 	if err == os.ErrNotExist {
@@ -51,7 +52,7 @@ func UploadHandler(c *gin.Context) {
 		}
 		nodes := dbfile.ChooseNodes(newNodes)
 		timestamp := uint64(time.Now().Unix())
-		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp, Size: size})
+		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp, Size: uint64(fSize)})
 		if err != nil {
 			utils.Error(err.Error(), 500, c)
 			return
@@ -61,7 +62,7 @@ func UploadHandler(c *gin.Context) {
 			utils.Error(err.Error(), 500, c)
 			return
 		}
-		err = incrementStats(fileInfo.Size)
+		err = incrementStats(fSize)
 		if err != nil {
 			utils.Error(err.Error(), 500, c)
 			return
