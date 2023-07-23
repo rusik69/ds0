@@ -13,9 +13,13 @@ func commitStats(fileSize uint64) error {
 		return err
 	}
 	filesInfo.UncommittedSize -= fileSize
+	logrus.Println("filesInfo.UncommittedSize: ", filesInfo.UncommittedSize)
 	filesInfo.UncommittedFiles--
+	logrus.Println("filesInfo.UncommittedFiles: ", filesInfo.UncommittedFiles)
 	filesInfo.TotalSize += fileSize
+	logrus.Println("filesInfo.TotalSize: ", filesInfo.TotalSize)
 	filesInfo.TotalFiles++
+	logrus.Println("filesInfo.TotalFiles: ", filesInfo.TotalFiles)
 	err = dbfile.SetFilesInfo(filesInfo)
 	if err != nil {
 		return err
