@@ -26,7 +26,6 @@ func Watch() {
 				logrus.Error(err)
 				continue
 			}
-			logrus.Println("Node: " + node.Host + ":" + node.Port)
 			logrus.Println("Total space: " + fmt.Sprintf("%d", nodeStats.TotalSpace))
 			logrus.Println("Free space: " + fmt.Sprintf("%d", nodeStats.FreeSpace))
 			logrus.Println("Used space: " + fmt.Sprintf("%d", nodeStats.UsedSpace))
