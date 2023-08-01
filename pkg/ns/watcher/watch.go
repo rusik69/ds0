@@ -37,8 +37,13 @@ func Watch() {
 			continue
 		}
 		for fileName, fileInfo := range uncommittedFiles {
-			if fileInfo.Committed == false && time.Since(fileInfo.TimeAdded) >= time.Hour {
-
+			if fileInfo.Committed == false && time.Since(time.Unix(int64(fileInfo.TimeAdded), 0)) >= time.Hour {
+				logrus.Println("File " + fileName + " is uncommitted for more than 1 hour")
+				err = dbfile.Delete(fileName)
+				if err != nil {
+					logrus.Error(err)
+					continue
+				}
 			}
 		}
 	}
