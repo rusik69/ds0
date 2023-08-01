@@ -52,7 +52,7 @@ func UploadHandler(c *gin.Context) {
 		}
 		nodes := dbfile.ChooseNodes(newNodes)
 		timestamp := uint64(time.Now().Unix())
-		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp, Size: uint64(fSize)})
+		err = dbfile.Set(fileName, db.FileInfo{Nodes: nodes, TimeAdded: timestamp, Size: fSize})
 		if err != nil {
 			utils.Error(err.Error(), 500, c)
 			return

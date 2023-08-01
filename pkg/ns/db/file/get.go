@@ -17,7 +17,6 @@ func Get(fileName string) (db.FileInfo, error) {
 	resp, err := db.DB.Get(ctx, "/files/"+fileName)
 	cancel()
 	if err != nil {
-		logrus.Error(err)
 		return db.FileInfo{}, err
 	}
 	if len(resp.Kvs) == 0 {

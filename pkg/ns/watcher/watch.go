@@ -5,6 +5,7 @@ import (
 	"time"
 
 	nodeclient "github.com/rusik69/ds0/pkg/client/node"
+	dbfile "github.com/rusik69/ds0/pkg/ns/db/file"
 	"github.com/rusik69/ds0/pkg/ns/db/node"
 	"github.com/sirupsen/logrus"
 )
@@ -29,6 +30,16 @@ func Watch() {
 			logrus.Println("Total space: " + fmt.Sprintf("%d", nodeStats.TotalSpace))
 			logrus.Println("Free space: " + fmt.Sprintf("%d", nodeStats.FreeSpace))
 			logrus.Println("Used space: " + fmt.Sprintf("%d", nodeStats.UsedSpace))
+		}
+		uncommittedFiles, err := dbfile.ListUncommitted()
+		if err != nil {
+			logrus.Error(err)
+			continue
+		}
+		for fileName, fileInfo := range uncommittedFiles {
+			if fileInfo.Committed == false && time.Since(fileInfo.TimeAdded) >= time.Hour {
+
+			}
 		}
 	}
 }
