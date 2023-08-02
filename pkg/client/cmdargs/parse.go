@@ -41,10 +41,6 @@ func Parse() {
 			panic("specify node name and port")
 		}
 		arg1 = os.Args[2]
-	case "listnodes":
-
-	default:
-		panic("unknown action: " + cmd)
 	}
 	flag.Parse()
 	portStr := strconv.Itoa(*port)
