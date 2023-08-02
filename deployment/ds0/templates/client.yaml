@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ds0-client
+spec:
+  containers:
+  - name: {{ include "ds0.fullname" . }}-client
+    image:  image: "{{ .Values.image.repositoryClient }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+    command: ["/bin/sh", "-c", "sleep 99999999"]
