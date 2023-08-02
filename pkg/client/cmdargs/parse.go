@@ -11,7 +11,7 @@ func Parse() {
 	hostName := flag.String("host", "localhost", "host name")
 	port := flag.Int("port", 6969, "port number")
 	if len(os.Args) < 2 {
-		panic("specify action: upload or download")
+		panic("specify action: upload, download, addnode, removenode, listnodes, nodestats")
 	}
 	cmd := os.Args[1]
 	var arg1, arg2, arg3 string
