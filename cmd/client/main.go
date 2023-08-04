@@ -10,6 +10,12 @@ import (
 
 func main() {
 	cmdargs.Parse()
+	fmt.Println("Cmd: ", cmdargs.Instance.Cmd)
+	fmt.Println("Host: ", cmdargs.Instance.HostName)
+	fmt.Println("Port: ", cmdargs.Instance.Port)
+	fmt.Println("Arg1: ", cmdargs.Instance.Arg1)
+	fmt.Println("Arg2: ", cmdargs.Instance.Arg2)
+	fmt.Println("Arg3: ", cmdargs.Instance.Arg3)
 	switch cmdargs.Instance.Cmd {
 	case "upload":
 		err := file.Upload(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2, cmdargs.Instance.HostName, cmdargs.Instance.Port)
