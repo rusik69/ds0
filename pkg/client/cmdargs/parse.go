@@ -1,20 +1,12 @@
 package cmdargs
 
 import (
-	"flag"
-	"fmt"
 	"os"
 	"strconv"
 )
 
 // Parse parses the command line arguments.
 func Parse() CmdArgs {
-	var hostName string
-	var port int
-	flag.StringVar(&hostName, "host", "localhost", "ns hostname")
-	flag.IntVar(&port, "port", 6969, "port number")
-	flag.Parse()
-	fmt.Println("Hostname:", hostName)
 	if len(os.Args) < 2 {
 		panic("specify action: upload, download, addnode, removenode, listnodes, nodestats")
 	}
