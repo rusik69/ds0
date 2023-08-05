@@ -2,7 +2,6 @@ package cmdargs
 
 import (
 	"os"
-	"strconv"
 )
 
 // Parse parses the command line arguments.
@@ -39,13 +38,10 @@ func Parse() CmdArgs {
 		}
 		arg1 = os.Args[2]
 	}
-	portStr := strconv.Itoa(port)
 	return CmdArgs{
-		Cmd:      cmd,
-		HostName: hostName,
-		Port:     portStr,
-		Arg1:     arg1,
-		Arg2:     arg2,
-		Arg3:     arg3,
+		Cmd:  cmd,
+		Arg1: arg1,
+		Arg2: arg2,
+		Arg3: arg3,
 	}
 }
