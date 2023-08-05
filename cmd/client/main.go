@@ -17,6 +17,8 @@ func main() {
 	flag.StringVar(&hostName, "host", "localhost", "ns hostname")
 	flag.IntVar(&port, "port", 6969, "port number")
 	flag.Parse()
+	fmt.Println("Hostname:", hostName)
+	fmt.Println("Port:", port)
 	cmdargs.Instance = cmdargs.Parse()
 	cmdargs.Instance.HostName = hostName
 	cmdargs.Instance.Port = fmt.Sprintf("%d", port)
