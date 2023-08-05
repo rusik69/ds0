@@ -11,6 +11,7 @@ func Parse() CmdArgs {
 	var hostName string
 	flag.StringVar(&hostName, "host", "localhost", "ns hostname")
 	port := flag.Int("port", 6969, "port number")
+	flag.Parse()
 	if len(os.Args) < 2 {
 		panic("specify action: upload, download, addnode, removenode, listnodes, nodestats")
 	}
@@ -43,7 +44,6 @@ func Parse() CmdArgs {
 		}
 		arg1 = os.Args[2]
 	}
-	flag.Parse()
 	portStr := strconv.Itoa(*port)
 	return CmdArgs{
 		Cmd:      cmd,
