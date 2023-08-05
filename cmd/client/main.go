@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 
 	"github.com/rusik69/ds0/pkg/client/cmdargs"
@@ -12,16 +11,7 @@ import (
 var version string
 
 func main() {
-	var hostName string
-	var port int
-	flag.StringVar(&hostName, "host", "localhost", "ns hostname")
-	flag.IntVar(&port, "port", 6969, "port number")
-	flag.Parse()
-	fmt.Println("Hostname:", hostName)
-	fmt.Println("Port:", port)
 	cmdargs.Instance = cmdargs.Parse()
-	cmdargs.Instance.HostName = hostName
-	cmdargs.Instance.Port = fmt.Sprintf("%d", port)
 	fmt.Println("Cmd: ", cmdargs.Instance.Cmd)
 	fmt.Println("Host: ", cmdargs.Instance.HostName)
 	fmt.Println("Port: ", cmdargs.Instance.Port)
