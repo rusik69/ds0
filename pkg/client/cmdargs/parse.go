@@ -2,6 +2,7 @@ package cmdargs
 
 import (
 	"flag"
+	"fmt"
 	"os"
 	"strconv"
 )
@@ -13,6 +14,7 @@ func Parse() CmdArgs {
 	flag.StringVar(&hostName, "host", "localhost", "ns hostname")
 	flag.IntVar(&port, "port", 6969, "port number")
 	flag.Parse()
+	fmt.Println("Hostname:", hostName)
 	if len(os.Args) < 2 {
 		panic("specify action: upload, download, addnode, removenode, listnodes, nodestats")
 	}
