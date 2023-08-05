@@ -5,5 +5,5 @@ metadata:
 spec:
   containers:
   - name: {{ include "ds0.fullname" . }}-client
-    image: "{{ .Values.image.repositoryClient }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+    image: "{{ .Values.image.repositoryClient }}:{{ .Values.image.tag }}"
     command: ["/bin/sh", "-c", "sleep 99999999"]
