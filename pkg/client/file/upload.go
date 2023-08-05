@@ -24,7 +24,7 @@ func Upload(src, dst, host, port string) error {
 		return err
 	}
 	fileSize := info.Size()
-	url := "http://" + host + ":" + port + "/file/upload?file=" + dst + "&size=" + strconv.FormatInt(fileSize, 10)
+	url := "http://" + host + ":" + port + "/api/v0/file/upload?file=" + dst + "&size=" + strconv.FormatInt(fileSize, 10)
 	resp, err := http.Get(url)
 	if err != nil {
 		return err

@@ -12,7 +12,7 @@ import (
 
 // Stats gets the info of a node.
 func Stats(host, port string) (server.NodeStats, error) {
-	url := fmt.Sprintf("http://%s:%s/stats", host, port)
+	url := fmt.Sprintf("http://%s:%s/api/v0/stats", host, port)
 	resp, err := http.Get(url)
 	if err != nil {
 		return server.NodeStats{}, err

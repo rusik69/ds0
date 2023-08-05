@@ -8,7 +8,7 @@ import (
 
 // Add adds the node to the nameserver
 func Remove(nodeName, host, port string) error {
-	url := fmt.Sprintf("http://%s:%s/node/remove?name=%s", host, port, nodeName)
+	url := fmt.Sprintf("http://%s:%s/api/v0/node/remove?name=%s", host, port, nodeName)
 	resp, err := http.Get(url)
 	if err != nil {
 		return err

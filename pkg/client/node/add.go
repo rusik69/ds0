@@ -8,7 +8,7 @@ import (
 
 // Add adds the node to the nameserver
 func Add(nodeName, nodeHostname, nodePort, host, port string) error {
-	url := fmt.Sprintf("http://%s:%s/node/add?name=%s&hostname=%s&port=%s", host, port, nodeName, nodeHostname, nodePort)
+	url := fmt.Sprintf("http://%s:%s/api/v0/node/add?name=%s&hostname=%s&port=%s", host, port, nodeName, nodeHostname, nodePort)
 	resp, err := http.Get(url)
 	if err != nil {
 		return err

@@ -12,7 +12,7 @@ import (
 
 // Download downloads a file.
 func Download(src, dst, host, port string) error {
-	url := "http://" + host + ":" + port + "/file/download?file=" + src
+	url := "http://" + host + ":" + port + "/api/v0/file/download?file=" + src
 	resp, err := http.Get(url)
 	if err != nil {
 		return err
