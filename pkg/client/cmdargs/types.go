@@ -11,4 +11,4 @@ type CmdArgs struct {
 }
 
 // Instance is the singleton instance of CmdArgs.
-var Instance *CmdArgs
+var Instance CmdArgs

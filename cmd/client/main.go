@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	cmdargs.Parse()
+	cmdargs.Instance = cmdargs.Parse()
 	fmt.Println("Cmd: ", cmdargs.Instance.Cmd)
 	fmt.Println("Host: ", cmdargs.Instance.HostName)
 	fmt.Println("Port: ", cmdargs.Instance.Port)

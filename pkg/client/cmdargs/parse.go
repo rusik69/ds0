@@ -7,9 +7,9 @@ import (
 )
 
 // Parse parses the command line arguments.
-func Parse() {
-	var hostName *string
-	flag.StringVar(hostName, "host", "localhost", "ns hostname")
+func Parse() CmdArgs {
+	var hostName string
+	flag.StringVar(&hostName, "host", "localhost", "ns hostname")
 	port := flag.Int("port", 6969, "port number")
 	if len(os.Args) < 2 {
 		panic("specify action: upload, download, addnode, removenode, listnodes, nodestats")
@@ -45,9 +45,9 @@ func Parse() {
 	}
 	flag.Parse()
 	portStr := strconv.Itoa(*port)
-	Instance = &CmdArgs{
+	return CmdArgs{
 		Cmd:      cmd,
-		HostName: *hostName,
+		HostName: hostName,
 		Port:     portStr,
 		Arg1:     arg1,
 		Arg2:     arg2,
