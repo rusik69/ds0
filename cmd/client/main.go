@@ -8,6 +8,8 @@ import (
 	"github.com/rusik69/ds0/pkg/client/node"
 )
 
+var version string
+
 func main() {
 	cmdargs.Instance = cmdargs.Parse()
 	fmt.Println("Cmd: ", cmdargs.Instance.Cmd)
@@ -53,6 +55,8 @@ func main() {
 		fmt.Println("Total space: ", node.TotalSpace)
 		fmt.Println("Free space: ", node.FreeSpace)
 		fmt.Println("Used space: ", node.UsedSpace)
+	case "version":
+		fmt.Println("Version: ", version)
 	default:
 		panic("unknown action: " + cmdargs.Instance.Cmd)
 	}

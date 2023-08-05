@@ -11,8 +11,11 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+var version string
+
 func main() {
 	//logrus.SetReportCaller(true)
+	logrus.Println("Version: ", version)
 	err := env.Parse()
 	if err != nil {
 		panic(err)
