@@ -68,7 +68,7 @@ func Upload(src, dst, host, port string) error {
 
 	}
 	// commit file
-	url = "http://" + host + ":" + port + "/file/commit?file=" + dst
+	url = "http://" + host + ":" + port + "/api/v0/file/commit?file=" + dst
 	resp, err = http.Get(url)
 	if err != nil {
 		return err
