@@ -49,8 +49,6 @@ func Parse() CmdArgs {
 		if len(args) < 3 {
 			panic("specify hostname and port")
 		}
-		arg1 = args[1]
-		arg2 = args[2]
 	}
 	return CmdArgs{
 		Cmd:      cmd,
