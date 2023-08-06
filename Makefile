@@ -14,9 +14,9 @@ tidy:
 	go mod tidy
 
 build:
-	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$GIT_COMMIT" -o bin/${BINARY_NAME_NODE}-darwin-arm64 cmd/${BINARY_NAME_NODE}/main.go
-	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$GIT_COMMIT" -o bin/${BINARY_NAME_NS}-darwin-arm64 cmd/${BINARY_NAME_NS}/main.go
-	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$GIT_COMMIT" -o bin/${BINARY_NAME_CLIENT}-darwin-arm64 cmd/${BINARY_NAME_CLIENT}/main.go
+	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$(GIT_COMMIT)" -o bin/${BINARY_NAME_NODE}-darwin-arm64 cmd/${BINARY_NAME_NODE}/main.go
+	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$(GIT_COMMIT)" -o bin/${BINARY_NAME_NS}-darwin-arm64 cmd/${BINARY_NAME_NS}/main.go
+	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$(GIT_COMMIT)" -o bin/${BINARY_NAME_CLIENT}-darwin-arm64 cmd/${BINARY_NAME_CLIENT}/main.go
 	chmod +x bin/*
 
 docker:
