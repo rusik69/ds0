@@ -14,7 +14,7 @@ func Parse() CmdArgs {
 	flag.Parse()
 	args := flag.Args()
 	if len(args) < 1 {
-		panic("specify action: upload, download, addnode, removenode, listnodes, nodestats")
+		panic("specify action: upload, download, addnode, removenode, listnodes, nodestats, clusterstats")
 	}
 	cmd := args[0]
 	var arg1, arg2, arg3 string
