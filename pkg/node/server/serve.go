@@ -3,11 +3,14 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/node/env"
+	"github.com/sirupsen/logrus"
 )
 
 // Serve serves the node.
 func Serve() {
 	r := gin.Default()
+	gin.DefaultWriter = logrus.StandardLogger().Writer()
+	gin.DefaultErrorWriter = logrus.StandardLogger().Writer()
 	r.POST("/file/upload", uploadHandler)
 	r.GET("/file/download", downloadHandler)
 	r.GET("/file/delete", deleteHandler)

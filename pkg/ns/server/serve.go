@@ -13,6 +13,8 @@ import (
 // Serve serves the ns.
 func Serve() {
 	router := gin.Default()
+	gin.DefaultWriter = logrus.StandardLogger().Writer()
+	gin.DefaultErrorWriter = logrus.StandardLogger().Writer()
 	router.LoadHTMLGlob("/app/html/*.html")
 	router.GET("/api/v0/node/get", node.GetNodeHandler)
 	router.GET("/api/v0/node/add", node.AddNodeHandler)
