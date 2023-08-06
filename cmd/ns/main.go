@@ -15,11 +15,10 @@ import (
 var version string
 
 func main() {
-	logger := logrus.New()
-	logger.SetReportCaller(true)
+	logrus.SetReportCaller(true)
 	logrus.SetFormatter(&logrus.JSONFormatter{})
-	gin.DefaultWriter = logger.Writer()
-	gin.DefaultErrorWriter = logger.Writer()
+	gin.DefaultWriter = logrus.StandardLogger().Writer()
+	gin.DefaultErrorWriter = logrus.StandardLogger().Writer()
 	logrus.Println("Version: ", version)
 	err := env.Parse()
 	if err != nil {
