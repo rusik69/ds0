@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/dustin/go-humanize"
 	"github.com/rusik69/ds0/pkg/client/cluster"
 	"github.com/rusik69/ds0/pkg/client/cmdargs"
 	"github.com/rusik69/ds0/pkg/client/file"
@@ -47,17 +48,17 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println("Total space: ", node.TotalSpace)
-		fmt.Println("Free space: ", node.FreeSpace)
-		fmt.Println("Used space: ", node.UsedSpace)
+		fmt.Println("Total space: ", humanize.Bytes(node.TotalSpace))
+		fmt.Println("Free space: ", humanize.Bytes(node.FreeSpace))
+		fmt.Println("Used space: ", humanize.Bytes(node.UsedSpace))
 	case "clusterstats":
 		stats, err := cluster.Stats(cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println("Total space: ", stats.TotalSpace)
-		fmt.Println("Total free space: ", stats.TotalFreeSpace)
-		fmt.Println("Total used space: ", stats.TotalUsedSpace)
+		fmt.Println("Total space: ", humanize.Bytes(stats.TotalSpace))
+		fmt.Println("Total free space: ", humanize.Bytes(stats.TotalFreeSpace))
+		fmt.Println("Total used space: ", humanize.Bytes(stats.TotalUsedSpace))
 		fmt.Println("Total nodes: ", stats.NodesCount)
 		fmt.Println("Replicas: ", stats.Replicas)
 	case "version":
