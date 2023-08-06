@@ -45,10 +45,6 @@ func Parse() CmdArgs {
 		}
 		arg1 = args[1]
 		arg2 = args[2]
-	case "nodestats":
-		if len(args) < 3 {
-			panic("specify hostname and port")
-		}
 	}
 	return CmdArgs{
 		Cmd:      cmd,
