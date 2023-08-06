@@ -14,7 +14,8 @@ import (
 var version string
 
 func main() {
-	//logrus.SetReportCaller(true)
+	logrus.SetReportCaller(true)
+	logrus.SetFormatter(&logrus.JSONFormatter{})
 	logrus.Println("Version: ", version)
 	err := env.Parse()
 	if err != nil {
