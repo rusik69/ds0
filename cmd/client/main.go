@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/rusik69/ds0/pkg/client/cluster"
 	"github.com/rusik69/ds0/pkg/client/cmdargs"
 	"github.com/rusik69/ds0/pkg/client/file"
 	"github.com/rusik69/ds0/pkg/client/node"
@@ -42,13 +43,23 @@ func main() {
 			fmt.Println(node.Host + ":" + node.Port)
 		}
 	case "nodestats":
-		node, err := node.Stats(cmdargs.Instance.Arg1, cmdargs.Instance.Arg2)
+		node, err := node.Stats(cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {
 			panic(err)
 		}
 		fmt.Println("Total space: ", node.TotalSpace)
 		fmt.Println("Free space: ", node.FreeSpace)
 		fmt.Println("Used space: ", node.UsedSpace)
+	case "clusterstats":
+		stats, err := cluster.Stats(cmdargs.Instance.HostName, cmdargs.Instance.Port)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("Total space: ", stats.TotalSpace)
+		fmt.Println("Total free space: ", stats.TotalFreeSpace)
+		fmt.Println("Total used space: ", stats.TotalUsedSpace)
+		fmt.Println("Total nodes: ", stats.NodesCount)
+		fmt.Println("Replicas: ", stats.Replicas)
 	case "version":
 		fmt.Println("Version: ", version)
 	default:
