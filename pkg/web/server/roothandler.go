@@ -13,7 +13,7 @@ import (
 )
 
 // RootHandler is the root handler.
-func RootHandler(c *gin.Context) {
+func rootHandler(c *gin.Context) {
 	logrus.Println("RootHandler")
 	nodes, err := node.List()
 	if err != nil {
