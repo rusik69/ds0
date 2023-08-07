@@ -97,7 +97,7 @@ func TestClient(t *testing.T) {
 		}
 	})
 	t.Run("webroot", func(t *testing.T) {
-		data, err := http.Get("http://ds0-ns:6969/")
+		data, err := http.Get("http://ds0-web/")
 		if err != nil {
 			t.Error(err)
 		}
