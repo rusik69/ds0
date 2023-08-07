@@ -3,7 +3,7 @@ WORKDIR /go/src/github.com/rusik69/ds0
 COPY . ./
 RUN go get ./...
 RUN CGO_ENABLED=0 \
-    go build -o /go/bin/ns cmd/web/main.go
+    go build -o /go/bin/web cmd/web/main.go
 
 FROM alpine:latest
 WORKDIR /app
