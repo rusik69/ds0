@@ -1,0 +1,14 @@
+FROM golang AS build-env
+WORKDIR /go/src/github.com/rusik69/ds0
+COPY . ./
+RUN go get ./...
+RUN CGO_ENABLED=0 \
+    go build -o /go/bin/ns cmd/web/main.go
+
+FROM alpine:latest
+WORKDIR /app
+COPY --from=build-env /go/bin/web /app/web
+COPY --from=build-env /go/src/github.com/rusik69/ds0/pkg/web/server/html /app/html
+
+ENTRYPOINT ["/app/web"]
+EXPOSE 80

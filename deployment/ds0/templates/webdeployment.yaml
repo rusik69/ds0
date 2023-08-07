@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "ds0.fullname" . }}-web
+  labels:
+    app: {{ include "ds0.name" . }}-web
+spec:
+  replicas: {{ .Values.replicaCountWeb }}
+  selector:
+    matchLabels:
+      app: {{ include "ds0.name" . }}-web
+  template:
+    metadata:
+      labels:
+        app: {{ include "ds0.name" . }}-web
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64
+      containers:
+        - name: {{ .Chart.Name }}-web
+          image: "{{ .Values.image.repositoryWeb }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.webPort }}
+              protocol: TCP
+          env:
+          - name: WEB_NS_HOST
+            value: {{ include "ds0.fullname" . }}-ns
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ds0.fullname" . }}-web
+  labels:
+    app: {{ include "ds0.name" . }}-web
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+  - port: {{ .Values.webPort }}
+    targetPort: {{ .Values.webPort }}
+    protocol: TCP
+    name: http
+  selector:
+      app: {{ include "ds0.name" . }}-web

@@ -4,11 +4,13 @@
 
 replicaCountNS: 1
 replicaCountNode: 3
+replicaCountWeb: 1
 
 image:
   repositoryNS: loqutus/ds0-ns
   repositoryNode: loqutus/ds0-node
   repositoryClient: loqutus/ds0-client
+  repositoryWeb: loqutus/ds0-web
   repositoryTest: loqutus/ds0-test
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
@@ -20,6 +22,7 @@ nsETCD:
   User: root
   Pass: password
 
+webPort: 80
 etcd:
   auth:
     rbac:

@@ -5,6 +5,7 @@ SHELL := /bin/bash
 BINARY_NAME_NODE=node
 BINARY_NAME_NS=ns
 BINARY_NAME_CLIENT=client
+BINARY_NAME_WEB=web
 
 IMAGE_TAG=$(shell git describe --tags --always)
 GIT_COMMIT=$(shell git rev-parse --short HEAD)
@@ -17,6 +18,7 @@ build:
 	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$GIT_COMMIT" -o bin/${BINARY_NAME_NODE}-darwin-arm64 cmd/${BINARY_NAME_NODE}/main.go
 	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$GIT_COMMIT" -o bin/${BINARY_NAME_NS}-darwin-arm64 cmd/${BINARY_NAME_NS}/main.go
 	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$GIT_COMMIT" -o bin/${BINARY_NAME_CLIENT}-darwin-arm64 cmd/${BINARY_NAME_CLIENT}/main.go
+	CGO_ENABLED=0 GOARCH=arm64 GOOS=darwin go build -ldflags "-X main.version=$GIT_COMMIT" -o bin/${BINARY_NAME_WEB}-darwin-arm64 cmd/${BINARY_NAME_WEB}/main.go
 	chmod +x bin/*
 
 docker:
@@ -25,6 +27,7 @@ docker:
 	docker build -t $(ORG_PREFIX)/ds0-$(BINARY_NAME_NS):$(IMAGE_TAG) -f Dockerfile-ns --push .
 	docker build -t $(ORG_PREFIX)/ds0-$(BINARY_NAME_NODE):$(IMAGE_TAG) -f Dockerfile-node --push .
 	docker build -t $(ORG_PREFIX)/ds0-$(BINARY_NAME_CLIENT):$(IMAGE_TAG) -f Dockerfile-client --push .
+	docker build -t $(ORG_PREFIX)/ds0-$(BINARY_NAME_WEB):$(IMAGE_TAG) -f Dockerfile-web --push .
 	docker build -t $(ORG_PREFIX)/ds0-test:$(IMAGE_TAG) -f Dockerfile-test --push .
 
 helminstalltest:
