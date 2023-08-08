@@ -8,14 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 	clientnode "github.com/rusik69/ds0/pkg/client/node"
 	dbfile "github.com/rusik69/ds0/pkg/ns/db/file"
-	"github.com/rusik69/ds0/pkg/ns/db/node"
+	"github.com/rusik69/ds0/pkg/web/env"
 	"github.com/sirupsen/logrus"
 )
 
 // RootHandler is the root handler.
 func rootHandler(c *gin.Context) {
 	logrus.Println("RootHandler")
-	nodes, err := node.List()
+	nodes, err := clientnode.List(env.EnvInstance.NSHost, env.EnvInstance.NSPort)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
