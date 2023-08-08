@@ -1,7 +1,6 @@
 package watcher
 
 import (
-	"fmt"
 	"time"
 
 	fileclient "github.com/rusik69/ds0/pkg/client/file"
@@ -23,14 +22,11 @@ func Watch() {
 		}
 		for _, node := range nodes {
 			logrus.Println("Watch node: " + node.Host + ":" + node.Port)
-			nodeStats, err := nodeclient.Stats(node.Host, node.Port)
+			_, err := nodeclient.Stats(node.Host, node.Port)
 			if err != nil {
 				logrus.Error(err)
 				continue
 			}
-			logrus.Println("Total space: " + fmt.Sprintf("%d", nodeStats.TotalSpace))
-			logrus.Println("Free space: " + fmt.Sprintf("%d", nodeStats.FreeSpace))
-			logrus.Println("Used space: " + fmt.Sprintf("%d", nodeStats.UsedSpace))
 		}
 		uncommittedFiles, err := dbfile.ListUncommitted()
 		if err != nil {

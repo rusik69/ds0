@@ -2,7 +2,6 @@ package main_test
 
 import (
 	"crypto/rand"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -27,7 +26,7 @@ func prepareFile() (string, error) {
 	}
 
 	// Create a temporary file
-	tempFile, err := ioutil.TempFile("", "ds0_test_*.tmp")
+	tempFile, err := os.CreateTemp("", "ds0_test_*.tmp")
 	if err != nil {
 		return "", err
 	}
