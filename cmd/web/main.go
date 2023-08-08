@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/web/env"
+	"github.com/rusik69/ds0/pkg/web/server"
 	"github.com/sirupsen/logrus"
 )
 
@@ -17,5 +18,5 @@ func main() {
 	env.EnvInstance = env.Parse()
 	logrus.Println("Starting web server on " + env.EnvInstance.ListenHost + ":" + env.EnvInstance.ListenPort)
 	logrus.Println("Connected to NS on " + env.EnvInstance.NSHost + ":" + env.EnvInstance.NSPort)
-
+	server.Serve()
 }
