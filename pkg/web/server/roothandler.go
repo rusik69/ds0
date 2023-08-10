@@ -6,8 +6,7 @@ import (
 
 	humanize "github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
-	clientnode "github.com/rusik69/ds0/pkg/client/node"
-	dbfile "github.com/rusik69/ds0/pkg/ns/db/file"
+	clientcluster "github.com/rusik69/ds0/pkg/client/cluster"
 	"github.com/rusik69/ds0/pkg/web/env"
 	"github.com/sirupsen/logrus"
 )
@@ -15,28 +14,7 @@ import (
 // RootHandler is the root handler.
 func rootHandler(c *gin.Context) {
 	logrus.Println("RootHandler")
-	nodes, err := clientnode.List(env.EnvInstance.NSHost, env.EnvInstance.NSPort)
-	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
-		return
-	}
-	var totalSpace, totalFreeSpace, totalUsedSpace uint64
-	for i := 0; i < len(nodes); i++ {
-		stats, err := clientnode.Stats(nodes[i].Host, nodes[i].Port)
-		if err != nil {
-			logrus.Error(err)
-			continue
-		}
-		nodes[i].Stats.TotalSpace = humanize.Bytes(stats.TotalSpace)
-		nodes[i].Stats.FreeSpace = humanize.Bytes(stats.FreeSpace)
-		nodes[i].Stats.UsedSpace = humanize.Bytes(stats.UsedSpace)
-		totalSpace += stats.TotalSpace
-		totalFreeSpace += stats.FreeSpace
-		totalUsedSpace += stats.UsedSpace
-	}
-	filesInfo, err := dbfile.GetFilesInfo()
+	clusterStats, err := clientcluster.Stats(env.EnvInstance.NSHost, env.EnvInstance.NSPort)
 	if err != nil {
 		c.Writer.WriteHeader(500)
 		c.Writer.Write([]byte(err.Error()))
@@ -45,14 +23,14 @@ func rootHandler(c *gin.Context) {
 	}
 	data := gin.H{
 		"Title":            "DS0",
-		"Nodes":            nodes,
-		"TotalSpace":       humanize.Bytes(totalSpace),
-		"TotalFreeSpace":   humanize.Bytes(totalFreeSpace),
-		"TotalUsedSpace":   humanize.Bytes(totalUsedSpace),
-		"TotalFiles":       filesInfo.TotalFiles,
-		"TotalSize":        humanize.Bytes(filesInfo.TotalSize),
-		"UncommittedFiles": filesInfo.UncommittedFiles,
-		"UncommittedSize":  humanize.Bytes(filesInfo.UncommittedSize),
+		"Nodes":            clusterStats.NodesCount,
+		"TotalSpace":       humanize.Bytes(clusterStats.TotalSpace),
+		"TotalFreeSpace":   humanize.Bytes(clusterStats.TotalFreeSpace),
+		"TotalUsedSpace":   humanize.Bytes(clusterStats.TotalUsedSpace),
+		"TotalFiles":       clusterStats.TotalFiles,
+		"TotalSize":        humanize.Bytes(clusterStats.TotalFilesSize),
+		"UncommittedFiles": clusterStats.UncommittedFiles,
+		"UncommittedSize":  humanize.Bytes(clusterStats.UncommittedFilesSize),
 	}
 	tmpl, err := template.ParseFiles("/app/html/index.html")
 	if err != nil {
