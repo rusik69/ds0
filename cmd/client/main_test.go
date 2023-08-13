@@ -43,7 +43,7 @@ func prepareFile() (string, error) {
 // waitForServer waits for the server to start.
 func waitForServer() {
 	for {
-		_, err := http.Get("http://ds0-ns.ds0-test:6969/ping")
+		_, err := http.Get("http://ds0-ns:6969/ping")
 		if err == nil {
 			break
 		}
@@ -69,25 +69,25 @@ func TestClient(t *testing.T) {
 	fileNameSplit := strings.Split(TestFileName, "/")
 	fileName := fileNameSplit[len(fileNameSplit)-1]
 	t.Run("upload", func(t *testing.T) {
-		err := file.Upload(TestFileName, "/"+fileName, "ds0-ns.ds0-test", "6969")
+		err := file.Upload(TestFileName, "/"+fileName, "ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
 		}
 	})
 	t.Run("download", func(t *testing.T) {
-		err := file.Download("/"+fileName, TestFileName, "ds0-ns.ds0-test", "6969")
+		err := file.Download("/"+fileName, TestFileName, "ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
 		}
 	})
 	t.Run("delete", func(t *testing.T) {
-		err := file.Delete("/"+fileName, "ds0-ns.ds0-test", "6969")
+		err := file.Delete("/"+fileName, "ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
 		}
 	})
 	t.Run("listnodes", func(t *testing.T) {
-		nodes, err := node.List("ds0-ns.ds0-test", "6969")
+		nodes, err := node.List("ds0-ns", "6969")
 		if err != nil {
 			t.Error(err)
 		}
@@ -96,7 +96,7 @@ func TestClient(t *testing.T) {
 		}
 	})
 	t.Run("webroot", func(t *testing.T) {
-		data, err := http.Get("http://ds0-web.ds0-test/")
+		data, err := http.Get("http://ds0-web/")
 		if err != nil {
 			t.Error(err)
 		}
