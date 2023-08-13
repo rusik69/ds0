@@ -23,7 +23,7 @@ func rootHandler(c *gin.Context) {
 	}
 	data := gin.H{
 		"Title":            "DS0",
-		"Nodes":            clusterStats.NodesCount,
+		"Nodes":            clusterStats.Nodes,
 		"TotalSpace":       humanize.Bytes(clusterStats.TotalSpace),
 		"TotalFreeSpace":   humanize.Bytes(clusterStats.TotalFreeSpace),
 		"TotalUsedSpace":   humanize.Bytes(clusterStats.TotalUsedSpace),
