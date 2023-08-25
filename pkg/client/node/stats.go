@@ -29,5 +29,7 @@ func Stats(host, port string) (server.NodeStats, error) {
 	if err := json.Unmarshal(bodyBytes, &nodeStats); err != nil {
 		return server.NodeStats{}, err
 	}
+	nodeStats.Host = host
+	nodeStats.Port = port
 	return nodeStats, nil
 }
