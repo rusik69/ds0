@@ -21,6 +21,7 @@ func rootHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
+	logrus.Println(clusterStats)
 	data := gin.H{
 		"Title":            "DS0",
 		"Nodes":            clusterStats.Nodes,
