@@ -1,7 +1,7 @@
 package cluster
 
 import (
-	"github.com/rusik69/ds0/pkg/ns/env"
+	"github.com/rusik69/ds0/pkg/node/server"
 )
 
 // ClusterStats is the info of a cluster.
@@ -10,7 +10,7 @@ type ClusterStats struct {
 	TotalFreeSpace       uint64
 	TotalUsedSpace       uint64
 	NodesCount           int
-	Nodes                []env.NodeInfo
+	Nodes                []server.NodeStats
 	Replicas             int
 	TotalFiles           uint64
 	TotalFilesSize       uint64

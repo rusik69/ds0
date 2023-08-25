@@ -3,7 +3,7 @@ package cluster
 import (
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	clusterstats "github.com/rusik69/ds0/pkg/ns/server/cluster"
@@ -21,7 +21,7 @@ func Stats(host, port string) (clusterstats.ClusterStats, error) {
 	if resp.StatusCode != http.StatusOK {
 		return clusterStats, errors.New("stats failed")
 	}
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return clusterStats, err
 	}

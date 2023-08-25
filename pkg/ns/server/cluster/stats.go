@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	clientnode "github.com/rusik69/ds0/pkg/client/node"
+	"github.com/rusik69/ds0/pkg/node/server"
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
 	"github.com/rusik69/ds0/pkg/ns/env"
 	"github.com/sirupsen/logrus"
@@ -20,6 +21,7 @@ func StatsHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
+	var nodes []server.NodeStats
 	var totalSpace, totalFreeSpace, totalUsedSpace uint64
 	for _, node := range nodesList {
 		nodeStats, err := clientnode.Stats(node.Host, node.Port)
@@ -29,13 +31,14 @@ func StatsHandler(c *gin.Context) {
 			logrus.Error(err)
 			return
 		}
+		nodes = append(nodes, nodeStats)
 		totalSpace += nodeStats.TotalSpace
 		totalFreeSpace += nodeStats.FreeSpace
 		totalUsedSpace += nodeStats.UsedSpace
 	}
 
 	stats := ClusterStats{
-		Nodes:          nodesList,
+		Nodes:          nodes,
 		NodesCount:     len(nodesList),
 		TotalSpace:     totalSpace,
 		TotalFreeSpace: totalFreeSpace,
