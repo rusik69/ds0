@@ -43,7 +43,6 @@ func rootHandler(c *gin.Context) {
 		"UncommittedFiles": clusterStats.UncommittedFiles,
 		"UncommittedSize":  humanize.Bytes(clusterStats.UncommittedFilesSize),
 	}
-	logrus.Println(data)
 	tmpl, err := template.ParseFiles("/app/html/index.html")
 	if err != nil {
 		c.Writer.WriteHeader(500)
