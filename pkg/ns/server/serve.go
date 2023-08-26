@@ -29,7 +29,6 @@ func Serve() {
 		metrics.Counter.Inc()
 		c.String(200, "pong")
 	})
-	// Expose the metrics over HTTP
 	http.Handle("/metrics", promhttp.Handler())
 	logrus.Println("NS is listening on port " + string(env.NSEnvInstance.Port))
 	router.Run(":" + string(env.NSEnvInstance.Port))

@@ -8,12 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 	clientcluster "github.com/rusik69/ds0/pkg/client/cluster"
 	"github.com/rusik69/ds0/pkg/web/env"
+	"github.com/rusik69/ds0/pkg/web/metrics"
 	"github.com/sirupsen/logrus"
 )
 
 // RootHandler is the root handler.
 func rootHandler(c *gin.Context) {
 	logrus.Println("RootHandler")
+	metrics.Counter.Inc()
 	clusterStats, err := clientcluster.Stats(env.EnvInstance.NSHost, env.EnvInstance.NSPort)
 	if err != nil {
 		c.Writer.WriteHeader(500)

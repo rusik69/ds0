@@ -6,11 +6,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/node/env"
+	"github.com/rusik69/ds0/pkg/node/metrics"
 	"github.com/sirupsen/logrus"
 )
 
 // statsHandler handles info requests.
 func statsHandler(c *gin.Context) {
+	metrics.Counter.Inc()
 	var stat syscall.Statfs_t
 	dir := env.NodeEnvInstance.Dir
 	err := syscall.Statfs(dir, &stat)

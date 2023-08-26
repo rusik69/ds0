@@ -9,11 +9,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/node/env"
+	"github.com/rusik69/ds0/pkg/node/metrics"
 	"github.com/sirupsen/logrus"
 )
 
 // downloadHandler is the handler for downloading a file.
 func downloadHandler(c *gin.Context) {
+	metrics.Counter.Inc()
 	fileName := c.Query("file")
 	if fileName == "" {
 		c.Writer.WriteHeader(400)
