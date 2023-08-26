@@ -21,10 +21,20 @@ func rootHandler(c *gin.Context) {
 		logrus.Error(err)
 		return
 	}
-	logrus.Println(clusterStats)
+	var nodes []NodeStats
+	for _, node := range clusterStats.Nodes {
+		stats := NodeStats{
+			Host:       node.Host,
+			Port:       node.Port,
+			TotalSpace: humanize.Bytes(node.TotalSpace),
+			FreeSpace:  humanize.Bytes(node.FreeSpace),
+			UsedSpace:  humanize.Bytes(node.UsedSpace),
+		}
+		nodes = append(nodes, stats)
+	}
 	data := gin.H{
 		"Title":            "DS0",
-		"Nodes":            clusterStats.Nodes,
+		"Nodes":            nodes,
 		"TotalSpace":       humanize.Bytes(clusterStats.TotalSpace),
 		"TotalFreeSpace":   humanize.Bytes(clusterStats.TotalFreeSpace),
 		"TotalUsedSpace":   humanize.Bytes(clusterStats.TotalUsedSpace),
@@ -33,6 +43,7 @@ func rootHandler(c *gin.Context) {
 		"UncommittedFiles": clusterStats.UncommittedFiles,
 		"UncommittedSize":  humanize.Bytes(clusterStats.UncommittedFilesSize),
 	}
+	logrus.Println(data)
 	tmpl, err := template.ParseFiles("/app/html/index.html")
 	if err != nil {
 		c.Writer.WriteHeader(500)
