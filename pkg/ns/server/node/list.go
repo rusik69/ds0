@@ -6,11 +6,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
+	"github.com/rusik69/ds0/pkg/ns/metrics"
 	"github.com/sirupsen/logrus"
 )
 
 // ListNodesHandler lists nodes.
 func ListNodesHandler(c *gin.Context) {
+	metrics.Counter.Inc()
 	nodes, err := dbnode.List()
 	if err != nil {
 		c.Writer.WriteHeader(500)

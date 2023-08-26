@@ -5,12 +5,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	dbfile "github.com/rusik69/ds0/pkg/ns/db/file"
+	"github.com/rusik69/ds0/pkg/ns/metrics"
 	"github.com/rusik69/ds0/pkg/ns/server/utils"
 	"github.com/sirupsen/logrus"
 )
 
 // CommitHandler is the handler for commit.
 func CommitHandler(c *gin.Context) {
+	metrics.Counter.Inc()
 	fileName := c.Query("file")
 	if fileName == "" {
 		utils.Error("file name is required", 400, c)

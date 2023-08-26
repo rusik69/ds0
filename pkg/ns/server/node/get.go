@@ -5,11 +5,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
+	"github.com/rusik69/ds0/pkg/ns/metrics"
 	"github.com/sirupsen/logrus"
 )
 
 // GetNodeHandler gets a node info.
 func GetNodeHandler(c *gin.Context) {
+	metrics.Counter.Inc()
 	nodeName := c.Query("name")
 	if nodeName == "" {
 		c.Writer.WriteHeader(400)

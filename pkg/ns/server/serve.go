@@ -1,8 +1,12 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rusik69/ds0/pkg/ns/env"
+	"github.com/rusik69/ds0/pkg/ns/metrics"
 	"github.com/rusik69/ds0/pkg/ns/server/cluster"
 	"github.com/rusik69/ds0/pkg/ns/server/file"
 	"github.com/rusik69/ds0/pkg/ns/server/node"
@@ -22,8 +26,11 @@ func Serve() {
 	router.GET("/api/v0/file/download", file.DownloadHandler)
 	router.GET("/api/v0/file/delete", file.DeleteHandler)
 	router.GET("/ping", func(c *gin.Context) {
+		metrics.Counter.Inc()
 		c.String(200, "pong")
 	})
+	// Expose the metrics over HTTP
+	http.Handle("/metrics", promhttp.Handler())
 	logrus.Println("NS is listening on port " + string(env.NSEnvInstance.Port))
 	router.Run(":" + string(env.NSEnvInstance.Port))
 }

@@ -9,11 +9,13 @@ import (
 	"github.com/rusik69/ds0/pkg/node/server"
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
 	"github.com/rusik69/ds0/pkg/ns/env"
+	"github.com/rusik69/ds0/pkg/ns/metrics"
 	"github.com/sirupsen/logrus"
 )
 
 // StatsHandler handles the stats request.
 func StatsHandler(c *gin.Context) {
+	metrics.Counter.Inc()
 	nodesList, err := dbnode.List()
 	if err != nil {
 		c.Writer.WriteHeader(500)
@@ -36,7 +38,6 @@ func StatsHandler(c *gin.Context) {
 		totalFreeSpace += nodeStats.FreeSpace
 		totalUsedSpace += nodeStats.UsedSpace
 	}
-
 	stats := ClusterStats{
 		Nodes:          nodes,
 		NodesCount:     len(nodesList),

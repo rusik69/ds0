@@ -5,11 +5,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
+	"github.com/rusik69/ds0/pkg/ns/metrics"
 	"github.com/sirupsen/logrus"
 )
 
 // RemoveNodeHandler deletes node.
 func RemoveNodeHandler(c *gin.Context) {
+	metrics.Counter.Inc()
 	nodeName := c.Query("name")
 	if nodeName == "" {
 		c.Writer.WriteHeader(400)
