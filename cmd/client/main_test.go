@@ -104,4 +104,37 @@ func TestClient(t *testing.T) {
 			t.Error("expected 200")
 		}
 	})
+	t.Run("webmetrics", func(t *testing.T) {
+		data, err := http.Get("http://ds0-web/metrics")
+		if err != nil {
+			t.Error(err)
+		}
+		if data.StatusCode != 200 {
+			t.Error("expected 200")
+		}
+	})
+	t.Run("nsmetrics", func(t *testing.T) {
+		data, err := http.Get("http://ds0-ns:6969/metrics")
+		if err != nil {
+			t.Error(err)
+		}
+		if data.StatusCode != 200 {
+			t.Error("expected 200")
+		}
+	})
+	t.Run("nodemetrics", func(t *testing.T) {
+		nodes, err := node.List("ds0-ns", "6969")
+		if err != nil {
+			t.Error(err)
+		}
+		for _, node := range nodes {
+			data, err := http.Get("http://" + node.Host + ":" + node.Port + "/metrics")
+			if err != nil {
+				t.Error(err)
+			}
+			if data.StatusCode != 200 {
+				t.Error("expected 200")
+			}
+		}
+	})
 }
