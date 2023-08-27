@@ -1,10 +1,7 @@
 package server
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rusik69/ds0/pkg/ns/env"
 	"github.com/rusik69/ds0/pkg/ns/metrics"
 	"github.com/rusik69/ds0/pkg/ns/server/cluster"
@@ -29,7 +26,7 @@ func Serve() {
 		metrics.Counter.Inc()
 		c.String(200, "pong")
 	})
-	http.Handle("/metrics", promhttp.Handler())
+	router.GET("/metrics", metrics.PrometheusHandler())
 	logrus.Println("NS is listening on port " + string(env.NSEnvInstance.Port))
 	router.Run(":" + string(env.NSEnvInstance.Port))
 }

@@ -1,10 +1,7 @@
 package server
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rusik69/ds0/pkg/web/env"
 	"github.com/rusik69/ds0/pkg/web/metrics"
 )
@@ -19,6 +16,6 @@ func Serve() {
 	})
 	router.Static("/static", "/app/html/static")
 	router.GET("/", rootHandler)
-	http.Handle("/metrics", promhttp.Handler())
+	router.GET("/metrics", metrics.PrometheusHandler())
 	router.Run(":" + string(env.EnvInstance.ListenPort))
 }

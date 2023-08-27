@@ -1,10 +1,7 @@
 package server
 
 import (
-	"net/http"
-
 	"github.com/gin-gonic/gin"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/rusik69/ds0/pkg/node/env"
 	"github.com/rusik69/ds0/pkg/node/metrics"
 )
@@ -20,6 +17,6 @@ func Serve() {
 		c.String(200, "pong")
 	})
 	r.GET("/stats", statsHandler)
-	http.Handle("/metrics", promhttp.Handler())
+	r.GET("/metrics", metrics.PrometheusHandler())
 	r.Run(":" + string(env.NodeEnvInstance.Port))
 }

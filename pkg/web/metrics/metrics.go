@@ -1,7 +1,9 @@
 package metrics
 
 import (
+	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var (
@@ -13,4 +15,13 @@ var (
 
 func init() {
 	prometheus.MustRegister(Counter)
+}
+
+// PrometheusHandler returns the prometheus handler.
+func PrometheusHandler() gin.HandlerFunc {
+	h := promhttp.Handler()
+
+	return func(c *gin.Context) {
+		h.ServeHTTP(c.Writer, c.Request)
+	}
 }
