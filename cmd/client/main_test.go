@@ -91,8 +91,8 @@ func TestClient(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		if len(nodes) != 3 {
-			t.Error("expected 3 nodes")
+		if len(nodes) != 6 {
+			t.Error("expected 6 nodes")
 		}
 	})
 	t.Run("webroot", func(t *testing.T) {
