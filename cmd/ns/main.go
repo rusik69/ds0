@@ -42,6 +42,7 @@ func main() {
 		if len(ips) == 0 {
 			panic("No IP found in stateful set")
 		}
+		logrus.Println("Found IPs: ", ips)
 		for _, ip := range ips {
 			err = node.Add(ip.String(), ip.String(), env.NSEnvInstance.NodesStatefulSetPort)
 			if err != nil {
