@@ -126,7 +126,7 @@ func TestClient(t *testing.T) {
 			t.Error(err)
 		}
 		if len(nodes) != 6 {
-			t.Error("expected 6 nodes")
+			t.Error("expected 6 nodes, got ", len(nodes))
 		}
 	})
 	t.Run("webroot", func(t *testing.T) {
