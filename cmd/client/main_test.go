@@ -14,6 +14,7 @@ import (
 )
 
 var TestFileName string
+var TestFilesNames []string
 
 // prepareFile prepares the test file.
 func prepareFile() (string, error) {
@@ -40,6 +41,30 @@ func prepareFile() (string, error) {
 	return tempFile.Name(), nil
 }
 
+// prepareBenchmarkFiles prepares the benchmark files.
+func prepareBenchmarkFiles() ([]string, error) {
+	var res []string
+	for i := 0; i < 1000; i++ {
+		fileName, err := prepareFile()
+		if err != nil {
+			return nil, err
+		}
+		res = append(res, fileName)
+	}
+	return res, nil
+}
+
+// removeBenchmarkFiles removes the benchmark files.
+func removeBenchmarkFiles() error {
+	for _, fileName := range TestFilesNames {
+		err := os.Remove(fileName)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 // waitForServer waits for the server to start.
 func waitForServer() {
 	for {
@@ -59,8 +84,17 @@ func TestMain(m *testing.M) {
 		log.Fatal(err)
 	}
 	TestFileName = testFileName
+	testFilesNames, err := prepareBenchmarkFiles()
+	if err != nil {
+		log.Fatal(err)
+	}
+	TestFilesNames = testFilesNames
 	waitForServer()
 	code := m.Run()
+	err = removeBenchmarkFiles()
+	if err != nil {
+		log.Fatal(err)
+	}
 	os.Exit(code)
 }
 
