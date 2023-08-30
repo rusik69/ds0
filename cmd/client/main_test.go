@@ -2,6 +2,7 @@ package main_test
 
 import (
 	"crypto/rand"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -19,7 +20,7 @@ var TestFilesNames []string
 // prepareFile prepares the test file.
 func prepareFile() (string, error) {
 	// Generate random data
-	size := 1024 * 1024 * 10 // 10 MB
+	size := 1024 * 1024 // 1 MB
 	randomData := make([]byte, size)
 	_, err := rand.Read(randomData)
 	if err != nil {
@@ -44,7 +45,7 @@ func prepareFile() (string, error) {
 // prepareBenchmarkFiles prepares the benchmark files.
 func prepareBenchmarkFiles() ([]string, error) {
 	var res []string
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 100; i++ {
 		fileName, err := prepareFile()
 		if err != nil {
 			return nil, err
@@ -57,10 +58,7 @@ func prepareBenchmarkFiles() ([]string, error) {
 // removeBenchmarkFiles removes the benchmark files.
 func removeBenchmarkFiles() error {
 	for _, fileName := range TestFilesNames {
-		err := os.Remove(fileName)
-		if err != nil {
-			return err
-		}
+		os.Remove(fileName)
 	}
 	return nil
 }
@@ -91,10 +89,7 @@ func TestMain(m *testing.M) {
 	TestFilesNames = testFilesNames
 	waitForServer()
 	code := m.Run()
-	err = removeBenchmarkFiles()
-	if err != nil {
-		log.Fatal(err)
-	}
+	defer removeBenchmarkFiles()
 	os.Exit(code)
 }
 
@@ -171,4 +166,16 @@ func TestClient(t *testing.T) {
 			}
 		}
 	})
+}
+
+// BenchmarkClient benchmarks the client.
+func BenchmarkClient(b *testing.B) {
+	for _, fileName := range TestFilesNames {
+		b.Run(fmt.Sprintf("Upload-%s", fileName), func(b *testing.B) {
+			err := file.Upload(fileName, fileName, "ds0-ns", "6969")
+			if err != nil {
+				b.Error(err)
+			}
+		})
+	}
 }

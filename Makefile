@@ -42,6 +42,6 @@ helmuninstalltest:
 	kubectl create ns ds0-test
 
 test:
-	go test -v ./...
+	go test -v -bench=. -benchtime=100x ./...
 
 default: tidy build
