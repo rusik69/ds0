@@ -2,7 +2,6 @@ package main_test
 
 import (
 	"crypto/rand"
-	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -43,25 +42,25 @@ func prepareFile() (string, error) {
 }
 
 // prepareBenchmarkFiles prepares the benchmark files.
-func prepareBenchmarkFiles() ([]string, error) {
-	var res []string
-	for i := 0; i < 100; i++ {
-		fileName, err := prepareFile()
-		if err != nil {
-			return nil, err
-		}
-		res = append(res, fileName)
-	}
-	return res, nil
-}
+// func prepareBenchmarkFiles() ([]string, error) {
+// 	var res []string
+// 	for i := 0; i < 100; i++ {
+// 		fileName, err := prepareFile()
+// 		if err != nil {
+// 			return nil, err
+// 		}
+// 		res = append(res, fileName)
+// 	}
+// 	return res, nil
+// }
 
 // removeBenchmarkFiles removes the benchmark files.
-func removeBenchmarkFiles() error {
-	for _, fileName := range TestFilesNames {
-		os.Remove(fileName)
-	}
-	return nil
-}
+// func removeBenchmarkFiles() error {
+// 	for _, fileName := range TestFilesNames {
+// 		os.Remove(fileName)
+// 	}
+// 	return nil
+// }
 
 // waitForServer waits for the server to start.
 func waitForServer() {
@@ -82,14 +81,14 @@ func TestMain(m *testing.M) {
 		log.Fatal(err)
 	}
 	TestFileName = testFileName
-	testFilesNames, err := prepareBenchmarkFiles()
-	if err != nil {
-		log.Fatal(err)
-	}
-	TestFilesNames = testFilesNames
+	//testFilesNames, err := prepareBenchmarkFiles()
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//TestFilesNames = testFilesNames
 	waitForServer()
 	code := m.Run()
-	defer removeBenchmarkFiles()
+	//defer removeBenchmarkFiles()
 	os.Exit(code)
 }
 
@@ -169,13 +168,13 @@ func TestClient(t *testing.T) {
 }
 
 // BenchmarkClient benchmarks the client.
-func BenchmarkClient(b *testing.B) {
-	for _, fileName := range TestFilesNames {
-		b.Run(fmt.Sprintf("Upload-%s", fileName), func(b *testing.B) {
-			err := file.Upload(fileName, fileName, "ds0-ns", "6969")
-			if err != nil {
-				b.Error(err)
-			}
-		})
-	}
-}
+// func BenchmarkClient(b *testing.B) {
+// 	for _, fileName := range TestFilesNames {
+// 		b.Run(fmt.Sprintf("Upload-%s", fileName), func(b *testing.B) {
+// 			err := file.Upload(fileName, fileName, "ds0-ns", "6969")
+// 			if err != nil {
+// 				b.Error(err)
+// 			}
+// 		})
+// 	}
+// }
