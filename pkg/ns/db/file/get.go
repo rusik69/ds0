@@ -24,6 +24,5 @@ func Get(fileName string) (db.FileInfo, error) {
 	}
 	var fileInfo db.FileInfo
 	json.Unmarshal(resp.Kvs[0].Value, &fileInfo)
-	logrus.Println("Get file: " + string(resp.Kvs[0].Value))
 	return fileInfo, nil
 }
