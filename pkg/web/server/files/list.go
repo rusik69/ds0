@@ -10,4 +10,6 @@ import (
 func ListHandler(c *gin.Context) {
 	metrics.Counter.Inc()
 	logrus.Println("ListHandler")
+	prefix := c.Query("prefix")
+	
 }
