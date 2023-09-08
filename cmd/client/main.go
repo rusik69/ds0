@@ -43,6 +43,14 @@ func main() {
 		for _, node := range nodes {
 			fmt.Println(node.Host + ":" + node.Port)
 		}
+	case "listfiles":
+		files, err := file.List(cmdargs.Instance.HostName, cmdargs.Instance.Port, cmdargs.Instance.Arg1)
+		if err != nil {
+			panic(err)
+		}
+		for fileName, fileInfo := range files {
+			fmt.Println(fileName + " " + humanize.Bytes(fileInfo.Size))
+		}
 	case "nodestats":
 		node, err := node.Stats(cmdargs.Instance.HostName, cmdargs.Instance.Port)
 		if err != nil {

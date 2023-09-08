@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/rusik69/ds0/pkg/ns/db"
@@ -21,7 +20,7 @@ func Download(src, dst, host, port string) error {
 	if resp.StatusCode != http.StatusOK {
 		return errors.New("download failed: " + url + " " + http.StatusText(resp.StatusCode))
 	}
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}

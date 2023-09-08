@@ -22,6 +22,7 @@ func Serve() {
 	router.GET("/api/v0/file/commit", file.CommitHandler)
 	router.GET("/api/v0/file/download", file.DownloadHandler)
 	router.GET("/api/v0/file/delete", file.DeleteHandler)
+	router.GET("/api/v0/file/list", file.ListHandler)
 	router.GET("/ping", func(c *gin.Context) {
 		metrics.Counter.Inc()
 		c.String(200, "pong")

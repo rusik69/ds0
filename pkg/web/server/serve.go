@@ -3,6 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/web/env"
+	"github.com/rusik69/ds0/pkg/web/files"
 	"github.com/rusik69/ds0/pkg/web/metrics"
 )
 
@@ -16,6 +17,7 @@ func Serve() {
 	})
 	router.Static("/static", "/app/html/static")
 	router.GET("/", rootHandler)
+	router.GET("/api/v0/files/list", files.ListHandler)
 	router.GET("/metrics", metrics.PrometheusHandler())
 	router.Run(":" + string(env.EnvInstance.ListenPort))
 }

@@ -108,6 +108,15 @@ func TestClient(t *testing.T) {
 			t.Error(err)
 		}
 	})
+	t.Run("listfiles", func(t *testing.T) {
+		files, err := file.List("/", "ds0-ns", "6969")
+		if err != nil {
+			t.Error(err)
+		}
+		if len(files) != 1 {
+			t.Error("expected 1 file, got ", len(files))
+		}
+	})
 	t.Run("delete", func(t *testing.T) {
 		err := file.Delete("/"+fileName, "ds0-ns", "6969")
 		if err != nil {

@@ -6,6 +6,34 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
+    <h2>Files</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Size</th>
+            </tr>
+        </thead>
+        <tbody id="file-list">
+        </tbody>
+    </table>
+    <script>
+        fetch('/files')
+            .then(response => response.json())
+            .then(data => {
+                const fileList = document.getElementById('file-list');
+                data.forEach(file => {
+                    const row = document.createElement('tr');
+                    const nameCell = document.createElement('td');
+                    const sizeCell = document.createElement('td');
+                    nameCell.textContent = file.name;
+                    sizeCell.textContent = file.size;
+                    row.appendChild(nameCell);
+                    row.appendChild(sizeCell);
+                    fileList.appendChild(row);
+                });
+            });
+    </script>
     <h1>Node Stats</h1>
     <table>
         <thead>
