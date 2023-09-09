@@ -6,6 +6,12 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
+    <form action="/api/v0/files/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Choose a file to upload:</label>
+        <input type="file" id="file" name="file">
+        <br>
+        <input type="submit" value="Upload">
+    </form>
     <h2>Files</h2>
     <table>
         <thead>
