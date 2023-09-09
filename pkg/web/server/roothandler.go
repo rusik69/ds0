@@ -7,6 +7,7 @@ import (
 	humanize "github.com/dustin/go-humanize"
 	"github.com/gin-gonic/gin"
 	clientcluster "github.com/rusik69/ds0/pkg/client/cluster"
+	"github.com/rusik69/ds0/pkg/ns/server/utils"
 	"github.com/rusik69/ds0/pkg/web/env"
 	"github.com/rusik69/ds0/pkg/web/metrics"
 	"github.com/sirupsen/logrus"
@@ -54,9 +55,7 @@ func rootHandler(c *gin.Context) {
 	}
 	err = tmpl.Execute(c.Writer, data)
 	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
+		utils.Error(err.Error(), 500, c)
 		return
 	}
 	c.Writer.WriteHeader(http.StatusOK)

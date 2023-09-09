@@ -3,8 +3,8 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/rusik69/ds0/pkg/web/env"
-	"github.com/rusik69/ds0/pkg/web/files"
 	"github.com/rusik69/ds0/pkg/web/metrics"
+	"github.com/rusik69/ds0/pkg/web/server/files"
 )
 
 // Serve serves the web server.
