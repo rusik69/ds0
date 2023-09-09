@@ -1,12 +1,11 @@
 package file
 
 import (
-	"log"
-
 	"github.com/gin-gonic/gin"
 	dbfile "github.com/rusik69/ds0/pkg/ns/db/file"
 	"github.com/rusik69/ds0/pkg/ns/metrics"
 	"github.com/rusik69/ds0/pkg/ns/server/utils"
+	"github.com/sirupsen/logrus"
 )
 
 // ListHandler handles the list files request.
@@ -16,7 +15,7 @@ func ListHandler(c *gin.Context) {
 	if prefix == "" {
 		prefix = "/"
 	}
-	log.Println("ListHandler: " + prefix)
+	logrus.Println("ListHandler: " + prefix)
 	files, err := dbfile.List(prefix)
 	if err != nil {
 		utils.Error(err.Error(), 500, c)
