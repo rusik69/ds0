@@ -17,7 +17,8 @@ func Serve() {
 	})
 	router.Static("/static", "/app/html/static")
 	router.GET("/", rootHandler)
-	router.GET("/api/v0/files/list", files.ListHandler)
+	router.GET("/api/v0/file/list", files.ListHandler)
+	router.GET("/api/v0/file/upload", files.UploadHandler)
 	router.GET("/metrics", metrics.PrometheusHandler())
 	router.Run(":" + string(env.EnvInstance.ListenPort))
 }
