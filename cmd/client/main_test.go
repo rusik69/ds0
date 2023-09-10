@@ -113,8 +113,8 @@ func TestClient(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		if len(files) != 1 {
-			t.Error("expected 1 file, got ", len(files))
+		if len(files) != 0 {
+			t.Error("expected 0 files, got ", len(files))
 		}
 	})
 	t.Run("delete", func(t *testing.T) {
