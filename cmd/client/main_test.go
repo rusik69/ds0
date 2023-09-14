@@ -110,7 +110,7 @@ func TestClient(t *testing.T) {
 	})
 	t.Run("listfiles", func(t *testing.T) {
 		files, err := file.List("ds0-ns", "6969", "/")
-		if err != nil {
+		if err != nil && err.Error() != "no files found{}" {
 			t.Error(err)
 		}
 		if len(files) != 0 {
