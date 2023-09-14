@@ -79,6 +79,9 @@ func waitForServer() {
 		if len(nodes) != 5 {
 			continue
 		}
+		if len(nodes) == 5 {
+			break
+		}
 	}
 }
 
