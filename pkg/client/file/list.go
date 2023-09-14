@@ -18,12 +18,12 @@ func List(host, port, prefix string) (map[string]db.FileInfo, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != http.StatusOK {
-		return nil, errors.New("list failed")
-	}
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+	if resp.StatusCode != http.StatusOK {
+		return nil, errors.New(string(bodyBytes))
 	}
 	var files map[string]db.FileInfo
 	if err := json.Unmarshal(bodyBytes, &files); err != nil {
