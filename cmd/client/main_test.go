@@ -71,6 +71,15 @@ func waitForServer() {
 		}
 		time.Sleep(1 * time.Second)
 	}
+	for {
+		nodes, err := node.List("ds0-ns", "6969")
+		if err != nil {
+			continue
+		}
+		if len(nodes) != 5 {
+			continue
+		}
+	}
 }
 
 // TestMain prepares the test data.
