@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 replicaCountNS: 1
-replicaCountNode: 5
+replicaCountNode: 3
 replicaCountWeb: 1
 
 image:
