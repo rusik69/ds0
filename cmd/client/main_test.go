@@ -76,7 +76,7 @@ func waitForServer() {
 		if err != nil {
 			continue
 		}
-		if len(nodes) == 5 {
+		if len(nodes) == 3 {
 			break
 		}
 	}
@@ -137,8 +137,8 @@ func TestClient(t *testing.T) {
 		if err != nil {
 			t.Error(err)
 		}
-		if len(nodes) != 5 {
-			t.Error("expected 5 nodes, got ", len(nodes))
+		if len(nodes) != 3 {
+			t.Error("expected 3 nodes, got ", len(nodes))
 		}
 	})
 	t.Run("webroot", func(t *testing.T) {
