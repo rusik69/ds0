@@ -21,7 +21,7 @@ func Watch() {
 			continue
 		}
 		for _, node := range nodes {
-			logrus.Println("Watch node: " + node.Host + ":" + node.Port)
+			//logrus.Println("Watch node: " + node.Host + ":" + node.Port)
 			_, err := nodeclient.Stats(node.Host, node.Port)
 			if err != nil {
 				logrus.Error(err)
