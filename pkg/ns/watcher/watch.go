@@ -29,6 +29,9 @@ func Watch() {
 			}
 		}
 		uncommittedFiles, err := dbfile.ListUncommitted()
+		if len(uncommittedFiles) == 0 {
+			continue
+		}
 		if err != nil {
 			logrus.Error(err)
 			continue
