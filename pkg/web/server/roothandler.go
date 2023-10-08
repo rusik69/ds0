@@ -19,9 +19,7 @@ func rootHandler(c *gin.Context) {
 	metrics.Counter.Inc()
 	clusterStats, err := clientcluster.Stats(env.EnvInstance.NSHost, env.EnvInstance.NSPort)
 	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
+		utils.Error(err.Error(), 500, c)
 		return
 	}
 	var nodes []NodeStats
@@ -48,9 +46,7 @@ func rootHandler(c *gin.Context) {
 	}
 	tmpl, err := template.ParseFiles("/app/html/index.html")
 	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
+		utils.Error(err.Error(), 500, c)
 		return
 	}
 	err = tmpl.Execute(c.Writer, data)

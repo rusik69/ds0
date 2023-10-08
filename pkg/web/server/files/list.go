@@ -20,6 +20,7 @@ func ListHandler(c *gin.Context) {
 	files, err := fileclient.List(env.EnvInstance.NSHost, env.EnvInstance.NSPort, prefix)
 	if err != nil {
 		utils.Error(err.Error(), 500, c)
+		return
 	}
 	c.JSON(200, files)
 }
