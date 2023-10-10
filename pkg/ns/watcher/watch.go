@@ -14,7 +14,7 @@ import (
 func Watch() {
 	for {
 		time.Sleep(60 * time.Second)
-		logrus.Println("Watch nodes")
+		//logrus.Println("Watch nodes")
 		nodes, err := node.List()
 		if err != nil {
 			logrus.Error(err)

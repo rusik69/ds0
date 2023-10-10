@@ -7,12 +7,11 @@ import (
 	"time"
 
 	"github.com/rusik69/ds0/pkg/ns/db"
-	"github.com/sirupsen/logrus"
 )
 
 // ListUncommitted returns the uncommitted files.
 func ListUncommitted() (map[string]db.FileInfo, error) {
-	logrus.Println("List uncommitted files")
+	//logrus.Println("List uncommitted files")
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	resp, err := db.DB.Get(ctx, "/files_uncommitted")
 	cancel()
