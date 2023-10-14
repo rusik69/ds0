@@ -19,6 +19,7 @@ func ListHandler(c *gin.Context) {
 	files, err := dbfile.List(prefix)
 	if err != nil {
 		utils.Error(err.Error(), 500, c)
+		return
 	}
 	c.JSON(200, files)
 }

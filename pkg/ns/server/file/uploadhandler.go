@@ -46,7 +46,6 @@ func UploadHandler(c *gin.Context) {
 		}
 		if len(newNodes) == 0 {
 			utils.Error("no nodes available", 500, c)
-			logrus.Error(env.NSEnvInstance.Nodes)
 			return
 		} else if len(newNodes) < env.NSEnvInstance.Replicas {
 			utils.Error("not enough nodes available", 500, c)
