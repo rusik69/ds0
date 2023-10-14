@@ -14,6 +14,6 @@ func incrementStats(fileSize uint64) error {
 	}
 	filesInfo.UncommittedSize += fileSize
 	filesInfo.UncommittedFiles++
-	err = dbfile.SetFilesInfo(filesInfo)
+	err = dbfile.SetStats(filesInfo)
 	return err
 }

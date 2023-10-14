@@ -9,9 +9,9 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// SetFilesInfo sets the files information.
-func SetFilesInfo(filesInfo db.FilesInfo) error {
-	logrus.Println("Set files info")
+// SetStats sets the files information.
+func SetStats(filesInfo db.FilesInfo) error {
+	logrus.Println("Set stats")
 	filesInfoBytes, err := json.Marshal(filesInfo)
 	if err != nil {
 		logrus.Error(err)

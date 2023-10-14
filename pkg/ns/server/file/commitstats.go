@@ -20,7 +20,7 @@ func commitStats(fileSize uint64) error {
 	logrus.Println("filesInfo.TotalSize: ", filesInfo.TotalSize)
 	filesInfo.TotalFiles++
 	logrus.Println("filesInfo.TotalFiles: ", filesInfo.TotalFiles)
-	err = dbfile.SetFilesInfo(filesInfo)
+	err = dbfile.SetStats(filesInfo)
 	if err != nil {
 		return err
 	}

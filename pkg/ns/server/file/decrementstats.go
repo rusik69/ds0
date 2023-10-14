@@ -18,6 +18,6 @@ func decrementStats(fileSize uint64) error {
 	if filesInfo.UncommittedFiles > 0 {
 		filesInfo.UncommittedFiles--
 	}
-	err = dbfile.SetFilesInfo(filesInfo)
+	err = dbfile.SetStats(filesInfo)
 	return err
 }
