@@ -32,7 +32,7 @@ func UploadHandler(c *gin.Context) {
 	}
 	fSizeInt, err := strconv.Atoi(fileSize)
 	if err != nil {
-		utils.Error(err.Error(), 500, c)
+		utils.Error(err.Error(), 400, c)
 		return
 	}
 	fSize := uint64(fSizeInt)

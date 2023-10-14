@@ -7,19 +7,15 @@ import (
 
 // commitStats commits the stats.
 func commitStats(fileSize uint64) error {
-	logrus.Println("Commit stats")
-	logrus.Println("fileSize: ", fileSize)
+	logrus.Println("Commit stats: ", "fileSize", fileSize)
 	filesInfo, err := dbfile.GetFilesInfo()
 	if err != nil {
 		return err
 	}
 	filesInfo.UncommittedSize -= fileSize
 	filesInfo.UncommittedFiles--
-	logrus.Println("filesInfo.UncommittedFiles: ", filesInfo.UncommittedFiles)
 	filesInfo.TotalSize += fileSize
-	logrus.Println("filesInfo.TotalSize: ", filesInfo.TotalSize)
 	filesInfo.TotalFiles++
-	logrus.Println("filesInfo.TotalFiles: ", filesInfo.TotalFiles)
 	err = dbfile.SetStats(filesInfo)
 	if err != nil {
 		return err

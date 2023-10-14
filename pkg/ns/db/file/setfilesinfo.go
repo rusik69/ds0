@@ -11,7 +11,9 @@ import (
 
 // SetStats sets the files information.
 func SetStats(filesInfo db.FilesInfo) error {
-	logrus.Println("Set stats")
+	logrus.Println("Set stats: ", "TotalFiles", filesInfo.TotalFiles,
+		"TotalSize", filesInfo.TotalSize, "UncommittedFiles", filesInfo.UncommittedFiles,
+		"UncommittedSize", filesInfo.UncommittedSize)
 	filesInfoBytes, err := json.Marshal(filesInfo)
 	if err != nil {
 		logrus.Error(err)
