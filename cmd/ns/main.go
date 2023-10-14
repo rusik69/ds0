@@ -15,7 +15,7 @@ import (
 var version string
 
 func main() {
-	logrus.SetReportCaller(true)
+	//logrus.SetReportCaller(true)
 	logrus.SetFormatter(&logrus.JSONFormatter{})
 	gin.DefaultWriter = logrus.StandardLogger().Writer()
 	gin.DefaultErrorWriter = logrus.StandardLogger().Writer()
