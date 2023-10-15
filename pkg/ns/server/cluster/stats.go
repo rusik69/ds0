@@ -10,7 +10,7 @@ import (
 	dbnode "github.com/rusik69/ds0/pkg/ns/db/node"
 	"github.com/rusik69/ds0/pkg/ns/env"
 	"github.com/rusik69/ds0/pkg/ns/metrics"
-	"github.com/sirupsen/logrus"
+	"github.com/rusik69/ds0/pkg/ns/server/utils"
 )
 
 // StatsHandler handles the stats request.
@@ -18,9 +18,7 @@ func StatsHandler(c *gin.Context) {
 	metrics.Counter.Inc()
 	nodesList, err := dbnode.List()
 	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
+		utils.Error(err.Error(), 500, c)
 		return
 	}
 	var nodes []server.NodeStats
@@ -28,9 +26,7 @@ func StatsHandler(c *gin.Context) {
 	for _, node := range nodesList {
 		nodeStats, err := clientnode.Stats(node.Host, node.Port)
 		if err != nil {
-			c.Writer.WriteHeader(500)
-			c.Writer.Write([]byte(err.Error()))
-			logrus.Error(err)
+			utils.Error(err.Error(), 500, c)
 			return
 		}
 		nodes = append(nodes, nodeStats)
@@ -48,9 +44,7 @@ func StatsHandler(c *gin.Context) {
 	}
 	body, err := json.Marshal(stats)
 	if err != nil {
-		c.Writer.WriteHeader(500)
-		c.Writer.Write([]byte(err.Error()))
-		logrus.Error(err)
+		utils.Error(err.Error(), 500, c)
 		return
 	}
 	c.Writer.WriteHeader(http.StatusOK)
