@@ -25,6 +25,8 @@ nsETCD:
 webPort: 80
 etcd:
   auth:
+    token:
+      enabled: false
     rbac:
       rootPassword: password
 
