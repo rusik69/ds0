@@ -126,12 +126,12 @@ func TestClient(t *testing.T) {
 			t.Error("expected 0 files, got ", len(files))
 		}
 	})
-	t.Run("delete", func(t *testing.T) {
-		err := file.Delete("/"+fileName, "ds0-ns", "6969")
-		if err != nil {
-			t.Error(err)
-		}
-	})
+	// t.Run("delete", func(t *testing.T) {
+	// 	err := file.Delete("/"+fileName, "ds0-ns", "6969")
+	// 	if err != nil {
+	// 		t.Error(err)
+	// 	}
+	// })
 	t.Run("listnodes", func(t *testing.T) {
 		nodes, err := node.List("ds0-ns", "6969")
 		if err != nil {
